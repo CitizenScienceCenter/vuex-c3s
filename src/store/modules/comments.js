@@ -7,7 +7,6 @@ const state = {
 
 // getters
 const getters = {
-    comments: state => state.comments
 }
 
 // actions

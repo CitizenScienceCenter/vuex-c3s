@@ -10,7 +10,6 @@ const state = {
 
 // getters
 const getters = {
-  projects: state => state.projects
 }
 
 // actions

@@ -7,7 +7,6 @@ const state = {
 
 // getters
 const getters = {
-  media: state => state.media
 }
 
 // actions

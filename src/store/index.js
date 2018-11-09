@@ -12,14 +12,14 @@ const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
   modules: {
-    // user,
-    // project,
-    // api,
-    // consts,
-    // task,
-    // media,
-    // upload,
-    // submission
+    user,
+    project,
+    api,
+    consts,
+    task,
+    media,
+    upload,
+    submission
   },
   strict: debug
 })

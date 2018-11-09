@@ -8,7 +8,6 @@ const state = {
 
 // getters
 const getters = {
-  submission: state => state.submission
 }
 
 // actions

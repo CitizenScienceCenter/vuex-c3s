@@ -1,8 +1,17 @@
 {
   "presets": [
-      ["env", { "modules": false }],
-      [ "es2015", {"modules": false} ],
-      "stage-0"
+    [
+      "es2015",
+      {
+        "modules": false
+      }
+    ],
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ]
   ],
   "plugins": [
     "external-helpers"

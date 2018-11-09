@@ -8,8 +8,6 @@ const state = {
 
 // getters
 const getters = {
-  client: state => state.client,
-  host: state => state.host
 }
 
 // actions

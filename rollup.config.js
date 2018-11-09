@@ -8,14 +8,15 @@ export default {
 	input: 'src/index.js',
 	plugins: [
 		babel({
-			externalHelpers: false,
-			exclude : 'node_modules/**'
+			externalHelpers: true,
+			runtimeHelpers: true,
+			exclude : 'node_modules/**',
 		}),
 		commonjs()
 	],
 	output: [
-		{ file: 'dist/vuex-c3s.es.js', format: 'es' },
-		{ file: 'dist/vuex-c3s.cjs.js', format: 'cjs' },
-		{ file: 'dist/vuex-c3s.umd.js', format: 'umd', name: 'vuexC3S' }
+		{ file: 'dist/vuex-c3s.es.js', format: 'es', globals: { 'swagger-client': 'Swagger', 'Vuex': 'vuex'} },
+		{ file: 'dist/vuex-c3s.cjs.js', format: 'cjs', globals: { 'swagger-client': 'Swagger', 'Vuex': 'vuex'} },
+		{ file: 'dist/vuex-c3s.umd.js', format: 'umd', name: 'vuexC3S', globals: { 'swagger-client': 'Swagger', 'vuex': 'Vuex'} }
 	]
 };
