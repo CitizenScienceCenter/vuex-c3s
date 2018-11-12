@@ -424,49 +424,85 @@
     mutations: mutations$1
   };
 
-  // initial state
-  // shape: [{ id, quantity }]
-  var state$2 = {
-    projects: [],
-    selectedProject: null,
-    selectedMedia: [],
-    selectedStats: null,
-    selectedTasks: [] // getters
+  function makeRequest(_x, _x2, _x3) {
+    return _makeRequest.apply(this, arguments);
+  }
 
-  };
+  function _makeRequest() {
+    _makeRequest = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee(method, data, commmitMsg) {
+      var response;
+      return _regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              commit('settings/SET_LOADING', true, {
+                root: true
+              });
+              _context.next = 4;
+              return method(data);
+
+            case 4:
+              response = _context.sent;
+
+              if (commit !== undefined) {
+                commit(commitMsg, response.body);
+              }
+
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context.abrupt("return", response.body);
+
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](0);
+              console.error(_context.t0);
+              commit('settings/SET_ERROR', 'Could not get Tasks', {
+                root: true
+              });
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context.abrupt("return", false);
+
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this, [[0, 10]]);
+    }));
+    return _makeRequest.apply(this, arguments);
+  }
+
+  // shape: [{ id, quantity }]
+
+  var state$2 = {
+    activities: [],
+    activity: null,
+    stats: null
+  }; // getters
+
   var getters$2 = {}; // actions
 
   var actions$2 = {
-    getProjects: function getProjects(_ref, search) {
+    getActivities: function getActivities(_ref, search) {
       var state = _ref.state,
           commit = _ref.commit,
           dispatch = _ref.dispatch,
           rootState = _ref.rootState;
-      commit('settings/SET_LOADING', true, {
-        root: true
-      });
-      rootState.api.client.apis.Projects.get_projects({
+      return makeRequest(rootState.api.client.apis.Activities.get_activities, {
         search_term: search || undefined
-      }).then(function (req) {
-        commit('SET_PROJECTS', req.body);
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-      }).catch(function (err) {
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        commit('settings/SET_ERROR', err, {
-          root: true
-        });
-        console.log(err);
-      });
+      }, 'SET_ACTIVITIES');
     },
-    getProject: function () {
-      var _getProject = _asyncToGenerator(
+    getActivity: function () {
+      var _getActivity = _asyncToGenerator(
       /*#__PURE__*/
       _regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
-        var state, commit, dispatch, rootState, _ref4, id, associated, res;
+        var state, commit, dispatch, rootState, _ref4, id, associated;
 
         return _regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -474,224 +510,72 @@
               case 0:
                 state = _ref2.state, commit = _ref2.commit, dispatch = _ref2.dispatch, rootState = _ref2.rootState;
                 _ref4 = _slicedToArray(_ref3, 2), id = _ref4[0], associated = _ref4[1];
-                commit('settings/SET_LOADING', true, {
-                  root: true
-                });
-                _context.prev = 3;
-                _context.next = 6;
-                return rootState.api.client.apis.Projects.get_project({
-                  id: id
-                });
-
-              case 6:
-                res = _context.sent;
-                commit('SET_PROJECT', res.body);
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
 
                 if (associated) {
-                  dispatch('getMedia', id);
-                  dispatch('getTasks', [id, 1, 0]);
+                  dispatch('media/getMedia', id, {
+                    root: true
+                  });
+                  dispatch('media/getTasks', [id, 1, 0], {
+                    root: true
+                  });
                 }
 
                 dispatch('getStats', id);
-                return _context.abrupt("return", res.body);
+                return _context.abrupt("return", makeRequest(rootState.api.client.apis.Activities.get_activity, {
+                  id: id
+                }, 'SET_ACTIVITY'));
 
-              case 14:
-                _context.prev = 14;
-                _context.t0 = _context["catch"](3);
-                console.log(_context.t0);
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                commit('settings/SET_ERROR', _context.t0, {
-                  root: true
-                });
-                return _context.abrupt("return", false);
-
-              case 20:
+              case 5:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[3, 14]]);
+        }, _callee, this);
       }));
 
-      return function getProject(_x, _x2) {
-        return _getProject.apply(this, arguments);
+      return function getActivity(_x, _x2) {
+        return _getActivity.apply(this, arguments);
       };
     }(),
-    getTasks: function () {
-      var _getTasks = _asyncToGenerator(
-      /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee2(_ref5, _ref6) {
-        var state, commit, rootState, _ref7, id, _ref7$, limit, _ref7$2, offset, tasks;
-
-        return _regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
-                _ref7 = _slicedToArray(_ref6, 3), id = _ref7[0], _ref7$ = _ref7[1], limit = _ref7$ === void 0 ? 20 : _ref7$, _ref7$2 = _ref7[2], offset = _ref7$2 === void 0 ? 0 : _ref7$2;
-                commit('settings/SET_LOADING', true, {
-                  root: true
-                });
-                _context2.prev = 3;
-                _context2.next = 6;
-                return rootState.api.client.apis.Projects.project_tasks({
-                  id: id,
-                  limit: limit,
-                  offset: offset
-                });
-
-              case 6:
-                tasks = _context2.sent;
-                console.log(id);
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                commit('SET_TASKS', tasks.body);
-                return _context2.abrupt("return", tasks.body);
-
-              case 13:
-                _context2.prev = 13;
-                _context2.t0 = _context2["catch"](3);
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                console.log(_context2.t0);
-                return _context2.abrupt("return", false);
-
-              case 19:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[3, 13]]);
-      }));
-
-      return function getTasks(_x3, _x4) {
-        return _getTasks.apply(this, arguments);
-      };
-    }(),
-    getStats: function getStats(_ref8, id) {
-      var state = _ref8.state,
-          commit = _ref8.commit,
-          rootState = _ref8.rootState;
-      commit('settings/SET_LOADING', true, {
-        root: true
-      });
-      rootState.api.client.apis.Projects.project_stats({
+    getStats: function getStats(_ref5, id) {
+      var state = _ref5.state,
+          commit = _ref5.commit,
+          rootState = _ref5.rootState;
+      return makeRequest(rootState.api.client.apis.Activities.activity_stats, {
         id: id
-      }).then(function (req) {
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        commit('SET_STATS', req.body);
-      }).catch(function (err) {
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        console.log(err);
-      });
+      }, 'SET_STATS');
     },
-    getMedia: function getMedia(_ref9, search) {
-      var state = _ref9.state,
-          commit = _ref9.commit,
-          rootState = _ref9.rootState;
-      commit('settings/SET_LOADING', true, {
-        root: true
-      });
-      rootState.api.client.apis.Media.get_media({
-        search_term: search || undefined
-      }).then(function (req) {
-        commit('SET_MEDIA', req.body);
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-      }).catch(function (err) {
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        console.log(err);
-      });
+    createActivity: function createActivity(_ref6, activity) {
+      var state = _ref6.state,
+          commit = _ref6.commit,
+          rootState = _ref6.rootState;
+      return makeRequest(rootState.api.client.apis.Activities.create_activity, {
+        activity: activity
+      }, 'SET_ACTIVITY');
     },
-    createProject: function createProject(_ref10, project) {
-      var state = _ref10.state,
-          commit = _ref10.commit,
-          rootState = _ref10.rootState;
-      commit('settings/SET_LOADING', true, {
-        root: true
-      });
-      rootState.api.client.apis.Projects.post({
-        project: project
-      }).then(function (req) {
-        console.log(req);
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        commit('SET_PROJECT', req.body);
-      }).catch(function (err) {
-        commit('settings/SET_ERROR', err, {
-          root: true
-        });
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        console.log(err);
-      });
-    },
-    deleteProject: function deleteProject(_ref11, pid) {
-      var state = _ref11.state,
-          commit = _ref11.commit,
-          rootState = _ref11.rootState;
-      commit('settings/SET_LOADING', true, {
-        root: true
-      });
-      rootState.api.client.apis.Projects.delete({
-        id: pid
-      }).then(function (req) {
-        commit('SET_PROJECT', null);
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-      }).catch(function (err) {
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        console.log(err);
-      });
+    deleteActivity: function deleteActivity(_ref7, pid) {
+      var state = _ref7.state,
+          commit = _ref7.commit,
+          rootState = _ref7.rootState;
+      commit('SET_ACTIVITY', null);
+      return makeRequest(rootState.api.client.apis.Activities.create_activity, {
+        activity: activity
+      }, undefined);
     }
   }; // mutations
 
   var mutations$2 = {
-    SET_PROJECTS: function SET_PROJECTS(state, projects) {
-      state.projects = projects;
+    SET_ACTIVITIES: function SET_ACTIVITIES(state, acts) {
+      state.activities = acts;
     },
-    SET_PROJECT: function SET_PROJECT(state, project) {
-      state.selectedProject = project;
+    SET_ACTIVITY: function SET_ACTIVITY(state, act) {
+      state.activity = act;
     },
     SET_STATS: function SET_STATS(state, stats) {
-      state.selectedStats = stats;
-    },
-    SET_MEDIA: function SET_MEDIA(state, media) {
-      state.selectedMedia = media;
-    },
-    SET_TASKS: function SET_TASKS(state, tasks) {
-      state.selectedTasks = tasks;
+      state.stats = stats;
     }
   };
-  var project = {
+  var activity$1 = {
     namespaced: true,
     state: state$2,
     getters: getters$2,
@@ -699,66 +583,38 @@
     mutations: mutations$2
   };
 
-  // initial state
   // shape: [{ id, quantity }]
+
   var state$3 = {
     tasks: [],
-    selectedTask: null,
-    taskSaved: false // getters
+    task: null
+  }; // getters
 
-  };
-  var getters$3 = {} // https://vuex.vuejs.org/guide/getters.html#method-style-access
-  // allTasks: state => state.tasks.concat(state.clientTasks)
-  // actions
-  ;
+  var getters$3 = {// https://vuex.vuejs.org/guide/getters.html#method-style-access
+    // allTasks: state => state.tasks.concat(state.clientTasks)
+  }; // actions
+
   var actions$3 = {
     getTasks: function () {
       var _getTasks = _asyncToGenerator(
       /*#__PURE__*/
       _regeneratorRuntime.mark(function _callee(_ref, search) {
-        var state, commit, rootState, _tasks;
-
+        var state, commit, rootState;
         return _regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
-                _context.prev = 1;
-                commit('settings/SET_LOADING', true, {
-                  root: true
-                });
-                console.log(search);
-                _context.next = 6;
-                return rootState.api.client.apis.Tasks.get_tasks({
+                return _context.abrupt("return", makeRequest.makeRequest(rootState.api.client.apis.Tasks.get_tasks, {
                   search_term: search || undefined
-                });
+                }, 'SET_TASKS'));
 
-              case 6:
-                _tasks = _context.sent;
-                commit('SET_TASKS', _tasks.body);
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                return _context.abrupt("return", _tasks.body);
-
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](1);
-                console.error(_context.t0);
-                commit('settings/SET_ERROR', 'Could not get Tasks', {
-                  root: true
-                });
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                return _context.abrupt("return", false);
-
-              case 18:
+              case 2:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 12]]);
+        }, _callee, this);
       }));
 
       return function getTasks(_x, _x2) {
@@ -769,7 +625,7 @@
       var _getTaskRegion = _asyncToGenerator(
       /*#__PURE__*/
       _regeneratorRuntime.mark(function _callee2(_ref2, _ref3) {
-        var state, commit, rootState, _ref4, pid, region, task;
+        var state, commit, rootState, _ref4, pid, region;
 
         return _regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -777,43 +633,14 @@
               case 0:
                 state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState;
                 _ref4 = _slicedToArray(_ref3, 2), pid = _ref4[0], region = _ref4[1];
-                _context2.prev = 2;
-                commit('settings/SET_LOADING', true, {
-                  root: true
-                });
-                console.log(rootState.api.client.apis.Projects);
-                _context2.next = 7;
-                return rootState.api.client.apis.Projects.get_task_region({
-                  id: pid,
-                  region: region || undefined
-                });
+                return _context2.abrupt("return", undefined);
 
-              case 7:
-                task = _context2.sent;
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                console.log(JSON.stringify(tasks));
-                return _context2.abrupt("return", tasks.body);
-
-              case 13:
-                _context2.prev = 13;
-                _context2.t0 = _context2["catch"](2);
-                console.error(_context2.t0);
-                commit('settings/SET_ERROR', 'Could not get Tasks', {
-                  root: true
-                });
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                return _context2.abrupt("return", false);
-
-              case 19:
+              case 3:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[2, 13]]);
+        }, _callee2, this);
       }));
 
       return function getTaskRegion(_x3, _x4) {
@@ -824,224 +651,103 @@
       var _getTask = _asyncToGenerator(
       /*#__PURE__*/
       _regeneratorRuntime.mark(function _callee3(_ref5, id) {
-        var state, commit, rootState, task;
+        var state, commit, rootState;
         return _regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
-                commit('settings/SET_LOADING', true, {
-                  root: true
-                });
-                _context3.prev = 2;
-                _context3.next = 5;
-                return rootState.api.client.apis.Tasks.get_task({
+                return _context3.abrupt("return", makeRequest.makeRequest(rootState.api.client.apis.Tasks.get_task, {
                   id: id
-                });
+                }, 'SET_TASK'));
 
-              case 5:
-                task = _context3.sent;
-                commit('SET_TASK', task.body);
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                return _context3.abrupt("return", task.body);
-
-              case 11:
-                _context3.prev = 11;
-                _context3.t0 = _context3["catch"](2);
-                commit('settings/SET_ERROR', 'Could not get Task', {
-                  root: true
-                });
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                return _context3.abrupt("return", false);
-
-              case 16:
+              case 2:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this, [[2, 11]]);
+        }, _callee3, this);
       }));
 
       return function getTask(_x5, _x6) {
         return _getTask.apply(this, arguments);
       };
     }(),
-    randomProjectTask: function () {
-      var _randomProjectTask = _asyncToGenerator(
+    activityTasks: function () {
+      var _activityTasks = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee4(_ref6, _ref7) {
-        var state, commit, rootState, _ref8, id, search, task;
-
+      _regeneratorRuntime.mark(function _callee4(_ref6, id) {
+        var state, commit, rootState;
         return _regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
-                _ref8 = _slicedToArray(_ref7, 2), id = _ref8[0], search = _ref8[1];
-                commit('settings/SET_LOADING', true, {
-                  root: true
-                });
-                _context4.prev = 3;
-                _context4.next = 6;
-                return rootState.api.client.apis.Projects.get_random({
-                  id: id,
-                  search: search
-                });
+                return _context4.abrupt("return", undefined);
 
-              case 6:
-                task = _context4.sent;
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                return _context4.abrupt("return", task.body.task);
-
-              case 11:
-                _context4.prev = 11;
-                _context4.t0 = _context4["catch"](3);
-                console.log(_context4.t0);
-                commit('settings/SET_ERROR', 'Could not get random task', {
-                  root: true
-                });
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                return _context4.abrupt("return", false);
-
-              case 17:
+              case 2:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this, [[3, 11]]);
+        }, _callee4, this);
       }));
 
-      return function randomProjectTask(_x7, _x8) {
-        return _randomProjectTask.apply(this, arguments);
+      return function activityTasks(_x7, _x8) {
+        return _activityTasks.apply(this, arguments);
       };
     }(),
-    projectTasks: function projectTasks(_ref9, id) {
-      var state = _ref9.state,
-          commit = _ref9.commit,
-          rootState = _ref9.rootState;
-      commit('settings/SET_LOADING', true, {
-        root: true
-      });
-      rootState.api.client.apis.Projects.project_tasks({
-        id: id
-      }).then(function (res) {
-        res.body.forEach(function (t) {
-          t['content_str'] = JSON.stringify(t.content);
-        });
-        commit('SET_TASKS', res.body);
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-      }).catch(function (err) {
-        console.log(err);
-        commit('settings/SET_ERROR', 'Could not get Tasks for Project', {
-          root: true
-        });
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-      });
-    },
     addTasks: function () {
       var _addTasks = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee5(_ref10, tasks) {
-        var state, commit, dispatch, rootState, res;
+      _regeneratorRuntime.mark(function _callee5(_ref7, tasks) {
+        var state, commit, dispatch, rootState;
         return _regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                state = _ref10.state, commit = _ref10.commit, dispatch = _ref10.dispatch, rootState = _ref10.rootState;
-                commit('settings/SET_LOADING', true, {
-                  root: true
-                });
-                _context5.prev = 2;
-                _context5.next = 5;
-                return rootState.api.client.apis.Tasks.create_tasks({
+                state = _ref7.state, commit = _ref7.commit, dispatch = _ref7.dispatch, rootState = _ref7.rootState;
+                res = makeRequest.makeRequest(rootState.api.client.apis.Tasks.create_tasks, {
                   tasks: tasks
+                }, undefined);
+                dispatch('upload/addID', res[0].id, {
+                  root: true
                 });
+                return _context5.abrupt("return", res);
 
-              case 5:
-                res = _context5.sent;
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                dispatch('upload/addID', res.body[0].id, {
-                  root: true
-                });
-                return _context5.abrupt("return", res.body);
-
-              case 11:
-                _context5.prev = 11;
-                _context5.t0 = _context5["catch"](2);
-                console.error(_context5.t0);
-                commit('settings/SET_LOADING', false, {
-                  root: true
-                });
-                commit('settings/SET_ERROR', _context5.t0, {
-                  root: true
-                });
-                return _context5.abrupt("return", false);
-
-              case 17:
+              case 4:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, this, [[2, 11]]);
+        }, _callee5, this);
       }));
 
       return function addTasks(_x9, _x10) {
         return _addTasks.apply(this, arguments);
       };
     }(),
-    deleteTasks: function deleteTasks(_ref11, tasks) {
-      var state = _ref11.state,
-          commit = _ref11.commit,
-          dispatch = _ref11.dispatch,
-          rootState = _ref11.rootState;
-      commit('settings/SET_LOADING', true, {
-        root: true
-      });
-      rootState.api.client.apis.Tasks.delete_tasks({
+    deleteTasks: function deleteTasks(_ref8, tasks) {
+      var state = _ref8.state,
+          commit = _ref8.commit,
+          dispatch = _ref8.dispatch,
+          rootState = _ref8.rootState;
+      dispatch('SET_TASKS', null);
+      return makeRequest.makeRequest(rootState.api.client.apis.Tasks.delete_tasks, {
         tasks: tasks
-      }).then(function (res) {
-        commit('SET_TASKS', res.body);
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-      }).catch(function (e) {
-        commit('settings/SET_ERROR', 'Could not delete Tasks', {
-          root: true
-        });
-        commit('settings/SET_LOADING', false, {
-          root: true
-        });
-        console.error(e);
-      });
+      }, 'SET_TASKS');
     }
   }; // mutations
 
   var mutations$3 = {
-    SET_TASKSAVED: function SET_TASKSAVED(state, flag) {
-      state.taskSaved = flag;
-    },
     SET_TASKS: function SET_TASKS(state, tasks) {
       state.tasks = tasks;
     },
     SET_TASK: function SET_TASK(state, task) {
-      state.selectedTask = task;
+      state.task = task;
     },
     UPDATE_TASK: function UPDATE_TASK(state, index, params) {
-      Object.assign(state.getters.allTasks[index], _defineProperty({}, params.field, params.value));
+      Object.assign(state.tasks[index], _defineProperty({}, params.field, params.value));
     }
   };
   var task = {
@@ -1052,13 +758,13 @@
     mutations: mutations$3
   };
 
-  // initial state
   // shape: [{ id, quantity }]
+
   var state$4 = {
     media: undefined,
-    submission: {} // getters
+    submission: {}
+  }; // getters
 
-  };
   var getters$4 = {}; // actions
 
   var actions$4 = {
@@ -1451,7 +1157,7 @@
   var C3SStore = new Vuex.Store({
     modules: {
       user: user,
-      project: project,
+      activity: activity$1,
       api: api,
       consts: consts,
       task: task,

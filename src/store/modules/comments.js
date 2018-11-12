@@ -2,7 +2,8 @@
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-    comments: []
+    comments: [],
+    comment: null
 }
 
 // getters
