@@ -1,0 +1,6 @@
+deploy:
+  provider: npm
+  email: "encima@gmail.com"
+  api_key: "YOUR_AUTH_TOKEN"
+  on:
+    tags: true
