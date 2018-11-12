@@ -1,19 +1,13 @@
 {
   "presets": [
     [
-      "es2015",
-      {
-        "modules": false
-      }
-    ],
-    [
-      "env",
+      "@babel/preset-env",
       {
         "modules": false
       }
     ]
   ],
   "plugins": [
-    "external-helpers"
+    "@babel/plugin-transform-runtime"
   ]
 }

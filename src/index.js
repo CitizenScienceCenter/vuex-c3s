@@ -1,4 +1,4 @@
-import C3SStore from './store';
+import C3SStore from './store/index';
 
 import C3SPlugin from './c3s-plugin';
 

@@ -1,25 +1,26 @@
 import Vuex from 'vuex';
+import _defineProperty from '@babel/runtime/helpers/defineProperty';
+import _slicedToArray from '@babel/runtime/helpers/slicedToArray';
+import _regeneratorRuntime from '@babel/runtime/regenerator';
+import _asyncToGenerator from '@babel/runtime/helpers/asyncToGenerator';
 import Swagger from 'swagger-client';
 
 // initial state
 // shape: [{ id, quantity }]
 var state = {
   client: null,
-  host: undefined
+  host: undefined // getters
 
-  // getters
-};var getters = {};
+};
+var getters = {}; // actions
 
-// actions
 var actions = {
   setClient: function setClient(_ref, client) {
     var commit = _ref.commit;
-
     commit('SET_API', client);
   }
-};
+}; // mutations
 
-// mutations
 var mutations = {
   SET_API: function SET_API(state, client) {
     state.client = client;
@@ -28,7 +29,6 @@ var mutations = {
     state.host = h;
   }
 };
-
 var api = {
   namespaced: true,
   state: state,
@@ -37,51 +37,49 @@ var api = {
   mutations: mutations
 };
 
-var SHA256 = require('crypto-js/sha256');
-// initial state
+var SHA256 = require('crypto-js/sha256'); // initial state
 // shape: [{ id, quantity }]
+
+
 var state$1 = {
   user: null,
   currentUser: null,
-  settings: null, // TODO split this out into separate store
-  taskProgress: 0
+  settings: null,
+  // TODO split this out into separate store
+  taskProgress: 0 // getters
 
-  // getters
-};var getters$1 = {};
+};
+var getters$1 = {}; // actions
 
-// actions
 var actions$1 = {
   login: function () {
-    var _ref2 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref, user) {
-      var state = _ref.state,
-          commit = _ref.commit,
-          dispatch = _ref.dispatch,
-          rootState = _ref.rootState;
-      var res;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
+    var _login = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee(_ref, user) {
+      var state, commit, dispatch, rootState, res;
+      return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              state = _ref.state, commit = _ref.commit, dispatch = _ref.dispatch, rootState = _ref.rootState;
               commit('settings/SET_LOADING', true, {
                 root: true
               });
-              _context.prev = 1;
-              _context.next = 4;
+              _context.prev = 2;
+              _context.next = 5;
               return rootState.api.client.apis.Users.login(user);
 
-            case 4:
+            case 5:
               res = _context.sent;
-
               commit('SET_CURRENT_USER', res.body);
               commit('settings/SET_LOADING', false, {
                 root: true
               });
-              return _context.abrupt('return', res.body);
+              return _context.abrupt("return", res.body);
 
-            case 10:
-              _context.prev = 10;
-              _context.t0 = _context['catch'](1);
-
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](2);
               console.log(_context.t0);
               dispatch('settings/setError', 'Anmeldung fehlgeschlagen', {
                 root: true
@@ -89,133 +87,130 @@ var actions$1 = {
               commit('settings/SET_LOADING', false, {
                 root: true
               });
-              return _context.abrupt('return', false);
+              return _context.abrupt("return", false);
 
-            case 16:
-            case 'end':
+            case 17:
+            case "end":
               return _context.stop();
           }
         }
-      }, _callee, this, [[1, 10]]);
+      }, _callee, this, [[2, 11]]);
     }));
 
-    function login(_x, _x2) {
-      return _ref2.apply(this, arguments);
-    }
-
-    return login;
+    return function login(_x, _x2) {
+      return _login.apply(this, arguments);
+    };
   }(),
   generateAnon: function () {
-    var _ref4 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_ref3) {
-      var state = _ref3.state,
-          commit = _ref3.commit,
-          dispatch = _ref3.dispatch,
-          rootState = _ref3.rootState;
-      var now, id, pwd, u;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    var _generateAnon = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee2(_ref2) {
+      var state, commit, dispatch, rootState, now, id, pwd, u;
+      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit('settings/SET_LOADING', true, { root: true });
+              state = _ref2.state, commit = _ref2.commit, dispatch = _ref2.dispatch, rootState = _ref2.rootState;
+              commit('settings/SET_LOADING', true, {
+                root: true
+              });
               now = '' + Date.now();
               id = 'anon' + SHA256(now);
               pwd = '' + SHA256(id);
-              _context2.next = 6;
-              return dispatch('register', { 'username': id, 'pwd': pwd });
+              _context2.next = 7;
+              return dispatch('register', {
+                'username': id,
+                'pwd': pwd
+              });
 
-            case 6:
+            case 7:
               u = _context2.sent;
-              return _context2.abrupt('return', u);
+              return _context2.abrupt("return", u);
 
-            case 8:
-            case 'end':
+            case 9:
+            case "end":
               return _context2.stop();
           }
         }
       }, _callee2, this);
     }));
 
-    function generateAnon(_x3) {
-      return _ref4.apply(this, arguments);
-    }
-
-    return generateAnon;
+    return function generateAnon(_x3) {
+      return _generateAnon.apply(this, arguments);
+    };
   }(),
-  logout: function logout(_ref5) {
-    var state = _ref5.state,
-        commit = _ref5.commit;
-
+  logout: function logout(_ref3) {
+    var state = _ref3.state,
+        commit = _ref3.commit;
     commit('user/SET_CURRENT_USER', null, {
       root: true
     });
   },
   requestReset: function () {
-    var _ref7 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_ref6, email) {
-      var state = _ref6.state,
-          commit = _ref6.commit,
-          dispatch = _ref6.dispatch,
-          rootState = _ref6.rootState;
-      var res;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    var _requestReset = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee3(_ref4, email) {
+      var state, commit, dispatch, rootState, res;
+      return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
-              return rootState.api.client.apis.Users.reset({ email: email });
+              state = _ref4.state, commit = _ref4.commit, dispatch = _ref4.dispatch, rootState = _ref4.rootState;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return rootState.api.client.apis.Users.reset({
+                email: email
+              });
 
-            case 3:
+            case 4:
               res = _context3.sent;
-              return _context3.abrupt('return', res);
+              return _context3.abrupt("return", res);
 
-            case 7:
-              _context3.prev = 7;
-              _context3.t0 = _context3['catch'](0);
-
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](1);
               console.error(_context3.t0);
               dispatch('settings/setError', _context3.t0, {
                 root: true
               });
-              return _context3.abrupt('return', false);
+              return _context3.abrupt("return", false);
 
-            case 12:
-            case 'end':
+            case 13:
+            case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, this, [[0, 7]]);
+      }, _callee3, this, [[1, 8]]);
     }));
 
-    function requestReset(_x4, _x5) {
-      return _ref7.apply(this, arguments);
-    }
-
-    return requestReset;
+    return function requestReset(_x4, _x5) {
+      return _requestReset.apply(this, arguments);
+    };
   }(),
   resetPwd: function () {
-    var _ref9 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_ref8, reset) {
-      var state = _ref8.state,
-          commit = _ref8.commit,
-          rootState = _ref8.rootState;
-      var res;
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+    var _resetPwd = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee4(_ref5, reset) {
+      var state, commit, rootState, res;
+      return _regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.prev = 0;
-              _context4.next = 3;
-              return rootState.api.client.apis.Users.verify_reset({ reset: reset });
+              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return rootState.api.client.apis.Users.verify_reset({
+                reset: reset
+              });
 
-            case 3:
+            case 4:
               res = _context4.sent;
-
               commit('SET_CURRENT_USER', null);
-              return _context4.abrupt('return', res);
+              return _context4.abrupt("return", res);
 
-            case 8:
-              _context4.prev = 8;
-              _context4.t0 = _context4['catch'](0);
-
+            case 9:
+              _context4.prev = 9;
+              _context4.t0 = _context4["catch"](1);
               console.log(_context4.t0);
               commit('settings/SET_ERROR', 'Token ungültig oder Systemfehler', {
                 root: true
@@ -223,50 +218,50 @@ var actions$1 = {
               commit('settings/SET_LOADING', false, {
                 root: true
               });
-              return _context4.abrupt('return', false);
+              return _context4.abrupt("return", false);
 
-            case 14:
-            case 'end':
+            case 15:
+            case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, this, [[0, 8]]);
+      }, _callee4, this, [[1, 9]]);
     }));
 
-    function resetPwd(_x6, _x7) {
-      return _ref9.apply(this, arguments);
-    }
-
-    return resetPwd;
+    return function resetPwd(_x6, _x7) {
+      return _resetPwd.apply(this, arguments);
+    };
   }(),
   register: function () {
-    var _ref11 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_ref10, user) {
-      var state = _ref10.state,
-          commit = _ref10.commit,
-          rootState = _ref10.rootState;
-      var res;
-      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+    var _register = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee5(_ref6, user) {
+      var state, commit, rootState, res;
+      return _regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
+              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
               commit('settings/SET_LOADING', true, {
                 root: true
               });
-              _context5.prev = 1;
-              _context5.next = 4;
-              return rootState.api.client.apis.Users.post({ user: user });
+              _context5.prev = 2;
+              _context5.next = 5;
+              return rootState.api.client.apis.Users.post({
+                user: user
+              });
 
-            case 4:
+            case 5:
               res = _context5.sent;
-
               commit('SET_CURRENT_USER', res.body);
-              commit('settings/SET_LOADING', false, { root: true });
-              return _context5.abrupt('return', res.body);
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context5.abrupt("return", res.body);
 
-            case 10:
-              _context5.prev = 10;
-              _context5.t0 = _context5['catch'](1);
-
+            case 11:
+              _context5.prev = 11;
+              _context5.t0 = _context5["catch"](2);
               console.log(_context5.t0);
               commit('settings/SET_ERROR', _context5.t0, {
                 root: true
@@ -274,27 +269,24 @@ var actions$1 = {
               commit('settings/SET_LOADING', false, {
                 root: true
               });
-              return _context5.abrupt('return', false);
+              return _context5.abrupt("return", false);
 
-            case 16:
-            case 'end':
+            case 17:
+            case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, this, [[1, 10]]);
+      }, _callee5, this, [[2, 11]]);
     }));
 
-    function register(_x8, _x9) {
-      return _ref11.apply(this, arguments);
-    }
-
-    return register;
+    return function register(_x8, _x9) {
+      return _register.apply(this, arguments);
+    };
   }(),
-  getUser: function getUser(_ref12, id) {
-    var state = _ref12.state,
-        commit = _ref12.commit,
-        rootState = _ref12.rootState;
-
+  getUser: function getUser(_ref7, id) {
+    var state = _ref7.state,
+        commit = _ref7.commit,
+        rootState = _ref7.rootState;
     rootState.api.client.apis.Users.get_one({
       id: id
     }).then(function (req) {
@@ -310,109 +302,103 @@ var actions$1 = {
     });
   },
   updateUser: function () {
-    var _ref15 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_ref13, _ref14) {
-      var state = _ref13.state,
-          commit = _ref13.commit,
-          rootState = _ref13.rootState;
+    var _updateUser = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee6(_ref8, _ref9) {
+      var state, commit, rootState, _ref10, id, info, res;
 
-      var _ref16 = babelHelpers.slicedToArray(_ref14, 2),
-          id = _ref16[0],
-          info = _ref16[1];
-
-      var res;
-      return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      return _regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              _context6.prev = 0;
-              _context6.next = 3;
-              return rootState.api.client.apis.Users.put({ id: id, user: info });
+              state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
+              _ref10 = _slicedToArray(_ref9, 2), id = _ref10[0], info = _ref10[1];
+              _context6.prev = 2;
+              _context6.next = 5;
+              return rootState.api.client.apis.Users.put({
+                id: id,
+                user: info
+              });
 
-            case 3:
+            case 5:
               res = _context6.sent;
-
               commit('SET_CURRENT_USER', res.body);
-              return _context6.abrupt('return', res);
+              return _context6.abrupt("return", res);
 
-            case 8:
-              _context6.prev = 8;
-              _context6.t0 = _context6['catch'](0);
-
+            case 10:
+              _context6.prev = 10;
+              _context6.t0 = _context6["catch"](2);
               console.log(_context6.t0);
               commit('settings/SET_ERROR', _context6.t0, {
                 root: true
               });
-              return _context6.abrupt('return', false);
+              return _context6.abrupt("return", false);
 
-            case 13:
-            case 'end':
+            case 15:
+            case "end":
               return _context6.stop();
           }
         }
-      }, _callee6, this, [[0, 8]]);
+      }, _callee6, this, [[2, 10]]);
     }));
 
-    function updateUser(_x10, _x11) {
-      return _ref15.apply(this, arguments);
-    }
-
-    return updateUser;
+    return function updateUser(_x10, _x11) {
+      return _updateUser.apply(this, arguments);
+    };
   }(),
   validate: function () {
-    var _ref18 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(_ref17, id) {
-      var state = _ref17.state,
-          commit = _ref17.commit,
-          rootState = _ref17.rootState;
-      var res;
-      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+    var _validate = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee7(_ref11, id) {
+      var state, commit, rootState, res;
+      return _regeneratorRuntime.wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
-              _context7.prev = 0;
+              state = _ref11.state, commit = _ref11.commit, rootState = _ref11.rootState;
+              _context7.prev = 1;
 
               if (!(state.currentUser.api_key !== undefined)) {
-                _context7.next = 9;
+                _context7.next = 10;
                 break;
               }
 
-              _context7.next = 4;
-              return rootState.api.client.apis.Users.validate({ key: state.currentUser.api_key });
+              _context7.next = 5;
+              return rootState.api.client.apis.Users.validate({
+                key: state.currentUser.api_key
+              });
 
-            case 4:
+            case 5:
               res = _context7.sent;
-
               commit('SET_CURRENT_USER', res.body);
-              return _context7.abrupt('return', true);
-
-            case 9:
-              return _context7.abrupt('return', false);
+              return _context7.abrupt("return", true);
 
             case 10:
-              _context7.next = 15;
+              return _context7.abrupt("return", false);
+
+            case 11:
+              _context7.next = 16;
               break;
 
-            case 12:
-              _context7.prev = 12;
-              _context7.t0 = _context7['catch'](0);
-              return _context7.abrupt('return', false);
+            case 13:
+              _context7.prev = 13;
+              _context7.t0 = _context7["catch"](1);
+              return _context7.abrupt("return", false);
 
-            case 15:
-            case 'end':
+            case 16:
+            case "end":
               return _context7.stop();
           }
         }
-      }, _callee7, this, [[0, 12]]);
+      }, _callee7, this, [[1, 13]]);
     }));
 
-    function validate(_x12, _x13) {
-      return _ref18.apply(this, arguments);
-    }
-
-    return validate;
+    return function validate(_x12, _x13) {
+      return _validate.apply(this, arguments);
+    };
   }()
-};
+}; // mutations
 
-// mutations
 var mutations$1 = {
   SET_USER: function SET_USER(state, user) {
     state.user = user;
@@ -424,7 +410,6 @@ var mutations$1 = {
     state.taskProgress = prog;
   }
 };
-
 var user = {
   namespaced: true,
   state: state$1,
@@ -440,19 +425,17 @@ var state$2 = {
   selectedProject: null,
   selectedMedia: [],
   selectedStats: null,
-  selectedTasks: []
+  selectedTasks: [] // getters
 
-  // getters
-};var getters$2 = {};
+};
+var getters$2 = {}; // actions
 
-// actions
 var actions$2 = {
   getProjects: function getProjects(_ref, search) {
     var state = _ref.state,
         commit = _ref.commit,
         dispatch = _ref.dispatch,
         rootState = _ref.rootState;
-
     commit('settings/SET_LOADING', true, {
       root: true
     });
@@ -474,46 +457,44 @@ var actions$2 = {
     });
   },
   getProject: function () {
-    var _ref4 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
-      var state = _ref2.state,
-          commit = _ref2.commit,
-          dispatch = _ref2.dispatch,
-          rootState = _ref2.rootState;
+    var _getProject = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
+      var state, commit, dispatch, rootState, _ref4, id, associated, res;
 
-      var _ref5 = babelHelpers.slicedToArray(_ref3, 2),
-          id = _ref5[0],
-          associated = _ref5[1];
-
-      var res;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
+      return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              state = _ref2.state, commit = _ref2.commit, dispatch = _ref2.dispatch, rootState = _ref2.rootState;
+              _ref4 = _slicedToArray(_ref3, 2), id = _ref4[0], associated = _ref4[1];
               commit('settings/SET_LOADING', true, {
                 root: true
               });
-              _context.prev = 1;
-              _context.next = 4;
-              return rootState.api.client.apis.Projects.get_project({ id: id });
+              _context.prev = 3;
+              _context.next = 6;
+              return rootState.api.client.apis.Projects.get_project({
+                id: id
+              });
 
-            case 4:
+            case 6:
               res = _context.sent;
-
               commit('SET_PROJECT', res.body);
               commit('settings/SET_LOADING', false, {
                 root: true
               });
+
               if (associated) {
                 dispatch('getMedia', id);
                 dispatch('getTasks', [id, 1, 0]);
               }
+
               dispatch('getStats', id);
-              return _context.abrupt('return', res.body);
+              return _context.abrupt("return", res.body);
 
-            case 12:
-              _context.prev = 12;
-              _context.t0 = _context['catch'](1);
-
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](3);
               console.log(_context.t0);
               commit('settings/SET_LOADING', false, {
                 root: true
@@ -521,89 +502,80 @@ var actions$2 = {
               commit('settings/SET_ERROR', _context.t0, {
                 root: true
               });
-              return _context.abrupt('return', false);
+              return _context.abrupt("return", false);
 
-            case 18:
-            case 'end':
+            case 20:
+            case "end":
               return _context.stop();
           }
         }
-      }, _callee, this, [[1, 12]]);
+      }, _callee, this, [[3, 14]]);
     }));
 
-    function getProject(_x, _x2) {
-      return _ref4.apply(this, arguments);
-    }
-
-    return getProject;
+    return function getProject(_x, _x2) {
+      return _getProject.apply(this, arguments);
+    };
   }(),
   getTasks: function () {
-    var _ref8 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_ref6, _ref7) {
-      var state = _ref6.state,
-          commit = _ref6.commit,
-          rootState = _ref6.rootState;
+    var _getTasks = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee2(_ref5, _ref6) {
+      var state, commit, rootState, _ref7, id, _ref7$, limit, _ref7$2, offset, tasks;
 
-      var _ref9 = babelHelpers.slicedToArray(_ref7, 3),
-          id = _ref9[0],
-          _ref9$ = _ref9[1],
-          limit = _ref9$ === undefined ? 20 : _ref9$,
-          _ref9$2 = _ref9[2],
-          offset = _ref9$2 === undefined ? 0 : _ref9$2;
-
-      var tasks;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+              _ref7 = _slicedToArray(_ref6, 3), id = _ref7[0], _ref7$ = _ref7[1], limit = _ref7$ === void 0 ? 20 : _ref7$, _ref7$2 = _ref7[2], offset = _ref7$2 === void 0 ? 0 : _ref7$2;
               commit('settings/SET_LOADING', true, {
                 root: true
               });
-              _context2.prev = 1;
-              _context2.next = 4;
+              _context2.prev = 3;
+              _context2.next = 6;
               return rootState.api.client.apis.Projects.project_tasks({
-                id: id, limit: limit, offset: offset
+                id: id,
+                limit: limit,
+                offset: offset
               });
 
-            case 4:
+            case 6:
               tasks = _context2.sent;
-
               console.log(id);
               commit('settings/SET_LOADING', false, {
                 root: true
               });
               commit('SET_TASKS', tasks.body);
-              return _context2.abrupt('return', tasks.body);
+              return _context2.abrupt("return", tasks.body);
 
-            case 11:
-              _context2.prev = 11;
-              _context2.t0 = _context2['catch'](1);
-
+            case 13:
+              _context2.prev = 13;
+              _context2.t0 = _context2["catch"](3);
               commit('settings/SET_LOADING', false, {
                 root: true
               });
-              commit('settings/SET_LOADING', false, { root: true });
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
               console.log(_context2.t0);
-              return _context2.abrupt('return', false);
+              return _context2.abrupt("return", false);
 
-            case 17:
-            case 'end':
+            case 19:
+            case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, this, [[1, 11]]);
+      }, _callee2, this, [[3, 13]]);
     }));
 
-    function getTasks(_x3, _x4) {
-      return _ref8.apply(this, arguments);
-    }
-
-    return getTasks;
+    return function getTasks(_x3, _x4) {
+      return _getTasks.apply(this, arguments);
+    };
   }(),
-  getStats: function getStats(_ref10, id) {
-    var state = _ref10.state,
-        commit = _ref10.commit,
-        rootState = _ref10.rootState;
-
+  getStats: function getStats(_ref8, id) {
+    var state = _ref8.state,
+        commit = _ref8.commit,
+        rootState = _ref8.rootState;
     commit('settings/SET_LOADING', true, {
       root: true
     });
@@ -618,31 +590,37 @@ var actions$2 = {
       commit('settings/SET_LOADING', false, {
         root: true
       });
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       console.log(err);
     });
   },
-  getMedia: function getMedia(_ref11, search) {
-    var state = _ref11.state,
-        commit = _ref11.commit,
-        rootState = _ref11.rootState;
-
-    commit('settings/SET_LOADING', true, { root: true });
+  getMedia: function getMedia(_ref9, search) {
+    var state = _ref9.state,
+        commit = _ref9.commit,
+        rootState = _ref9.rootState;
+    commit('settings/SET_LOADING', true, {
+      root: true
+    });
     rootState.api.client.apis.Media.get_media({
       search_term: search || undefined
     }).then(function (req) {
       commit('SET_MEDIA', req.body);
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
     }).catch(function (err) {
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       console.log(err);
     });
   },
-  createProject: function createProject(_ref12, project) {
-    var state = _ref12.state,
-        commit = _ref12.commit,
-        rootState = _ref12.rootState;
-
+  createProject: function createProject(_ref10, project) {
+    var state = _ref10.state,
+        commit = _ref10.commit,
+        rootState = _ref10.rootState;
     commit('settings/SET_LOADING', true, {
       root: true
     });
@@ -658,15 +636,16 @@ var actions$2 = {
       commit('settings/SET_ERROR', err, {
         root: true
       });
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       console.log(err);
     });
   },
-  deleteProject: function deleteProject(_ref13, pid) {
-    var state = _ref13.state,
-        commit = _ref13.commit,
-        rootState = _ref13.rootState;
-
+  deleteProject: function deleteProject(_ref11, pid) {
+    var state = _ref11.state,
+        commit = _ref11.commit,
+        rootState = _ref11.rootState;
     commit('settings/SET_LOADING', true, {
       root: true
     });
@@ -681,13 +660,14 @@ var actions$2 = {
       commit('settings/SET_LOADING', false, {
         root: true
       });
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       console.log(err);
     });
   }
-};
+}; // mutations
 
-// mutations
 var mutations$2 = {
   SET_PROJECTS: function SET_PROJECTS(state, projects) {
     state.projects = projects;
@@ -705,7 +685,6 @@ var mutations$2 = {
     state.selectedTasks = tasks;
   }
 };
-
 var project = {
   namespaced: true,
   state: state$2,
@@ -719,216 +698,232 @@ var project = {
 var state$3 = {
   tasks: [],
   selectedTask: null,
-  taskSaved: false
+  taskSaved: false // getters
 
-  // getters
-};var getters$3 = {}
-// https://vuex.vuejs.org/guide/getters.html#method-style-access
+};
+var getters$3 = {} // https://vuex.vuejs.org/guide/getters.html#method-style-access
 // allTasks: state => state.tasks.concat(state.clientTasks)
-
-
 // actions
-;var actions$3 = {
+;
+var actions$3 = {
   getTasks: function () {
-    var _ref2 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref, search) {
-      var state = _ref.state,
-          commit = _ref.commit,
-          rootState = _ref.rootState;
+    var _getTasks = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee(_ref, search) {
+      var state, commit, rootState, _tasks;
 
-      var _tasks;
-
-      return regeneratorRuntime.wrap(function _callee$(_context) {
+      return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-
-              commit('settings/SET_LOADING', true, { root: true });
+              state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
+              _context.prev = 1;
+              commit('settings/SET_LOADING', true, {
+                root: true
+              });
               console.log(search);
-              _context.next = 5;
-              return rootState.api.client.apis.Tasks.get_tasks({ search_term: search || undefined });
+              _context.next = 6;
+              return rootState.api.client.apis.Tasks.get_tasks({
+                search_term: search || undefined
+              });
 
-            case 5:
+            case 6:
               _tasks = _context.sent;
-
               commit('SET_TASKS', _tasks.body);
-              commit('settings/SET_LOADING', false, { root: true });
-              return _context.abrupt('return', _tasks.body);
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context.abrupt("return", _tasks.body);
 
-            case 11:
-              _context.prev = 11;
-              _context.t0 = _context['catch'](0);
-
+            case 12:
+              _context.prev = 12;
+              _context.t0 = _context["catch"](1);
               console.error(_context.t0);
-              commit('settings/SET_ERROR', 'Could not get Tasks', { root: true });
-              commit('settings/SET_LOADING', false, { root: true });
-              return _context.abrupt('return', false);
+              commit('settings/SET_ERROR', 'Could not get Tasks', {
+                root: true
+              });
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context.abrupt("return", false);
 
-            case 17:
-            case 'end':
+            case 18:
+            case "end":
               return _context.stop();
           }
         }
-      }, _callee, this, [[0, 11]]);
+      }, _callee, this, [[1, 12]]);
     }));
 
-    function getTasks(_x, _x2) {
-      return _ref2.apply(this, arguments);
-    }
-
-    return getTasks;
+    return function getTasks(_x, _x2) {
+      return _getTasks.apply(this, arguments);
+    };
   }(),
   getTaskRegion: function () {
-    var _ref5 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_ref3, _ref4) {
-      var state = _ref3.state,
-          commit = _ref3.commit,
-          rootState = _ref3.rootState;
+    var _getTaskRegion = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee2(_ref2, _ref3) {
+      var state, commit, rootState, _ref4, pid, region, task;
 
-      var _ref6 = babelHelpers.slicedToArray(_ref4, 2),
-          pid = _ref6[0],
-          region = _ref6[1];
-
-      var task;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.prev = 0;
-
-              commit('settings/SET_LOADING', true, { root: true });
+              state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState;
+              _ref4 = _slicedToArray(_ref3, 2), pid = _ref4[0], region = _ref4[1];
+              _context2.prev = 2;
+              commit('settings/SET_LOADING', true, {
+                root: true
+              });
               console.log(rootState.api.client.apis.Projects);
-              _context2.next = 5;
-              return rootState.api.client.apis.Projects.get_task_region({ id: pid, region: region || undefined });
+              _context2.next = 7;
+              return rootState.api.client.apis.Projects.get_task_region({
+                id: pid,
+                region: region || undefined
+              });
 
-            case 5:
+            case 7:
               task = _context2.sent;
-
-              commit('settings/SET_LOADING', false, { root: true });
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
               console.log(JSON.stringify(tasks));
-              return _context2.abrupt('return', tasks.body);
+              return _context2.abrupt("return", tasks.body);
 
-            case 11:
-              _context2.prev = 11;
-              _context2.t0 = _context2['catch'](0);
-
+            case 13:
+              _context2.prev = 13;
+              _context2.t0 = _context2["catch"](2);
               console.error(_context2.t0);
-              commit('settings/SET_ERROR', 'Could not get Tasks', { root: true });
-              commit('settings/SET_LOADING', false, { root: true });
-              return _context2.abrupt('return', false);
+              commit('settings/SET_ERROR', 'Could not get Tasks', {
+                root: true
+              });
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context2.abrupt("return", false);
 
-            case 17:
-            case 'end':
+            case 19:
+            case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, this, [[0, 11]]);
+      }, _callee2, this, [[2, 13]]);
     }));
 
-    function getTaskRegion(_x3, _x4) {
-      return _ref5.apply(this, arguments);
-    }
-
-    return getTaskRegion;
+    return function getTaskRegion(_x3, _x4) {
+      return _getTaskRegion.apply(this, arguments);
+    };
   }(),
   getTask: function () {
-    var _ref8 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(_ref7, id) {
-      var state = _ref7.state,
-          commit = _ref7.commit,
-          rootState = _ref7.rootState;
-      var task;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    var _getTask = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee3(_ref5, id) {
+      var state, commit, rootState, task;
+      return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              commit('settings/SET_LOADING', true, { root: true });
-              _context3.prev = 1;
-              _context3.next = 4;
-              return rootState.api.client.apis.Tasks.get_task({ id: id });
+              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+              commit('settings/SET_LOADING', true, {
+                root: true
+              });
+              _context3.prev = 2;
+              _context3.next = 5;
+              return rootState.api.client.apis.Tasks.get_task({
+                id: id
+              });
 
-            case 4:
+            case 5:
               task = _context3.sent;
-
               commit('SET_TASK', task.body);
-              commit('settings/SET_LOADING', false, { root: true });
-              return _context3.abrupt('return', task.body);
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context3.abrupt("return", task.body);
 
-            case 10:
-              _context3.prev = 10;
-              _context3.t0 = _context3['catch'](1);
+            case 11:
+              _context3.prev = 11;
+              _context3.t0 = _context3["catch"](2);
+              commit('settings/SET_ERROR', 'Could not get Task', {
+                root: true
+              });
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context3.abrupt("return", false);
 
-              commit('settings/SET_ERROR', 'Could not get Task', { root: true });
-              commit('settings/SET_LOADING', false, { root: true });
-              return _context3.abrupt('return', false);
-
-            case 15:
-            case 'end':
+            case 16:
+            case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, this, [[1, 10]]);
+      }, _callee3, this, [[2, 11]]);
     }));
 
-    function getTask(_x5, _x6) {
-      return _ref8.apply(this, arguments);
-    }
-
-    return getTask;
+    return function getTask(_x5, _x6) {
+      return _getTask.apply(this, arguments);
+    };
   }(),
   randomProjectTask: function () {
-    var _ref11 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_ref9, _ref10) {
-      var state = _ref9.state,
-          commit = _ref9.commit,
-          rootState = _ref9.rootState;
+    var _randomProjectTask = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee4(_ref6, _ref7) {
+      var state, commit, rootState, _ref8, id, search, task;
 
-      var _ref12 = babelHelpers.slicedToArray(_ref10, 2),
-          id = _ref12[0],
-          search = _ref12[1];
-
-      var task;
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      return _regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              commit('settings/SET_LOADING', true, { root: true });
-              _context4.prev = 1;
-              _context4.next = 4;
-              return rootState.api.client.apis.Projects.get_random({ id: id, search: search });
+              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
+              _ref8 = _slicedToArray(_ref7, 2), id = _ref8[0], search = _ref8[1];
+              commit('settings/SET_LOADING', true, {
+                root: true
+              });
+              _context4.prev = 3;
+              _context4.next = 6;
+              return rootState.api.client.apis.Projects.get_random({
+                id: id,
+                search: search
+              });
 
-            case 4:
+            case 6:
               task = _context4.sent;
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context4.abrupt("return", task.body.task);
 
-              commit('settings/SET_LOADING', false, { root: true });
-              return _context4.abrupt('return', task.body.task);
-
-            case 9:
-              _context4.prev = 9;
-              _context4.t0 = _context4['catch'](1);
-
+            case 11:
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](3);
               console.log(_context4.t0);
-              commit('settings/SET_ERROR', 'Could not get random task', { root: true });
-              commit('settings/SET_LOADING', false, { root: true });
-              return _context4.abrupt('return', false);
+              commit('settings/SET_ERROR', 'Could not get random task', {
+                root: true
+              });
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              return _context4.abrupt("return", false);
 
-            case 15:
-            case 'end':
+            case 17:
+            case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, this, [[1, 9]]);
+      }, _callee4, this, [[3, 11]]);
     }));
 
-    function randomProjectTask(_x7, _x8) {
-      return _ref11.apply(this, arguments);
-    }
-
-    return randomProjectTask;
+    return function randomProjectTask(_x7, _x8) {
+      return _randomProjectTask.apply(this, arguments);
+    };
   }(),
-  projectTasks: function projectTasks(_ref13, id) {
-    var state = _ref13.state,
-        commit = _ref13.commit,
-        rootState = _ref13.rootState;
-
-    commit('settings/SET_LOADING', true, { root: true });
+  projectTasks: function projectTasks(_ref9, id) {
+    var state = _ref9.state,
+        commit = _ref9.commit,
+        rootState = _ref9.rootState;
+    commit('settings/SET_LOADING', true, {
+      root: true
+    });
     rootState.api.client.apis.Projects.project_tasks({
       id: id
     }).then(function (res) {
@@ -936,82 +931,99 @@ var state$3 = {
         t['content_str'] = JSON.stringify(t.content);
       });
       commit('SET_TASKS', res.body);
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
     }).catch(function (err) {
       console.log(err);
-      commit('settings/SET_ERROR', 'Could not get Tasks for Project', { root: true });
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_ERROR', 'Could not get Tasks for Project', {
+        root: true
+      });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
     });
   },
   addTasks: function () {
-    var _ref15 = babelHelpers.asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(_ref14, tasks) {
-      var state = _ref14.state,
-          commit = _ref14.commit,
-          dispatch = _ref14.dispatch,
-          rootState = _ref14.rootState;
-      var res;
-      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+    var _addTasks = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee5(_ref10, tasks) {
+      var state, commit, dispatch, rootState, res;
+      return _regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              commit('settings/SET_LOADING', true, { root: true });
-              _context5.prev = 1;
-              _context5.next = 4;
+              state = _ref10.state, commit = _ref10.commit, dispatch = _ref10.dispatch, rootState = _ref10.rootState;
+              commit('settings/SET_LOADING', true, {
+                root: true
+              });
+              _context5.prev = 2;
+              _context5.next = 5;
               return rootState.api.client.apis.Tasks.create_tasks({
                 tasks: tasks
               });
 
-            case 4:
+            case 5:
               res = _context5.sent;
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              dispatch('upload/addID', res.body[0].id, {
+                root: true
+              });
+              return _context5.abrupt("return", res.body);
 
-              commit('settings/SET_LOADING', false, { root: true });
-              dispatch('upload/addID', res.body[0].id, { root: true });
-              return _context5.abrupt('return', res.body);
-
-            case 10:
-              _context5.prev = 10;
-              _context5.t0 = _context5['catch'](1);
-
+            case 11:
+              _context5.prev = 11;
+              _context5.t0 = _context5["catch"](2);
               console.error(_context5.t0);
-              commit('settings/SET_LOADING', false, { root: true });
-              commit('settings/SET_ERROR', _context5.t0, { root: true });
-              return _context5.abrupt('return', false);
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              commit('settings/SET_ERROR', _context5.t0, {
+                root: true
+              });
+              return _context5.abrupt("return", false);
 
-            case 16:
-            case 'end':
+            case 17:
+            case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, this, [[1, 10]]);
+      }, _callee5, this, [[2, 11]]);
     }));
 
-    function addTasks(_x9, _x10) {
-      return _ref15.apply(this, arguments);
-    }
-
-    return addTasks;
+    return function addTasks(_x9, _x10) {
+      return _addTasks.apply(this, arguments);
+    };
   }(),
-  deleteTasks: function deleteTasks(_ref16, tasks) {
-    var state = _ref16.state,
-        commit = _ref16.commit,
-        dispatch = _ref16.dispatch,
-        rootState = _ref16.rootState;
-
-    commit('settings/SET_LOADING', true, { root: true });
+  deleteTasks: function deleteTasks(_ref11, tasks) {
+    var state = _ref11.state,
+        commit = _ref11.commit,
+        dispatch = _ref11.dispatch,
+        rootState = _ref11.rootState;
+    commit('settings/SET_LOADING', true, {
+      root: true
+    });
     rootState.api.client.apis.Tasks.delete_tasks({
       tasks: tasks
     }).then(function (res) {
       commit('SET_TASKS', res.body);
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
     }).catch(function (e) {
-      commit('settings/SET_ERROR', 'Could not delete Tasks', { root: true });
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_ERROR', 'Could not delete Tasks', {
+        root: true
+      });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       console.error(e);
     });
   }
-};
+}; // mutations
 
-// mutations
 var mutations$3 = {
   SET_TASKSAVED: function SET_TASKSAVED(state, flag) {
     state.taskSaved = flag;
@@ -1023,10 +1035,9 @@ var mutations$3 = {
     state.selectedTask = task;
   },
   UPDATE_TASK: function UPDATE_TASK(state, index, params) {
-    Object.assign(state.getters.allTasks[index], babelHelpers.defineProperty({}, params.field, params.value));
+    Object.assign(state.getters.allTasks[index], _defineProperty({}, params.field, params.value));
   }
 };
-
 var task = {
   namespaced: true,
   state: state$3,
@@ -1039,29 +1050,40 @@ var task = {
 // shape: [{ id, quantity }]
 var state$4 = {
   media: undefined,
-  submission: {}
+  submission: {} // getters
 
-  // getters
-};var getters$4 = {};
+};
+var getters$4 = {}; // actions
 
-// actions
 var actions$4 = {
   postSubmission: function postSubmission(_ref) {
     var state = _ref.state,
         commit = _ref.commit,
         rootState = _ref.rootState,
         dispatch = _ref.dispatch;
-
-    commit('settings/SET_LOADING', true, { root: true });
-    rootState.api.client.apis.Submissions.create_submission({ submission: state.submission }).then(function (res) {
-      commit('settings/SET_LOADING', false, { root: true });
+    commit('settings/SET_LOADING', true, {
+      root: true
+    });
+    rootState.api.client.apis.Submissions.create_submission({
+      submission: state.submission
+    }).then(function (res) {
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       commit('SET_SUBMISSION', Object.assign({}, res.body));
+
       if (rootState.upload.content.length > 0) {
-        dispatch('upload/addID', res.body.id, { root: true });
+        dispatch('upload/addID', res.body.id, {
+          root: true
+        });
       }
     }).catch(function (err) {
-      commit('settings/SET_ERROR', 'Could not create Submission', { root: true });
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_ERROR', 'Could not create Submission', {
+        root: true
+      });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       console.log(err);
     });
   },
@@ -1069,21 +1091,28 @@ var actions$4 = {
     var state = _ref2.state,
         commit = _ref2.commit,
         rootState = _ref2.rootState;
-
-    commit('settings/SET_LOADING', true, { root: true });
+    commit('settings/SET_LOADING', true, {
+      root: true
+    });
     console.log(this.user);
-    rootState.api.client.apis.Submissions.update_submission({ id: submission.id, submission: submission }).then(function (req) {
-      commit('settings/SET_LOADING', false, { root: true });
+    rootState.api.client.apis.Submissions.update_submission({
+      id: submission.id,
+      submission: submission
+    }).then(function (req) {
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       commit('SET_SUBMISSION', req.body);
     }).catch(function (err) {
       // commit('settings/SET_ERROR', 'Could not modify Submission', {root: true})
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       console.log(err);
     });
   }
-};
+}; // mutations
 
-// mutations
 var mutations$4 = {
   SET_MEDIA: function SET_MEDIA(state, media) {
     state.media = media;
@@ -1098,7 +1127,6 @@ var mutations$4 = {
     state.submission.content.responses = r;
   }
 };
-
 var submission = {
   namespaced: true,
   state: state$4,
@@ -1110,24 +1138,26 @@ var submission = {
 // initial state
 // shape: [{ id, quantity }]
 var state$5 = {
-  media: []
+  media: [] // getters
 
-  // getters
-};var getters$5 = {};
+};
+var getters$5 = {}; // actions
 
-// actions
 var actions$5 = {
   getMedia: function getMedia(_ref, search) {
     var state = _ref.state,
         commit = _ref.commit,
         rootState = _ref.rootState;
-
-    commit('settings/SET_LOADING', true, { root: true });
+    commit('settings/SET_LOADING', true, {
+      root: true
+    });
     rootState.api.client.apis.Media.get_media({
       search_term: search || undefined
     }).then(function (req) {
       commit('SET_MEDIA', req.body);
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
     }).catch(function (err) {
       if (err.response.status === 404) ;
     });
@@ -1137,15 +1167,19 @@ var actions$5 = {
         commit = _ref2.commit,
         dispatch = _ref2.dispatch,
         rootState = _ref2.rootState;
-
-    commit('settings/SET_LOADING', true, { root: true });
+    commit('settings/SET_LOADING', true, {
+      root: true
+    });
     rootState.api.client.apis.Media.delete_medium({
       id: id || undefined
     }).then(function (req) {
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       dispatch('getMedia');
     }).catch(function (err) {
       console.log(err);
+
       if (err.response.status === 404) ;
     });
   },
@@ -1155,26 +1189,29 @@ var actions$5 = {
     var state = _ref3.state,
         commit = _ref3.commit,
         rootState = _ref3.rootState;
-
-    commit('settings/SET_LOADING', true, { root: true });
+    commit('settings/SET_LOADING', true, {
+      root: true
+    });
     rootState.api.client.Media.upload(medium).then(function (req) {
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       console.log(req);
       _this.fileSaved = true;
     }).catch(function (e) {
-      commit('settings/SET_LOADING', false, { root: true });
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
       console.error(e);
     });
   }
-};
+}; // mutations
 
-// mutations
 var mutations$5 = {
   SET_MEDIA: function SET_MEDIA(state, media) {
     state.media = media;
   }
 };
-
 var media = {
   namespaced: true,
   state: state$5,
@@ -1187,18 +1224,16 @@ var media = {
 // shape: [{ id, quantity }]
 var state$6 = {
   id: null,
-  content: []
+  content: [] // getters
 
-  // getters
-};var getters$6 = {};
+};
+var getters$6 = {}; // actions
 
-// actions
 var actions$6 = {
   addID: function addID(_ref, id) {
     var state = _ref.state,
         commit = _ref.commit,
         rootState = _ref.rootState;
-
     commit('SET_ID', id);
     console.log('updating');
     console.log(id);
@@ -1219,6 +1254,7 @@ var actions$6 = {
         commit('settings/SET_LOADING', false, {
           root: true
         });
+
         if (i === state.content.length - 1) {
           commit('CLEAR');
         }
@@ -1234,9 +1270,8 @@ var actions$6 = {
       _loop(i);
     }
   }
-};
+}; // mutations
 
-// mutations
 var mutations$6 = {
   SET_ID: function SET_ID(state, id) {
     state.id = id;
@@ -1251,7 +1286,6 @@ var mutations$6 = {
     state.content = [];
   }
 };
-
 var upload = {
   namespaced: true,
   state: state$6,
@@ -1317,7 +1351,6 @@ var state$7 = {
     'value': 'SH',
     'label': 'Schaffhausen',
     'lang': 'DE'
-
   }, {
     'value': 'SO',
     'label': 'Solothun',
@@ -1400,17 +1433,15 @@ var state$7 = {
     'value': '75+',
     'label': 'Über 75'
   }],
-  specialChars: ["e̊", "ĕ", "nbsp;͜", "i̇̄", "üö", "öü", "'", "ạ̈", "m̄", ">", "&", "e̍", "eh", "e̥", "?", "!"]
-  // specialChars: [ "e̊", "ĕ", "nbsp" ,"i̇̄,", "üö", "öü", "ạ̈", "m̄", "e̥" ]
-};
+  specialChars: ["e̊", "ĕ", "nbsp;͜", "i̇̄", "üö", "öü", "'", "ạ̈", "m̄", ">", "&", "e̍", "eh", "e̥", "?", "!"] // specialChars: [ "e̊", "ĕ", "nbsp" ,"i̇̄,", "üö", "öü", "ạ̈", "m̄", "e̥" ]
 
+};
 var consts = {
   namespaced: true,
   state: state$7
 };
 
 var debug = process.env.NODE_ENV !== 'production';
-
 var C3SStore = new Vuex.Store({
   modules: {
     user: user,
@@ -1429,10 +1460,9 @@ var moduleName = 'c3s';
 var C3SPlugin = {
   install: function install(Vue) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-
     var store = options.store;
     var swaggerURL = options.swaggerURL;
+
     if (!store || !swaggerURL) {
       console.error("C3S: Missing store and/or Swagger URL params.");
       return;
@@ -1447,22 +1477,20 @@ var C3SPlugin = {
 
     Swagger({
       url: options.swaggerURL,
-      requestInterceptor: function requestInterceptor(req) {
-        // let u = store.getters['user/currentUser']
+      requestInterceptor: function requestInterceptor(req) {// let u = store.getters['user/currentUser']
         // if (u !== null) {
         //   req.headers['X-API-KEY'] = u.api_key
         // }
         // return req
       }
     }).then(function (client) {
-      console.log("Loaded");
-      // store.commit('api/SET_API', client)
+      console.log("Loaded"); // store.commit('api/SET_API', client)
 
       var getStore = function getStore() {
         return store;
       };
-      console.log(store.commit);
 
+      console.log(store.commit);
       Vue.prototype.$c3s = {
         store: getStore
       };
@@ -1477,10 +1505,9 @@ var C3SPlugin = {
   }
 };
 
-// export both modules as one file
 var index = {
-	store: C3SStore,
-	plugin: C3SPlugin
+  store: C3SStore,
+  plugin: C3SPlugin
 };
 
 export default index;

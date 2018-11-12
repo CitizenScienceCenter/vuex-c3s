@@ -1,4 +1,4 @@
-import C3SStore from './store'
+import C3SStore from './store/index'
 import Swagger from 'swagger-client'
 
 
