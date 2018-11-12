@@ -1,6 +1,7 @@
 deploy:
   provider: npm
-  email: "encima@gmail.com"
-  api_key: "YOUR_AUTH_TOKEN"
+  email: encima@gmail.com
+  api_key:
+    secure: N29Iy+RElbDYo8KQPVkGCf1wohCUM7oxOu2PJ5IQLdNQoAA6etHhunL/GgduME0L6svFpv1isM/kHvLenKpcMjA3+dGj2VUHbtefGgz7DjAvFLVJciVvURgpelNLenXb7Jkb1S8q1pA9wvhI7UuIH+He3QGXVc/IoCjyP7Or83JGwB92teKHGTTcPZiEE/CTAeR4GppCOIgB195z4dj5GVPWskAyIJpqmTCl+uDnqyB5mwBcFIBCMufvx17+MFB/UBYF3Xf4wpnx3AI4dAqyoxIFDV1bG6B1RsQzRqloXmp10kIvat3nZJJd2FHj6XPr3YPCadyKas3fA26hfSwiNNdx2eIuv2VGE4ilbaLBdBbBrf5IVrVYGyxaoJBVO64juzOOj1LUjiNvHI76bcn7aMTNsKRZs/brymD4MHsDsh4S9MYSTE8voiT9qNTNZekhwbjE2m8Zh0cwXEdZxpktdmClxgdOEakAkxbnU51x8V/JcG9Z5Scq+3G7JH6kAaqrJlMlj5yhNlkjFNDcMQmulYb3vtWebSNlsn6js4o0LCrFxYMzmcTDJUUdoMcJa4ZYvgzoDH/yMZWoxwL5WT6A41Iybg1dIMFN2H+hn1i7y/ZnqDmtNjsDr8vK+JAz6iq8UdyK3837W9uimHlgFu4CNbF+adcNZprAI5T6Kg8bRV8=
   on:
     tags: true
