@@ -1,6 +1,6 @@
 {
   "name": "vuex-c3s",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "SDK for the Citizen Science Framework API, using Swagger and Vuex",
   "directories": {
     "test": "test"
@@ -43,10 +43,16 @@
     "@babel/core": "^7.1.5",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.5",
+    "@babel/runtime": "^7.1.5",
     "babel-core": "^7.0.0-bridge.0",
+    "crypto-js": "^3.1.9-1",
+    "eslint-plugin-babel": "^5.2.1",
+    "eslint-plugin-html": "^5.0.0",
     "rollup": "^0.67.1",
     "rollup-plugin-babel": "4.0.3",
     "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "swagger-client": "^3.8.22",
+    "vuex": "^3.0.1"
   }
 }

@@ -1,25 +1,10 @@
-import Vuex from 'vuex';
-import api from './modules/api';
-import user from './modules/user';
-import activity from './modules/activity';
-import task from './modules/task';
-import submission from './modules/submission';
-import media from './modules/media';
-import upload from './modules/upload';
-import consts from './modules/consts';
+export {default as api} from './modules/api';
+export {default as user} from './modules/user';
+export {default as activity} from './modules/activity';
+export {default as task} from './modules/task';
+export {default as submission} from './modules/submission';
+export {default as media} from './modules/media';
+export {default as upload} from './modules/upload';
+export {default as comments} from './modules/comments';
 
-const debug = process.env.NODE_ENV !== 'production';
-
-export default new Vuex.Store({
-	modules: {
-		user,
-		activity,
-		api,
-		consts,
-		task,
-		media,
-		upload,
-		submission
-	},
-	strict: debug
-});
+// TODO add project store module

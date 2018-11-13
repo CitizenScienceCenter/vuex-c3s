@@ -3,8 +3,8 @@ import makeRequest from './utils';
 // shape: [{ id, quantity }]
 const state = {
 	tasks: [],
-  task: null,
-  media: []
+	task: null,
+	media: []
 };
 
 // getters

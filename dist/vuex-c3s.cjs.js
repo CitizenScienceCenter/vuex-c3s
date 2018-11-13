@@ -2,7 +2,6 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var Vuex = _interopDefault(require('vuex'));
 var _defineProperty = _interopDefault(require('@babel/runtime/helpers/defineProperty'));
 var _slicedToArray = _interopDefault(require('@babel/runtime/helpers/slicedToArray'));
 var _regeneratorRuntime = _interopDefault(require('@babel/runtime/regenerator'));
@@ -13,9 +12,9 @@ var Swagger = _interopDefault(require('swagger-client'));
 // shape: [{ id, quantity }]
 var state = {
   client: null,
-  host: undefined // getters
+  host: undefined
+}; // getters
 
-};
 var getters = {}; // actions
 
 var actions = {
@@ -47,12 +46,9 @@ var SHA256 = require('crypto-js/sha256'); // initial state
 
 var state$1 = {
   user: null,
-  currentUser: null,
-  settings: null,
-  // TODO split this out into separate store
-  taskProgress: 0 // getters
+  currentUser: null
+}; // getters
 
-};
 var getters$1 = {}; // actions
 
 var actions$1 = {
@@ -60,45 +56,20 @@ var actions$1 = {
     var _login = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee(_ref, user) {
-      var state, commit, dispatch, rootState, res;
+      var state, commit, dispatch, rootState;
       return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, dispatch = _ref.dispatch, rootState = _ref.rootState;
-              commit('settings/SET_LOADING', true, {
-                root: true
-              });
-              _context.prev = 2;
-              _context.next = 5;
-              return rootState.api.client.apis.Users.login(user);
+              return _context.abrupt("return", makeRequest(rootState.api.client.apis.Users.login, user, 'SET_CURRENT_USER'));
 
-            case 5:
-              res = _context.sent;
-              commit('SET_CURRENT_USER', res.body);
-              commit('settings/SET_LOADING', false, {
-                root: true
-              });
-              return _context.abrupt("return", res.body);
-
-            case 11:
-              _context.prev = 11;
-              _context.t0 = _context["catch"](2);
-              console.log(_context.t0);
-              dispatch('settings/setError', 'Anmeldung fehlgeschlagen', {
-                root: true
-              });
-              commit('settings/SET_LOADING', false, {
-                root: true
-              });
-              return _context.abrupt("return", false);
-
-            case 17:
+            case 2:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, this, [[2, 11]]);
+      }, _callee, this);
     }));
 
     return function login(_x, _x2) {
@@ -154,37 +125,22 @@ var actions$1 = {
     var _requestReset = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee3(_ref4, email) {
-      var state, commit, dispatch, rootState, res;
+      var state, commit, dispatch, rootState;
       return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               state = _ref4.state, commit = _ref4.commit, dispatch = _ref4.dispatch, rootState = _ref4.rootState;
-              _context3.prev = 1;
-              _context3.next = 4;
-              return rootState.api.client.apis.Users.reset({
+              return _context3.abrupt("return", makeRequest(rootState.api.client.apis.Users.reset, {
                 email: email
-              });
+              }, undefined));
 
-            case 4:
-              res = _context3.sent;
-              return _context3.abrupt("return", res);
-
-            case 8:
-              _context3.prev = 8;
-              _context3.t0 = _context3["catch"](1);
-              console.error(_context3.t0);
-              dispatch('settings/setError', _context3.t0, {
-                root: true
-              });
-              return _context3.abrupt("return", false);
-
-            case 13:
+            case 2:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, this, [[1, 8]]);
+      }, _callee3, this);
     }));
 
     return function requestReset(_x4, _x5) {
@@ -195,41 +151,22 @@ var actions$1 = {
     var _resetPwd = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee4(_ref5, reset) {
-      var state, commit, rootState, res;
+      var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
-              _context4.prev = 1;
-              _context4.next = 4;
-              return rootState.api.client.apis.Users.verify_reset({
+              return _context4.abrupt("return", makeRequest(rootState.api.client.apis.Users.verify_reset, {
                 reset: reset
-              });
+              }, undefined));
 
-            case 4:
-              res = _context4.sent;
-              commit('SET_CURRENT_USER', null);
-              return _context4.abrupt("return", res);
-
-            case 9:
-              _context4.prev = 9;
-              _context4.t0 = _context4["catch"](1);
-              console.log(_context4.t0);
-              commit('settings/SET_ERROR', 'Token ungültig oder Systemfehler', {
-                root: true
-              });
-              commit('settings/SET_LOADING', false, {
-                root: true
-              });
-              return _context4.abrupt("return", false);
-
-            case 15:
+            case 2:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, this, [[1, 9]]);
+      }, _callee4, this);
     }));
 
     return function resetPwd(_x6, _x7) {
@@ -240,7 +177,7 @@ var actions$1 = {
     var _register = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee5(_ref6, user) {
-      var state, commit, rootState, res;
+      var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -249,38 +186,16 @@ var actions$1 = {
               commit('settings/SET_LOADING', true, {
                 root: true
               });
-              _context5.prev = 2;
-              _context5.next = 5;
-              return rootState.api.client.apis.Users.post({
+              return _context5.abrupt("return", makeRequest(rootState.api.client.apis.Users.post, {
                 user: user
-              });
+              }, undefined));
 
-            case 5:
-              res = _context5.sent;
-              commit('SET_CURRENT_USER', res.body);
-              commit('settings/SET_LOADING', false, {
-                root: true
-              });
-              return _context5.abrupt("return", res.body);
-
-            case 11:
-              _context5.prev = 11;
-              _context5.t0 = _context5["catch"](2);
-              console.log(_context5.t0);
-              commit('settings/SET_ERROR', _context5.t0, {
-                root: true
-              });
-              commit('settings/SET_LOADING', false, {
-                root: true
-              });
-              return _context5.abrupt("return", false);
-
-            case 17:
+            case 3:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, this, [[2, 11]]);
+      }, _callee5, this);
     }));
 
     return function register(_x8, _x9) {
@@ -291,25 +206,15 @@ var actions$1 = {
     var state = _ref7.state,
         commit = _ref7.commit,
         rootState = _ref7.rootState;
-    rootState.api.client.apis.Users.get_one({
+    return makeRequest(rootState.api.client.apis.Users.get_one, {
       id: id
-    }).then(function (req) {
-      commit('settings/SET_LOADING', false, {
-        root: true
-      });
-      commit('SET_USER', req.body);
-    }).catch(function (err) {
-      console.error(err);
-      commit('settings/SET_ERROR', err, {
-        root: true
-      });
-    });
+    }, 'SET_USER');
   },
   updateUser: function () {
     var _updateUser = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee6(_ref8, _ref9) {
-      var state, commit, rootState, _ref10, id, info, res;
+      var state, commit, rootState, _ref10, id, info;
 
       return _regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
@@ -317,33 +222,17 @@ var actions$1 = {
             case 0:
               state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
               _ref10 = _slicedToArray(_ref9, 2), id = _ref10[0], info = _ref10[1];
-              _context6.prev = 2;
-              _context6.next = 5;
-              return rootState.api.client.apis.Users.put({
+              return _context6.abrupt("return", makeRequest(rootState.api.client.apis.Users.put, {
                 id: id,
                 user: info
-              });
+              }, 'SET_CURRENT_USER'));
 
-            case 5:
-              res = _context6.sent;
-              commit('SET_CURRENT_USER', res.body);
-              return _context6.abrupt("return", res);
-
-            case 10:
-              _context6.prev = 10;
-              _context6.t0 = _context6["catch"](2);
-              console.log(_context6.t0);
-              commit('settings/SET_ERROR', _context6.t0, {
-                root: true
-              });
-              return _context6.abrupt("return", false);
-
-            case 15:
+            case 3:
             case "end":
               return _context6.stop();
           }
         }
-      }, _callee6, this, [[2, 10]]);
+      }, _callee6, this);
     }));
 
     return function updateUser(_x10, _x11) {
@@ -354,47 +243,28 @@ var actions$1 = {
     var _validate = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee7(_ref11, id) {
-      var state, commit, rootState, res;
+      var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
               state = _ref11.state, commit = _ref11.commit, rootState = _ref11.rootState;
-              _context7.prev = 1;
 
               if (!(state.currentUser.api_key !== undefined)) {
-                _context7.next = 10;
+                _context7.next = 3;
                 break;
               }
 
-              _context7.next = 5;
-              return rootState.api.client.apis.Users.validate({
+              return _context7.abrupt("return", makeRequest(rootState.api.client.apis.Users.validate, {
                 key: state.currentUser.api_key
-              });
+              }, 'SET_CURRENT_USER'));
 
-            case 5:
-              res = _context7.sent;
-              commit('SET_CURRENT_USER', res.body);
-              return _context7.abrupt("return", true);
-
-            case 10:
-              return _context7.abrupt("return", false);
-
-            case 11:
-              _context7.next = 16;
-              break;
-
-            case 13:
-              _context7.prev = 13;
-              _context7.t0 = _context7["catch"](1);
-              return _context7.abrupt("return", false);
-
-            case 16:
+            case 3:
             case "end":
               return _context7.stop();
           }
         }
-      }, _callee7, this, [[1, 13]]);
+      }, _callee7, this);
     }));
 
     return function validate(_x12, _x13) {
@@ -422,7 +292,7 @@ var user = {
   mutations: mutations$1
 };
 
-function makeRequest(_x, _x2, _x3) {
+function makeRequest$1(_x, _x2, _x3) {
   return _makeRequest.apply(this, arguments);
 }
 
@@ -481,7 +351,8 @@ function _makeRequest() {
 var state$2 = {
   activities: [],
   activity: null,
-  stats: null
+  stats: null,
+  media: []
 }; // getters
 
 var getters$2 = {}; // actions
@@ -492,7 +363,7 @@ var actions$2 = {
         commit = _ref.commit,
         dispatch = _ref.dispatch,
         rootState = _ref.rootState;
-    return makeRequest(rootState.api.client.apis.Activities.get_activities, {
+    return makeRequest$1(rootState.api.client.apis.Activities.get_activities, {
       search_term: search || undefined
     }, 'SET_ACTIVITIES');
   },
@@ -519,7 +390,7 @@ var actions$2 = {
               }
 
               dispatch('getStats', id);
-              return _context.abrupt("return", makeRequest(rootState.api.client.apis.Activities.get_activity, {
+              return _context.abrupt("return", makeRequest$1(rootState.api.client.apis.Activities.get_activity, {
                 id: id
               }, 'SET_ACTIVITY'));
 
@@ -539,7 +410,7 @@ var actions$2 = {
     var state = _ref5.state,
         commit = _ref5.commit,
         rootState = _ref5.rootState;
-    return makeRequest(rootState.api.client.apis.Activities.activity_stats, {
+    return makeRequest$1(rootState.api.client.apis.Activities.activity_stats, {
       id: id
     }, 'SET_STATS');
   },
@@ -547,7 +418,7 @@ var actions$2 = {
     var state = _ref6.state,
         commit = _ref6.commit,
         rootState = _ref6.rootState;
-    return makeRequest(rootState.api.client.apis.Activities.create_activity, {
+    return makeRequest$1(rootState.api.client.apis.Activities.create_activity, {
       activity: activity
     }, 'SET_ACTIVITY');
   },
@@ -556,7 +427,7 @@ var actions$2 = {
         commit = _ref7.commit,
         rootState = _ref7.rootState;
     commit('SET_ACTIVITY', null);
-    return makeRequest(rootState.api.client.apis.Activities.create_activity, {
+    return makeRequest$1(rootState.api.client.apis.Activities.create_activity, {
       activity: activity
     }, undefined);
   }
@@ -585,7 +456,8 @@ var activity$1 = {
 
 var state$3 = {
   tasks: [],
-  task: null
+  task: null,
+  media: []
 }; // getters
 
 var getters$3 = {// https://vuex.vuejs.org/guide/getters.html#method-style-access
@@ -603,7 +475,7 @@ var actions$3 = {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
-              return _context.abrupt("return", makeRequest.makeRequest(rootState.api.client.apis.Tasks.get_tasks, {
+              return _context.abrupt("return", makeRequest$1(rootState.api.client.apis.Tasks.get_tasks, {
                 search_term: search || undefined
               }, 'SET_TASKS'));
 
@@ -655,7 +527,7 @@ var actions$3 = {
           switch (_context3.prev = _context3.next) {
             case 0:
               state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
-              return _context3.abrupt("return", makeRequest.makeRequest(rootState.api.client.apis.Tasks.get_task, {
+              return _context3.abrupt("return", makeRequest$1(rootState.api.client.apis.Tasks.get_task, {
                 id: id
               }, 'SET_TASK'));
 
@@ -705,7 +577,7 @@ var actions$3 = {
           switch (_context5.prev = _context5.next) {
             case 0:
               state = _ref7.state, commit = _ref7.commit, dispatch = _ref7.dispatch, rootState = _ref7.rootState;
-              res = makeRequest.makeRequest(rootState.api.client.apis.Tasks.create_tasks, {
+              res = makeRequest$1(rootState.api.client.apis.Tasks.create_tasks, {
                 tasks: tasks
               }, undefined);
               dispatch('upload/addID', res[0].id, {
@@ -731,7 +603,7 @@ var actions$3 = {
         dispatch = _ref8.dispatch,
         rootState = _ref8.rootState;
     dispatch('SET_TASKS', null);
-    return makeRequest.makeRequest(rootState.api.client.apis.Tasks.delete_tasks, {
+    return umakeRequest(rootState.api.client.apis.Tasks.delete_tasks, {
       tasks: tasks
     }, 'SET_TASKS');
   }
@@ -848,9 +720,9 @@ var submission = {
 // initial state
 // shape: [{ id, quantity }]
 var state$5 = {
-  media: [] // getters
+  media: []
+}; // getters
 
-};
 var getters$5 = {}; // actions
 
 var actions$5 = {
@@ -934,9 +806,9 @@ var media = {
 // shape: [{ id, quantity }]
 var state$6 = {
   id: null,
-  content: [] // getters
+  content: []
+}; // getters
 
-};
 var getters$6 = {}; // actions
 
 var actions$6 = {
@@ -1004,169 +876,138 @@ var upload = {
   mutations: mutations$6
 };
 
+// initial state
+// shape: [{ id, quantity }]
 var state$7 = {
-  swissCantons: [{
-    'value': 'AG',
-    'label': 'Aargau',
-    'lang': 'DE'
-  }, {
-    'value': 'AR',
-    'label': 'Appenzell Ausserhoden',
-    'lang': 'DE'
-  }, {
-    'value': 'AI',
-    'label': 'Appenzell Innerhoden',
-    'lang': 'DE'
-  }, {
-    'value': 'BS',
-    'label': 'Basel-Stadt',
-    'lang': 'DE'
-  }, {
-    'value': 'BL',
-    'label': 'Basel-Land',
-    'lang': 'DE'
-  }, {
-    'value': 'BE',
-    'label': 'Bern',
-    'lang': 'DE'
-  }, {
-    'value': 'FR',
-    'label': 'Freiburg',
-    'lang': 'DE'
-  }, {
-    'value': 'GL',
-    'label': 'Glarus',
-    'lang': 'DE'
-  }, {
-    'value': 'GR',
-    'label': 'Graubunden',
-    'lang': 'RM'
-  }, {
-    'value': 'JU',
-    'label': 'Jura',
-    'lang': 'FR'
-  }, {
-    'value': 'LU',
-    'label': 'Luzern',
-    'lang': 'DE'
-  }, {
-    'value': 'SG',
-    'label': 'St. Gallen',
-    'lang': 'DE'
-  }, {
-    'value': 'SZ',
-    'label': 'Schwyz',
-    'lang': 'DE'
-  }, {
-    'value': 'SH',
-    'label': 'Schaffhausen',
-    'lang': 'DE'
-  }, {
-    'value': 'SO',
-    'label': 'Solothun',
-    'lang': 'DE'
-  }, {
-    'value': 'TI',
-    'label': 'Ticino',
-    'lang': 'IT'
-  }, {
-    'value': 'TG',
-    'label': 'Thurgau',
-    'lang': 'DE'
-  }, {
-    'value': 'UR',
-    'label': 'Uri',
-    'lang': 'DE'
-  }, {
-    'value': 'NW',
-    'label': 'Unterwalden Nidwalden',
-    'lang': 'DE'
-  }, {
-    'value': 'OW',
-    'label': 'Unterwalden Obwalden',
-    'lang': 'DE'
-  }, {
-    'value': 'VD',
-    'label': 'Vaud',
-    'lang': 'FR'
-  }, {
-    'value': 'VS',
-    'label': 'Valais',
-    'lang': 'DE'
-  }, {
-    'value': 'ZG',
-    'label': 'Zug',
-    'lang': 'DE'
-  }, {
-    'value': 'ZH',
-    'label': 'Zurich',
-    'lang': 'DE'
-  }],
-  otherRegions: [{
-    'value': 'ANDERES',
-    'label': 'Anderes Land',
-    'lang': '?'
-  }, {
-    'value': 'GE',
-    'label': 'Geneva',
-    'lang': 'FR'
-  }, {
-    'value': 'NE',
-    'label': 'Neuchatel',
-    'lang': 'FR'
-  }],
-  ageRange: [{
-    'value': '0-11',
-    'label': 'Unter 12'
-  }, {
-    'value': '12-17',
-    'label': 'Zwischen 12 und 17'
-  }, {
-    'value': '18-24',
-    'label': 'Zwischen 18 und 24'
-  }, {
-    'value': '25-34',
-    'label': 'Zwischen 25 und 34'
-  }, {
-    'value': '35-44',
-    'label': 'Zwischen 35 und 44'
-  }, {
-    'value': '45-54',
-    'label': 'Zwischen 45 und 54'
-  }, {
-    'value': '55-64',
-    'label': 'Zwischen 55 und 64'
-  }, {
-    'value': '65-74',
-    'label': 'Zwischen 65 und 74'
-  }, {
-    'value': '75+',
-    'label': 'Über 75'
-  }],
-  specialChars: ["e̊", "ĕ", "nbsp;͜", "i̇̄", "üö", "öü", "'", "ạ̈", "m̄", ">", "&", "e̍", "eh", "e̥", "?", "!"] // specialChars: [ "e̊", "ĕ", "nbsp" ,"i̇̄,", "üö", "öü", "ạ̈", "m̄", "e̥" ]
+  comments: [],
+  comment: null
+}; // getters
 
+var getters$7 = {}; // actions
+
+var actions$7 = {
+  getComments: function () {
+    var _getComments = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee(_ref, search) {
+      var state, commit, rootState, res;
+      return _regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
+              _context.prev = 1;
+              commit('settings/SET_LOADING', true, {
+                root: true
+              });
+              _context.next = 5;
+              return rootState.api.client.apis.Comments.get_all({
+                search_term: search || undefined
+              });
+
+            case 5:
+              res = _context.sent;
+              commit('SET_COMMENTS', req.body);
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              _context.next = 14;
+              break;
+
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](1);
+              commit('settings/SET_LOADING', false, {
+                root: true
+              });
+              commit('settings/SET_ERROR', _context.t0, {
+                root: true
+              });
+
+            case 14:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this, [[1, 10]]);
+    }));
+
+    return function getComments(_x, _x2) {
+      return _getComments.apply(this, arguments);
+    };
+  }(),
+  postComment: function postComment(_ref2, cmt) {
+    var state = _ref2.state,
+        commit = _ref2.commit,
+        rootState = _ref2.rootState;
+    commit('settings/SET_LOADING', true, {
+      root: true
+    });
+    rootState.api.client.apis.Comments.post({
+      comment: cmt
+    }).then(function (req) {
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
+    }).catch(function (err) {
+      commit('settings/SET_LOADING', false, {
+        root: true
+      });
+      commit('settings/SET_ERROR', err, {
+        root: true
+      });
+    });
+  }
+}; // mutations
+
+var mutations$7 = {
+  SET_MEDIA: function SET_MEDIA(state, media) {
+    state.media = media;
+  }
 };
-var consts = {
+var comments = {
   namespaced: true,
-  state: state$7
+  state: state$7,
+  getters: getters$7,
+  actions: actions$7,
+  mutations: mutations$7
 };
 
-var debug = process.env.NODE_ENV !== 'production';
-var C3SStore = new Vuex.Store({
-  modules: {
-    user: user,
-    activity: activity$1,
-    api: api,
-    consts: consts,
-    task: task,
-    media: media,
-    upload: upload,
-    submission: submission
-  },
-  strict: debug
+// TODO add project store module
+
+var C3SStore = /*#__PURE__*/Object.freeze({
+	api: api,
+	user: user,
+	activity: activity$1,
+	task: task,
+	submission: submission,
+	media: media,
+	upload: upload,
+	comments: comments
 });
 
-var moduleName = 'c3s';
+var modules = [{
+  name: 'c3s',
+  module: api
+}, {
+  name: ['c3s', 'user'],
+  module: user
+}, {
+  name: ['c3s', 'activity'],
+  module: activity$1
+}, {
+  name: ['c3s', 'task'],
+  module: task
+}, {
+  name: ['c3s', 'media'],
+  module: media
+}, {
+  name: ['c3s', 'submission'],
+  module: submission
+}, {
+  name: ['c3s', 'comments'],
+  module: comments
+}];
 var C3SPlugin = {
   install: function install(Vue) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -1174,15 +1015,17 @@ var C3SPlugin = {
     var swaggerURL = options.swaggerURL;
 
     if (!store || !swaggerURL) {
-      console.error("C3S: Missing store and/or Swagger URL params.");
+      console.error('C3S: Missing store and/or Swagger URL params.');
       return;
     }
 
-    store.registerModule(moduleName, C3SStore);
-
-    if (store.state.hasOwnProperty(moduleName) === false) {
-      console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', moduleName);
-      return;
+    for (var i in modules) {
+      var m = modules[i];
+      store.registerModule(m['name'], m['module']); // if (store.state.hasOwnProperty(m['name']) === false) {
+      // 	console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', m['name']);
+      // 	return;
+      // }
+      // TODO check why store reports this as false when it is created
     }
 
     Swagger({
@@ -1194,18 +1037,13 @@ var C3SPlugin = {
         // return req
       }
     }).then(function (client) {
-      console.log("Loaded"); // store.commit('api/SET_API', client)
-
-      var getStore = function getStore() {
-        return store;
-      };
-
-      console.log(store.commit);
+      console.log('Loaded');
+      store.commit('c3s/SET_API', client);
       Vue.prototype.$c3s = {
-        store: getStore
+        store: C3SStore
       };
       Vue.c3s = {
-        store: getStore
+        store: C3SStore
       };
     }).catch(function (err) {
       console.error('C3S: URL was not found or an initialisation error occurred');
@@ -1215,9 +1053,4 @@ var C3SPlugin = {
   }
 };
 
-var index = {
-  store: C3SStore,
-  plugin: C3SPlugin
-};
-
-module.exports = index;
+module.exports = C3SPlugin;
