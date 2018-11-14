@@ -1,3 +1,7 @@
+/**
+ * The activity submodule of the store to deal
+ * with retrieving, updating and deleting activities
+ */
 import makeRequest from './utils';
 // initial state
 // shape: [{ id, quantity }]
@@ -23,11 +27,11 @@ const actions = {
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	getActivities({
-		state,
-		commit,
-		dispatch,
-		rootState
-	}, search) {
+					  state,
+					  commit,
+					  dispatch,
+					  rootState
+				  }, search) {
 		return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {search_term: search || undefined }, 'activity/SET_ACTIVITIES');
 	},
 	/**
@@ -41,11 +45,11 @@ const actions = {
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	async getActivity({
-		state,
-		commit,
-		dispatch,
-		rootState
-	}, [id, associated]) {
+						  state,
+						  commit,
+						  dispatch,
+						  rootState
+					  }, [id, associated]) {
 		if (associated) {
 			dispatch('media/getMedia', id, {root: true});
 			dispatch('media/getTasks', [id, 1, 0], {root: true});
@@ -54,10 +58,10 @@ const actions = {
 		return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {id: id }, 'c3s/activity/SET_ACTIVITY');
 	},
 	getStats({
-		state,
-		commit,
-		rootState
-	}, id) {
+				 state,
+				 commit,
+				 rootState
+			 }, id) {
 		return makeRequest(commit, rootState.c3s.client.apis.Activities.activity_stats, {id: id }, 'c3s/activity/SET_STATS');
 	},
 	/**
@@ -69,10 +73,10 @@ const actions = {
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	createActivity({
-		state,
-		commit,
-		rootState
-	}, activity) {
+					   state,
+					   commit,
+					   rootState
+				   }, activity) {
 		return makeRequest(commit, rootState.c3s.client.apis.Activities.create_activity, {activity: activity }, 'c3s/activity/SET_ACTIVITY');
 	},
 	/**
@@ -85,10 +89,10 @@ const actions = {
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	deleteActivity({
-		state,
-		commit,
-		rootState
-	}, [pid, localRemove]) {
+					   state,
+					   commit,
+					   rootState
+				   }, [pid, localRemove]) {
 		if (localRemove) commit('c3s/activity/SET_ACTIVITY', null);
 		return makeRequest(commit, rootState.c3s.client.apis.Activities.delete_activity, {id: pid}, undefined);
 	}
