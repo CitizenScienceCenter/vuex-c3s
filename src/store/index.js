@@ -5,6 +5,6 @@ export {default as task} from './modules/task';
 export {default as submission} from './modules/submission';
 export {default as media} from './modules/media';
 export {default as upload} from './modules/upload';
+export {default as project} from './modules/project';
 export {default as comments} from './modules/comments';
-
-// TODO add project store module
+export {default as settings} from './modules/settings';

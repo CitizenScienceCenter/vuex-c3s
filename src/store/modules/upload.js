@@ -19,11 +19,11 @@ const actions = {
 		console.log('updating');
 		console.log(id);
 		for (let i = 0; i < state.content.length; i++) {
-			commit('settings/SET_LOADING', true, {
+			commit('c3s/settings/SET_LOADING', true, {
 				root: true
 			});
 			console.log(state.content[i]);
-			rootState.api.client.apis.Media.put_medium({
+			rootState.c3s.client.apis.Media.put_medium({
 				id: state.content[i],
 				media: {
 					id: state.content[i],
@@ -32,7 +32,7 @@ const actions = {
 			})
 				.then(req => {
 					console.log(req);
-					commit('settings/SET_LOADING', false, {
+					commit('c3s/settings/SET_LOADING', false, {
 						root: true
 					});
 					if (i === state.content.length - 1) {
@@ -40,7 +40,7 @@ const actions = {
 					}
 				})
 				.catch((e) => {
-					commit('settings/SET_LOADING', false, {
+					commit('c3s/settings/SET_LOADING', false, {
 						root: true
 					});
 					console.error(e);

@@ -1,0 +1,3904 @@
+{
+  "client": {
+    "url": "https://wenker.citizenscience.ch/api/v1/swagger.json",
+    "requestInterceptor": {
+      "_custom": {
+        "type": "function",
+        "display": "<span>ƒ</span> requestInterceptor(req)"
+      }
+    },
+    "originalSpec": "__vue_devtool_undefined__",
+    "spec": {
+      "basePath": "/api/v1",
+      "consumes": [
+        "application/json"
+      ],
+      "host": "wenker.citizenscience.ch",
+      "info": {
+        "title": "CCCS",
+        "version": "0.1"
+      },
+      "paths": {
+        "/comments": {
+          "get": {
+            "operationId": "get_comments",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "search_term",
+                "type": "string"
+              },
+              {
+                "default": 20,
+                "in": "query",
+                "minimum": 0,
+                "name": "limit",
+                "type": "integer"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "List of comments",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "object"
+                      },
+                      "parent": {
+                        "type": "string"
+                      },
+                      "source_id": {
+                        "description": "The task or project or user it is related to",
+                        "type": "string"
+                      },
+                      "user_id": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "source_id",
+                      "content",
+                      "user_id"
+                    ]
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Get a single comment",
+            "tags": [
+              "Comments"
+            ],
+            "x-swagger-router-controller": "api.comment.model",
+            "__originalOperationId": "get_comments",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "post": {
+            "operationId": "create_comment",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "comment",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "parent": {
+                      "type": "string"
+                    },
+                    "source_id": {
+                      "description": "The task or project or user it is related to",
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "source_id",
+                    "content",
+                    "user_id"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Comment created",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "parent": {
+                      "type": "string"
+                    },
+                    "source_id": {
+                      "description": "The task or project or user it is related to",
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "source_id",
+                    "content",
+                    "user_id"
+                  ]
+                }
+              },
+              "409": {
+                "description": "Comment already exists"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Post a comment",
+            "tags": [
+              "Comments"
+            ],
+            "x-swagger-router-controller": "api.comment.model",
+            "__originalOperationId": "create_comment",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/comments/{id}": {
+          "delete": {
+            "operationId": "delete_comment",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "204": {
+                "description": "Comment was deleted"
+              },
+              "404": {
+                "description": "Comment does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Remove a Comment",
+            "tags": [
+              "Comments"
+            ],
+            "x-swagger-router-controller": "api.comment.model",
+            "__originalOperationId": "delete_comment",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "get": {
+            "operationId": "get_comment",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return comment",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "parent": {
+                      "type": "string"
+                    },
+                    "source_id": {
+                      "description": "The task or project or user it is related to",
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "source_id",
+                    "content",
+                    "user_id"
+                  ]
+                }
+              },
+              "404": {
+                "description": "Comment does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Get a single comment",
+            "tags": [
+              "Comments"
+            ],
+            "x-swagger-router-controller": "api.comment.model",
+            "__originalOperationId": "get_comment",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "put": {
+            "operationId": "update_comment",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "submission",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "parent": {
+                      "type": "string"
+                    },
+                    "source_id": {
+                      "description": "The task or project or user it is related to",
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "source_id",
+                    "content",
+                    "user_id"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Comment modified"
+              },
+              "201": {
+                "description": "New Comment created"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Modify/Create a Comment",
+            "tags": [
+              "Comments"
+            ],
+            "x-swagger-router-controller": "api.comment.model",
+            "__originalOperationId": "update_comment",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/groups": {
+          "get": {
+            "description": "Get a list of groups",
+            "operationId": "get_groups",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "search_term",
+                "type": "string"
+              },
+              {
+                "default": 20,
+                "in": "query",
+                "minimum": 0,
+                "name": "limit",
+                "type": "integer"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "List of groups",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "api_key": {
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "created_by": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "description"
+                    ]
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "tags": [
+              "Groups"
+            ],
+            "x-swagger-router-controller": "api.group.model",
+            "__originalOperationId": "get_groups",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "post": {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "Add a new group",
+            "operationId": "create_group",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "group",
+                "required": true,
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "description"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Group Created"
+              },
+              "409": {
+                "description": "Group already exists"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "tags": [
+              "Groups"
+            ],
+            "x-swagger-router-controller": "api.group.model",
+            "__originalOperationId": "create_group",
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/groups/{id}": {
+          "delete": {
+            "operationId": "delete_group",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Group Deleted"
+              },
+              "404": {
+                "description": "Group does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Delete a group",
+            "tags": [
+              "Groups"
+            ],
+            "x-swagger-router-controller": "api.group.model",
+            "__originalOperationId": "delete_group",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "get": {
+            "operationId": "get_group",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return Organisation",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "description"
+                  ]
+                }
+              },
+              "404": {
+                "description": "Group does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Get a single group",
+            "tags": [
+              "Groups"
+            ],
+            "x-swagger-router-controller": "api.group.model",
+            "__originalOperationId": "get_group",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "put": {
+            "operationId": "update_group",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "group",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "description"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return Group",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "description"
+                  ]
+                }
+              },
+              "404": {
+                "description": "Group does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Modify a group",
+            "tags": [
+              "Groups"
+            ],
+            "x-swagger-router-controller": "api.group.model",
+            "__originalOperationId": "update_group",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/media": {
+          "get": {
+            "description": "Get a list of media",
+            "operationId": "get_media",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "search_term",
+                "type": "string"
+              },
+              {
+                "default": 20,
+                "in": "query",
+                "minimum": 0,
+                "name": "limit",
+                "type": "integer"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "List of media",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "filetype": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "Name of file",
+                        "type": "string"
+                      },
+                      "path": {
+                        "description": "Local or remote path",
+                        "type": "string"
+                      },
+                      "source_id": {
+                        "description": "The task or project or user it is related to",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "source_id",
+                      "path",
+                      "name"
+                    ]
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "tags": [
+              "Media"
+            ],
+            "x-swagger-router-controller": "api.media.model",
+            "__originalOperationId": "get_media",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "post": {
+            "description": "The media details (for files already on the server or remotely hosted)",
+            "operationId": "create_medium",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "media",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "filetype": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of file",
+                      "type": "string"
+                    },
+                    "path": {
+                      "description": "Local or remote path",
+                      "type": "string"
+                    },
+                    "source_id": {
+                      "description": "The task or project or user it is related to",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "source_id",
+                    "path",
+                    "name"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Media attached"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "tags": [
+              "Media"
+            ],
+            "x-swagger-router-controller": "api.media.model",
+            "__originalOperationId": "create_medium",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/media/source/{id}": {
+          "delete": {
+            "operationId": "delete_medium",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Media deleted"
+              },
+              "404": {
+                "description": "Media does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Delete all media files related to  source",
+            "tags": [
+              "Media"
+            ],
+            "x-swagger-router-controller": "api.media.model",
+            "__originalOperationId": "delete_medium",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "get": {
+            "operationId": "get_for_source",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return Media",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "filetype": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "Name of file",
+                        "type": "string"
+                      },
+                      "path": {
+                        "description": "Local or remote path",
+                        "type": "string"
+                      },
+                      "source_id": {
+                        "description": "The task or project or user it is related to",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "source_id",
+                      "path",
+                      "name"
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "404": {
+                "description": "Media does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Query media for a specific task or project",
+            "tags": [
+              "Media"
+            ],
+            "x-swagger-router-controller": "api.media.custom",
+            "__originalOperationId": "get_for_source",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/media/upload": {
+          "post": {
+            "consumes": [
+              "multipart/form-data"
+            ],
+            "description": "Add a new media attachment",
+            "operationId": "upload",
+            "parameters": [
+              {
+                "description": "The file to be uploaded",
+                "in": "formData",
+                "name": "attachment",
+                "required": true,
+                "type": "file"
+              },
+              {
+                "in": "formData",
+                "name": "id",
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Media attached"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "tags": [
+              "Media"
+            ],
+            "x-swagger-router-controller": "api.media.custom",
+            "__originalOperationId": "upload",
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/media/{id}": {
+          "get": {
+            "operationId": "get_medium",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return Media",
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "404": {
+                "description": "Media does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Get a single file",
+            "tags": [
+              "Media"
+            ],
+            "x-swagger-router-controller": "api.media.model",
+            "__originalOperationId": "get_medium",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "put": {
+            "operationId": "update_medium",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "media",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "filetype": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of file",
+                      "type": "string"
+                    },
+                    "path": {
+                      "description": "Local or remote path",
+                      "type": "string"
+                    },
+                    "source_id": {
+                      "description": "The task or project or user it is related to",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "source_id",
+                    "path",
+                    "name"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Return Media",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "filetype": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of file",
+                      "type": "string"
+                    },
+                    "path": {
+                      "description": "Local or remote path",
+                      "type": "string"
+                    },
+                    "source_id": {
+                      "description": "The task or project or user it is related to",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "source_id",
+                    "path",
+                    "name"
+                  ]
+                }
+              },
+              "404": {
+                "description": "Media does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Put a single file",
+            "tags": [
+              "Media"
+            ],
+            "x-swagger-router-controller": "api.media.model",
+            "__originalOperationId": "update_medium",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/projects": {
+          "get": {
+            "operationId": "get_projects",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "search_term",
+                "type": "string"
+              },
+              {
+                "default": 20,
+                "in": "query",
+                "minimum": 0,
+                "name": "limit",
+                "type": "integer"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return projects",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "owned_by": {
+                        "type": "string"
+                      },
+                      "platform": {
+                        "enum": [
+                          "Desktop",
+                          "Mobile",
+                          "Both"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "description",
+                      "platform"
+                    ]
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "summary": "Get all projects",
+            "tags": [
+              "Projects"
+            ],
+            "x-swagger-router-controller": "api.project.model",
+            "__originalOperationId": "get_projects",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "post": {
+            "operationId": "create_project",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "project",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owned_by": {
+                      "type": "string"
+                    },
+                    "platform": {
+                      "enum": [
+                        "Desktop",
+                        "Mobile",
+                        "Both"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "description",
+                    "platform"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "New project created"
+              },
+              "409": {
+                "description": "Project already exists"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Post a project",
+            "tags": [
+              "Projects"
+            ],
+            "x-swagger-router-controller": "api.project.model",
+            "__originalOperationId": "create_project",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/projects/{id}": {
+          "delete": {
+            "operationId": "delete_project",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "204": {
+                "description": "Project was deleted"
+              },
+              "404": {
+                "description": "Project does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Remove a project",
+            "tags": [
+              "Projects"
+            ],
+            "x-swagger-router-controller": "api.project.model",
+            "__originalOperationId": "delete_project",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "get": {
+            "operationId": "get_project",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return project"
+              },
+              "404": {
+                "description": "Project does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Get a single project",
+            "tags": [
+              "Projects"
+            ],
+            "x-swagger-router-controller": "api.project.model",
+            "__originalOperationId": "get_project",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "put": {
+            "operationId": "update_project",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "project",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owned_by": {
+                      "type": "string"
+                    },
+                    "platform": {
+                      "enum": [
+                        "Desktop",
+                        "Mobile",
+                        "Both"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "description",
+                    "platform"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Project modified"
+              },
+              "201": {
+                "description": "New project created"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Modify/Create a project",
+            "tags": [
+              "Projects"
+            ],
+            "x-swagger-router-controller": "api.project.model",
+            "__originalOperationId": "update_project",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/projects/{id}/stats": {
+          "get": {
+            "operationId": "project_stats",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Project stats"
+              },
+              "404": {
+                "description": "Project does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "tags": [
+              "Projects"
+            ],
+            "x-swagger-router-controller": "api.project.custom",
+            "__originalOperationId": "project_stats",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/projects/{id}/tasks": {
+          "get": {
+            "operationId": "project_tasks",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "default": 0,
+                "in": "query",
+                "name": "offset",
+                "type": "number"
+              },
+              {
+                "default": 20,
+                "in": "query",
+                "minimum": 0,
+                "name": "limit",
+                "type": "integer"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Project tasks"
+              },
+              "404": {
+                "description": "Project does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "tags": [
+              "Projects"
+            ],
+            "x-swagger-router-controller": "api.task.custom",
+            "__originalOperationId": "project_tasks",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/projects/{id}/tasks/random": {
+          "get": {
+            "operationId": "get_random",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "query",
+                "name": "search",
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "A single random project task"
+              },
+              "404": {
+                "description": "Project does not exist or task not found"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "tags": [
+              "Projects"
+            ],
+            "x-swagger-router-controller": "api.task.custom",
+            "__originalOperationId": "get_random",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/submission/{id}": {
+          "delete": {
+            "operationId": "delete_submission",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "204": {
+                "description": "Submission was deleted"
+              },
+              "404": {
+                "description": "Submission does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Remove a submission",
+            "tags": [
+              "Submissions"
+            ],
+            "x-swagger-router-controller": "api.submission.model",
+            "__originalOperationId": "delete_submission",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "get": {
+            "operationId": "get_submission",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return submission",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "task_id",
+                    "user_id"
+                  ]
+                }
+              },
+              "404": {
+                "description": "Submission does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Get a single submission",
+            "tags": [
+              "Submissions"
+            ],
+            "x-swagger-router-controller": "api.submission.model",
+            "__originalOperationId": "get_submission",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "put": {
+            "operationId": "update_submission",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "submission",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "task_id",
+                    "user_id"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Submission modified"
+              },
+              "201": {
+                "description": "New submission created"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Modify/Create a submission",
+            "tags": [
+              "Submissions"
+            ],
+            "x-swagger-router-controller": "api.submission.model",
+            "__originalOperationId": "update_submission",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/submissions": {
+          "get": {
+            "operationId": "get_submissions",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "search_term",
+                "type": "string"
+              },
+              {
+                "default": 20,
+                "in": "query",
+                "minimum": 0,
+                "name": "limit",
+                "type": "integer"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "List of submissions",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "object"
+                      },
+                      "task_id": {
+                        "type": "string"
+                      },
+                      "user_id": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "task_id",
+                      "user_id"
+                    ]
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Get a single submission",
+            "tags": [
+              "Submissions"
+            ],
+            "x-swagger-router-controller": "api.submission.model",
+            "__originalOperationId": "get_submissions",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "post": {
+            "operationId": "create_submission",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "submission",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "task_id",
+                    "user_id"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Submission created",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "task_id",
+                    "user_id"
+                  ]
+                }
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Post a submission",
+            "tags": [
+              "Submissions"
+            ],
+            "x-swagger-router-controller": "api.submission.model",
+            "__originalOperationId": "create_submission",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/tasks": {
+          "delete": {
+            "operationId": "delete_tasks",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "tasks",
+                "schema": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              }
+            ],
+            "responses": {
+              "204": {
+                "description": "Tasks were deleted"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Delete an array of tasks",
+            "tags": [
+              "Tasks"
+            ],
+            "x-swagger-router-controller": "api.task.custom",
+            "__originalOperationId": "delete_tasks",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "get": {
+            "operationId": "get_tasks",
+            "parameters": [
+              {
+                "default": 0,
+                "in": "query",
+                "name": "offset",
+                "type": "number"
+              },
+              {
+                "in": "query",
+                "name": "search_term",
+                "type": "string"
+              },
+              {
+                "default": 20,
+                "in": "query",
+                "minimum": 0,
+                "name": "limit",
+                "type": "integer"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "List of tasks",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "object"
+                      },
+                      "project_id": {
+                        "type": "string"
+                      },
+                      "required": {
+                        "type": "boolean"
+                      },
+                      "sequence": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "project_id",
+                      "sequence",
+                      "title",
+                      "content",
+                      "required"
+                    ]
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Get a list of tasks",
+            "tags": [
+              "Tasks"
+            ],
+            "x-swagger-router-controller": "api.task.model",
+            "__originalOperationId": "get_tasks",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "post": {
+            "operationId": "create_tasks",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "tasks",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "object"
+                      },
+                      "project_id": {
+                        "type": "string"
+                      },
+                      "required": {
+                        "type": "boolean"
+                      },
+                      "sequence": {
+                        "type": "integer"
+                      },
+                      "title": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "project_id",
+                      "sequence",
+                      "title",
+                      "content",
+                      "required"
+                    ]
+                  },
+                  "type": "array"
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Task created",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "project_id": {
+                      "type": "string"
+                    },
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "sequence": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "project_id",
+                    "sequence",
+                    "title",
+                    "content",
+                    "required"
+                  ]
+                }
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Post an array of tasks",
+            "tags": [
+              "Tasks"
+            ],
+            "x-swagger-router-controller": "api.task.model",
+            "__originalOperationId": "create_tasks",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/tasks/{id}": {
+          "delete": {
+            "operationId": "delete_task",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "204": {
+                "description": "Task was deleted"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Delete a single tasks",
+            "tags": [
+              "Tasks"
+            ],
+            "x-swagger-router-controller": "api.task.model",
+            "__originalOperationId": "delete_task",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "get": {
+            "operationId": "get_task",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return task",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "project_id": {
+                      "type": "string"
+                    },
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "sequence": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "project_id",
+                    "sequence",
+                    "title",
+                    "content",
+                    "required"
+                  ]
+                }
+              },
+              "404": {
+                "description": "Task does not exist"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Get a single task",
+            "tags": [
+              "Tasks"
+            ],
+            "x-swagger-router-controller": "api.task.model",
+            "__originalOperationId": "get_task",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "put": {
+            "operationId": "update_task",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "task",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "object"
+                    },
+                    "project_id": {
+                      "type": "string"
+                    },
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "sequence": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "project_id",
+                    "sequence",
+                    "title",
+                    "content",
+                    "required"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "New task created"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              }
+            ],
+            "summary": "Modify/Create a task",
+            "tags": [
+              "Tasks"
+            ],
+            "x-swagger-router-controller": "api.task.model",
+            "__originalOperationId": "update_task",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/users": {
+          "get": {
+            "operationId": "get_users",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "search_term",
+                "type": "string"
+              },
+              {
+                "default": 20,
+                "in": "query",
+                "minimum": 0,
+                "name": "limit",
+                "type": "integer"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return all users",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "api_key": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "format": "email",
+                        "type": "string"
+                      },
+                      "pwd": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "security": [
+              {
+                "oauth2": []
+              }
+            ],
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.user.model",
+            "__originalOperationId": "get_users",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/users/authorize": {
+          "post": {
+            "operationId": "generate",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "token",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "project_id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "required": [
+                    "user_id",
+                    "project_id"
+                  ]
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Token created"
+              }
+            },
+            "summary": "Post auth for token response",
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.otoken",
+            "__originalOperationId": "generate",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/users/login": {
+          "post": {
+            "operationId": "login",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "user",
+                "required": true,
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "pwd": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Login successful"
+              },
+              "401": {
+                "description": "Incorrect login details"
+              },
+              "404": {
+                "description": "User not found"
+              }
+            },
+            "summary": "Allow a user to login",
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.user.custom",
+            "__originalOperationId": "login",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/users/register": {
+          "post": {
+            "operationId": "create_user",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "user",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "pwd": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Created user"
+              },
+              "409": {
+                "description": "User exists"
+              }
+            },
+            "summary": "Registration end point for a user account",
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.user.model",
+            "__originalOperationId": "create_user",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/users/reset": {
+          "get": {
+            "operationId": "reset",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "email",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Password reset"
+              }
+            },
+            "summary": "Reset user password",
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.user.custom",
+            "__originalOperationId": "reset",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "post": {
+            "operationId": "verify_reset",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "reset",
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "pwd": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "token",
+                    "pwd",
+                    "id"
+                  ],
+                  "type": "object"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Verified and reset"
+              },
+              "401": {
+                "description": "Unauthorised user"
+              }
+            },
+            "summary": "Verify password reset token",
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.user.custom",
+            "__originalOperationId": "verify_reset",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/users/validate": {
+          "get": {
+            "operationId": "validate",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "key",
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Token info object",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "pwd": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "summary": "OAuth2 token info",
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.user.custom",
+            "__originalOperationId": "validate",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/users/{id}": {
+          "get": {
+            "operationId": "get_user",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return users",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "pwd": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "404": {
+                "description": "User not found"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Get all users (or those matching an ID)",
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.user.model",
+            "__originalOperationId": "get_user",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          },
+          "put": {
+            "operationId": "update_user",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "in": "body",
+                "name": "user",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "pwd": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "User updated",
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "maxLength": 20,
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "info": {
+                      "description": "A JSON field to extend a model with extra info",
+                      "type": "object"
+                    },
+                    "updated_at": {
+                      "description": "Creation time",
+                      "example": "2015-07-07T15:49:51.230+02:00",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "api_key": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "pwd": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "404": {
+                "description": "User not found"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Update user details (change password, add details etc)",
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.user.model",
+            "__originalOperationId": "update_user",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        },
+        "/users/{id}/submissions": {
+          "get": {
+            "operationId": "get_subs",
+            "parameters": [
+              {
+                "description": "The unique identifer for an Object (i.e. User, Task, Project, Submission etc)",
+                "in": "path",
+                "name": "id",
+                "pattern": "^[a-zA-Z0-9-]+$",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Return submissions",
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "id": {
+                        "maxLength": 20,
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "info": {
+                        "description": "A JSON field to extend a model with extra info",
+                        "type": "object"
+                      },
+                      "updated_at": {
+                        "description": "Creation time",
+                        "example": "2015-07-07T15:49:51.230+02:00",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "object"
+                      },
+                      "task_id": {
+                        "type": "string"
+                      },
+                      "user_id": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "task_id",
+                      "user_id"
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "404": {
+                "description": "User not found"
+              }
+            },
+            "security": [
+              {
+                "apiKeyHeader": []
+              },
+              {
+                "anonUser": []
+              }
+            ],
+            "summary": "Get all submissions for a user (or those matching an ID)",
+            "tags": [
+              "Users"
+            ],
+            "x-swagger-router-controller": "api.user.custom",
+            "__originalOperationId": "get_subs",
+            "consumes": [
+              "application/json"
+            ],
+            "produces": [
+              "application/json"
+            ]
+          }
+        }
+      },
+      "produces": [
+        "application/json"
+      ],
+      "schemes": [
+        "https"
+      ],
+      "securityDefinitions": {
+        "apiKeyHeader": {
+          "in": "header",
+          "name": "X-API-KEY",
+          "type": "apiKey"
+        },
+        "oauth2": {
+          "authorizationUrl": "http://wenker.citizenscience.ch:8080/oauth/authorize",
+          "flow": "implicit",
+          "scopes": {
+            "apiKey": "Unique identifier of the user accessing the service."
+          },
+          "type": "oauth2",
+          "x-tokenInfoUrl": "http://wenker.citizenscience.ch:8080/api/v1/users/validate"
+        }
+      },
+      "swagger": "2.0",
+      "$$normalized": true
+    },
+    "errors": [],
+    "apis": {
+      "Comments": {
+        "get_comments": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "create_comment": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "delete_comment": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_comment": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "update_comment": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        }
+      },
+      "Groups": {
+        "get_groups": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "create_group": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "delete_group": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_group": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "update_group": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        }
+      },
+      "Media": {
+        "get_media": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "create_medium": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "delete_medium": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_for_source": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "upload": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_medium": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "update_medium": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        }
+      },
+      "Projects": {
+        "get_projects": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "create_project": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "delete_project": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_project": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "update_project": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "project_stats": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "project_tasks": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_random": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        }
+      },
+      "Submissions": {
+        "delete_submission": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_submission": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "update_submission": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_submissions": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "create_submission": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        }
+      },
+      "Tasks": {
+        "delete_tasks": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_tasks": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "create_tasks": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "delete_task": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_task": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "update_task": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        }
+      },
+      "Users": {
+        "get_users": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "generate": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "login": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "create_user": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "reset": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "verify_reset": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "validate": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_user": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "update_user": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        },
+        "get_subs": {
+          "_custom": {
+            "type": "function",
+            "display": "<span>ƒ</span> (t)"
+          }
+        }
+      }
+    }
+  },
+  "host": "__vue_devtool_undefined__",
+  "user": {
+    "user": null,
+    "currentUser": null
+  },
+  "activity": {
+    "activities": [],
+    "activity": null,
+    "stats": null,
+    "media": []
+  },
+  "task": {
+    "tasks": [],
+    "task": null,
+    "media": []
+  },
+  "media": {
+    "media": []
+  },
+  "submission": {
+    "media": "__vue_devtool_undefined__",
+    "submission": {}
+  },
+  "comments": {
+    "comments": [],
+    "comment": null
+  }
+}

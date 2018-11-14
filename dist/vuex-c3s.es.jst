@@ -149,7 +149,7 @@ var actions$1 = {
               });
               _context.prev = 1;
               _context.next = 4;
-              return rootState.api.client.apis.Users.login(user);
+              return rootState.c3s.client.apis.Users.login(user);
 
             case 4:
               res = _context.sent;
@@ -244,7 +244,7 @@ var actions$1 = {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return rootState.api.client.apis.Users.reset({ email: email });
+              return rootState.c3s.client.apis.Users.reset({ email: email });
 
             case 3:
               res = _context3.sent;
@@ -286,7 +286,7 @@ var actions$1 = {
             case 0:
               _context4.prev = 0;
               _context4.next = 3;
-              return rootState.api.client.apis.Users.verify_reset({ reset: reset });
+              return rootState.c3s.client.apis.Users.verify_reset({ reset: reset });
 
             case 3:
               res = _context4.sent;
@@ -336,7 +336,7 @@ var actions$1 = {
               });
               _context5.prev = 1;
               _context5.next = 4;
-              return rootState.api.client.apis.Users.post({ user: user });
+              return rootState.c3s.client.apis.Users.post({ user: user });
 
             case 4:
               res = _context5.sent;
@@ -377,7 +377,7 @@ var actions$1 = {
         commit = _ref12.commit,
         rootState = _ref12.rootState;
 
-    rootState.api.client.apis.Users.get_one({
+    rootState.c3s.client.apis.Users.get_one({
       id: id
     }).then(function (req) {
       commit('settings/SET_LOADING', false, {
@@ -408,7 +408,7 @@ var actions$1 = {
             case 0:
               _context6.prev = 0;
               _context6.next = 3;
-              return rootState.api.client.apis.Users.put({ id: id, user: info });
+              return rootState.c3s.client.apis.Users.put({ id: id, user: info });
 
             case 3:
               res = _context6.sent;
@@ -458,7 +458,7 @@ var actions$1 = {
               }
 
               _context7.next = 4;
-              return rootState.api.client.apis.Users.validate({ key: state.currentUser.api_key });
+              return rootState.c3s.client.apis.Users.validate({ key: state.currentUser.api_key });
 
             case 4:
               res = _context7.sent;
@@ -538,7 +538,7 @@ var actions$2 = {
     commit('settings/SET_LOADING', true, {
       root: true
     });
-    rootState.api.client.apis.Projects.get_projects({
+    rootState.c3s.client.apis.Projects.get_projects({
       search_term: search || undefined
     }).then(function (req) {
       commit('SET_PROJECTS', req.body);
@@ -576,7 +576,7 @@ var actions$2 = {
               });
               _context.prev = 1;
               _context.next = 4;
-              return rootState.api.client.apis.Projects.get_project({ id: id });
+              return rootState.c3s.client.apis.Projects.get_project({ id: id });
 
             case 4:
               res = _context.sent;
@@ -642,7 +642,7 @@ var actions$2 = {
               });
               _context2.prev = 1;
               _context2.next = 4;
-              return rootState.api.client.apis.Projects.project_tasks({
+              return rootState.c3s.client.apis.Projects.project_tasks({
                 id: id, limit: limit, offset: offset
               });
 
@@ -689,7 +689,7 @@ var actions$2 = {
     commit('settings/SET_LOADING', true, {
       root: true
     });
-    rootState.api.client.apis.Projects.project_stats({
+    rootState.c3s.client.apis.Projects.project_stats({
       id: id
     }).then(function (req) {
       commit('settings/SET_LOADING', false, {
@@ -710,7 +710,7 @@ var actions$2 = {
         rootState = _ref11.rootState;
 
     commit('settings/SET_LOADING', true, { root: true });
-    rootState.api.client.apis.Media.get_media({
+    rootState.c3s.client.apis.Media.get_media({
       search_term: search || undefined
     }).then(function (req) {
       commit('SET_MEDIA', req.body);
@@ -728,7 +728,7 @@ var actions$2 = {
     commit('settings/SET_LOADING', true, {
       root: true
     });
-    rootState.api.client.apis.Projects.post({
+    rootState.c3s.client.apis.Projects.post({
       project: project
     }).then(function (req) {
       console.log(req);
@@ -752,7 +752,7 @@ var actions$2 = {
     commit('settings/SET_LOADING', true, {
       root: true
     });
-    rootState.api.client.apis.Projects.delete({
+    rootState.c3s.client.apis.Projects.delete({
       id: pid
     }).then(function (req) {
       commit('SET_PROJECT', null);
@@ -828,7 +828,7 @@ var state$3 = {
               commit('settings/SET_LOADING', true, { root: true });
               console.log(search);
               _context.next = 5;
-              return rootState.api.client.apis.Tasks.get_tasks({ search_term: search || undefined });
+              return rootState.c3s.client.apis.Tasks.get_tasks({ search_term: search || undefined });
 
             case 5:
               _tasks = _context.sent;
@@ -878,9 +878,9 @@ var state$3 = {
               _context2.prev = 0;
 
               commit('settings/SET_LOADING', true, { root: true });
-              console.log(rootState.api.client.apis.Projects);
+              console.log(rootState.c3s.client.apis.Projects);
               _context2.next = 5;
-              return rootState.api.client.apis.Projects.get_task_region({ id: pid, region: region || undefined });
+              return rootState.c3s.client.apis.Projects.get_task_region({ id: pid, region: region || undefined });
 
             case 5:
               task = _context2.sent;
@@ -925,7 +925,7 @@ var state$3 = {
               commit('settings/SET_LOADING', true, { root: true });
               _context3.prev = 1;
               _context3.next = 4;
-              return rootState.api.client.apis.Tasks.get_task({ id: id });
+              return rootState.c3s.client.apis.Tasks.get_task({ id: id });
 
             case 4:
               task = _context3.sent;
@@ -974,7 +974,7 @@ var state$3 = {
               commit('settings/SET_LOADING', true, { root: true });
               _context4.prev = 1;
               _context4.next = 4;
-              return rootState.api.client.apis.Projects.get_random({ id: id, search: search });
+              return rootState.c3s.client.apis.Projects.get_random({ id: id, search: search });
 
             case 4:
               task = _context4.sent;
@@ -1011,7 +1011,7 @@ var state$3 = {
         rootState = _ref13.rootState;
 
     commit('settings/SET_LOADING', true, { root: true });
-    rootState.api.client.apis.Projects.project_tasks({
+    rootState.c3s.client.apis.Projects.project_tasks({
       id: id
     }).then(function (res) {
       res.body.forEach(function (t) {
@@ -1039,7 +1039,7 @@ var state$3 = {
               commit('settings/SET_LOADING', true, { root: true });
               _context5.prev = 1;
               _context5.next = 4;
-              return rootState.api.client.apis.Tasks.create_tasks({
+              return rootState.c3s.client.apis.Tasks.create_tasks({
                 tasks: tasks
               });
 
@@ -1080,7 +1080,7 @@ var state$3 = {
         rootState = _ref16.rootState;
 
     commit('settings/SET_LOADING', true, { root: true });
-    rootState.api.client.apis.Tasks.delete_tasks({
+    rootState.c3s.client.apis.Tasks.delete_tasks({
       tasks: tasks
     }).then(function (res) {
       commit('SET_TASKS', res.body);
@@ -1135,7 +1135,7 @@ var actions$4 = {
         dispatch = _ref.dispatch;
 
     commit('settings/SET_LOADING', true, { root: true });
-    rootState.api.client.apis.Submissions.create_submission({ submission: state.submission }).then(function (res) {
+    rootState.c3s.client.apis.Submissions.create_submission({ submission: state.submission }).then(function (res) {
       commit('settings/SET_LOADING', false, { root: true });
       commit('SET_SUBMISSION', Object.assign({}, res.body));
       if (rootState.upload.content.length > 0) {
@@ -1154,7 +1154,7 @@ var actions$4 = {
 
     commit('settings/SET_LOADING', true, { root: true });
     console.log(this.user);
-    rootState.api.client.apis.Submissions.update_submission({ id: submission.id, submission: submission }).then(function (req) {
+    rootState.c3s.client.apis.Submissions.update_submission({ id: submission.id, submission: submission }).then(function (req) {
       commit('settings/SET_LOADING', false, { root: true });
       commit('SET_SUBMISSION', req.body);
     }).catch(function (err) {
@@ -1205,7 +1205,7 @@ var actions$5 = {
         rootState = _ref.rootState;
 
     commit('settings/SET_LOADING', true, { root: true });
-    rootState.api.client.apis.Media.get_media({
+    rootState.c3s.client.apis.Media.get_media({
       search_term: search || undefined
     }).then(function (req) {
       commit('SET_MEDIA', req.body);
@@ -1221,7 +1221,7 @@ var actions$5 = {
         rootState = _ref2.rootState;
 
     commit('settings/SET_LOADING', true, { root: true });
-    rootState.api.client.apis.Media.delete_medium({
+    rootState.c3s.client.apis.Media.delete_medium({
       id: id || undefined
     }).then(function (req) {
       commit('settings/SET_LOADING', false, { root: true });
@@ -1239,7 +1239,7 @@ var actions$5 = {
         rootState = _ref3.rootState;
 
     commit('settings/SET_LOADING', true, { root: true });
-    rootState.api.client.Media.upload(medium).then(function (req) {
+    rootState.c3s.client.Media.upload(medium).then(function (req) {
       commit('settings/SET_LOADING', false, { root: true });
       console.log(req);
       _this.fileSaved = true;
@@ -1290,7 +1290,7 @@ var actions$6 = {
         root: true
       });
       console.log(state.content[i]);
-      rootState.api.client.apis.Media.put_medium({
+      rootState.c3s.client.apis.Media.put_medium({
         id: state.content[i],
         media: {
           id: state.content[i],

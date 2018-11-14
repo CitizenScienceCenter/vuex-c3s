@@ -2,8 +2,8 @@ import makeRequest from './utils';
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-	activities: [],
-	activity: null,
+	projects: [],
+	project: null,
 	stats: null,
 	media: []
 };
@@ -14,7 +14,7 @@ const getters = {};
 // actions
 const actions = {
 	/**
-	 * Retrieve an array of activities based on a provided query object
+	 * Retrieve an array of projects based on a provided query object
 	 * @param state
 	 * @param commit
 	 * @param dispatch
@@ -22,13 +22,13 @@ const actions = {
 	 * @param search
 	 * @returns {Promise<*|boolean|void>}
 	 */
-	getActivities({
+	getProjects({
 		state,
 		commit,
 		dispatch,
 		rootState
 	}, search) {
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {search_term: search || undefined }, 'activity/SET_ACTIVITIES');
+		return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {search_term: search || undefined }, 'c3s/project/SET_PROJECTS');
 	},
 	/**
 	 * Retrieve a single activity based on the ID
@@ -51,32 +51,25 @@ const actions = {
 			dispatch('media/getTasks', [id, 1, 0], {root: true});
 		}
 		dispatch('getStats', id);
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {id: id }, 'c3s/activity/SET_ACTIVITY');
-	},
-	getStats({
-		state,
-		commit,
-		rootState
-	}, id) {
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.activity_stats, {id: id }, 'c3s/activity/SET_STATS');
+		return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project, {id: id }, 'c3s/project/SET_PROJECT');
 	},
 	/**
-	 * Create an activity
+	 * Create a project
 	 * @param state
 	 * @param commit
 	 * @param rootState
 	 * @param activity
 	 * @returns {Promise<*|boolean|void>}
 	 */
-	createActivity({
+	createProject({
 		state,
 		commit,
 		rootState
 	}, activity) {
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.create_activity, {activity: activity }, 'c3s/activity/SET_ACTIVITY');
+		return makeRequest(commit, rootState.c3s.client.apis.Projects.create_project, {project: project }, 'c3s/project/SET_PROJECT');
 	},
 	/**
-	 * Delete an activity matching the supplied ID
+	 * Delete a project matching the supplied ID
 	 * @param state
 	 * @param commit
 	 * @param rootState
@@ -84,23 +77,23 @@ const actions = {
 	 * @param localRemove
 	 * @returns {Promise<*|boolean|void>}
 	 */
-	deleteActivity({
+	deleteProject({
 		state,
 		commit,
 		rootState
 	}, [pid, localRemove]) {
-		if (localRemove) commit('c3s/activity/SET_ACTIVITY', null);
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.delete_activity, {id: pid}, undefined);
+		if (localRemove) commit('c3s/project/SET_PROJECT', null);
+		return makeRequest(commit, rootState.c3s.client.apis.Projects.delete_project, {id: pid}, undefined);
 	}
 };
 
 // mutations
 const mutations = {
-	SET_ACTIVITIES(state, acts) {
-		state.activities = acts;
+	SET_PROJECTS(state, ps) {
+		state.projects = ps;
 	},
-	SET_ACTIVITY(state, act) {
-		state.activity = act;
+	SET_PROJECT(state, p) {
+		state.project = p;
 	},
 	SET_STATS(state, stats) {
 		state.stats = stats;

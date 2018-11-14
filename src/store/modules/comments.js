@@ -12,16 +12,24 @@ const getters = {
 
 // actions
 const actions = {
+	/**
+	 * Retrieve all comments matching the provided query object
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param search
+	 * @returns {Promise<void>}
+	 */
 	async getComments({ state, commit, rootState }, search) {
 		try {
-			commit('settings/SET_LOADING', true, { root: true });
-			let res = await rootState.api.client.apis.Comments.get_all({
+			commit('c3s/settings/SET_LOADING', true, { root: true });
+			let res = await rootState.c3s.client.apis.Comments.get_all({
 				search_term: search || undefined
 			});
 			commit('SET_COMMENTS', req.body);
-			commit('settings/SET_LOADING', false, { root: true });
+			commit('c3s/settings/SET_LOADING', false, { root: true });
 		} catch (err) {
-			commit('settings/SET_LOADING', false, {
+			commit('c3s/settings/SET_LOADING', false, {
 				root: true
 			});
 			commit('settings/SET_ERROR', err, {
@@ -29,19 +37,26 @@ const actions = {
 			});
 		}
 	},
-	postComment({ state, commit, rootState }, cmt) {
-		commit('settings/SET_LOADING', true, { root: true });
-		rootState.api.client.apis.Comments.post({
+	/**
+	 * Create a comment
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param cmt
+	 */
+	createComment({ state, commit, rootState }, cmt) {
+		commit('c3s/settings/SET_LOADING', true, { root: true });
+		rootState.c3s.client.apis.Comments.create_comment({
 			comment: cmt
 		})
 			.then(req => {
-				commit('settings/SET_LOADING', false, { root: true });
+				commit('c3s/settings/SET_LOADING', false, { root: true });
 			})
 			.catch(err => {
-				commit('settings/SET_LOADING', false, {
+				commit('c3s/settings/SET_LOADING', false, {
 					root: true
 				});
-				commit('settings/SET_ERROR', err, {
+				commit('c3s/settings/SET_ERROR', err, {
 					root: true
 				});
 			});

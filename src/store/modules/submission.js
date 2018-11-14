@@ -3,44 +3,51 @@ import makeRequest from './utils';
 // shape: [{ id, quantity }]
 const state = {
 	media: undefined,
-	submission: {}
+	submission: {},
+	submissions: []
 };
 
 // getters
-const getters = {
-};
+const getters = {};
 
 // actions
 const actions = {
-	postSubmission({ state, commit, rootState, dispatch }) {
-		commit('settings/SET_LOADING', true, {root: true});
-		rootState.api.client.apis.Submissions.create_submission({submission: state.submission})
-			.then(res => {
-				commit('settings/SET_LOADING', false, {root: true});
-				commit('SET_SUBMISSION', Object.assign({}, res.body));
-				if (rootState.upload.content.length > 0) {
-					dispatch('upload/addID', res.body.id, {root: true});
-				}
-			})
-			.catch(err => {
-				commit('settings/SET_ERROR', 'Could not create Submission', {root: true});
-				commit('settings/SET_LOADING', false, {root: true});
-				console.log(err);
-			});
+	/**
+	 * Retrieve submissions matching the query object
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param search
+	 * @returns {Promise<*|boolean|void>}
+	 */
+	async getSubmissions({ state, commit, rootState }, search) {
+		return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {search_term: search || undefined }, 'c3s/submission/SET_SUBMISSIONS');
 	},
-	putSubmission({state, commit, rootState}, submission) {
-		commit('settings/SET_LOADING', true, {root: true});
-		console.log(this.user);
-		rootState.api.client.apis.Submissions.update_submission({id: submission.id, submission: submission})
-			.then(req => {
-				commit('settings/SET_LOADING', false, {root: true});
-				commit('SET_SUBMISSION', req.body);
-			})
-			.catch(err => {
-				// commit('settings/SET_ERROR', 'Could not modify Submission', {root: true})
-				commit('settings/SET_LOADING', false, {root: true});
-				console.log(err);
-			});
+	/**
+	 * Create a submission
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param dispatch
+	 * @returns {Promise<*|boolean|void>}
+	 */
+	async createSubmission({state, commit, rootState, dispatch}) {
+		// TODO handle uploading at same time
+		return makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, {submission: state.submission}, 'c3s/submission/SET_SUBMISSION');
+	},
+	/**
+	 * Update a submission based on the ID
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param submission
+	 * @returns {Promise<*|boolean|void>}
+	 */
+	async updateSubmission({state, commit, rootState}, submission) {
+		return makeRequest(commit, rootState.c3s.client.apis.Submissions.update_submission, {
+			id: submission.id,
+			submission: submission
+		}, 'submission/c3s/SET_SUBMISSION');
 	}
 };
 

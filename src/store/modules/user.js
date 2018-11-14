@@ -7,86 +7,154 @@ const state = {
 };
 
 // getters
-const getters = {
-};
+const getters = {};
 
 // actions
 const actions = {
+	/**
+	 * Login user
+	 * @param state
+	 * @param commit
+	 * @param dispatch
+	 * @param rootState
+	 * @param user
+	 * @returns {Promise<*|boolean|void>}
+	 */
 	async login({
 		state,
 		commit,
 		dispatch,
 		rootState
 	}, user) {
-		return makeRequest(rootState.api.client.apis.Users.login, user, 'SET_CURRENT_USER');
+		return makeRequest(commit, rootState.c3s.client.apis.Users.login, user, 'c3s/user/SET_CURRENT_USER');
 	},
+	/**
+	 * Create anonymouse user and register with backend
+	 * @param state
+	 * @param commit
+	 * @param dispatch
+	 * @param rootState
+	 * @returns {Promise<*>}
+	 */
 	async generateAnon({
-		state,
-		commit,
-		dispatch,
-		rootState
-	}) {
-		commit('settings/SET_LOADING', true, {root: true});
+						   state,
+						   commit,
+						   dispatch,
+						   rootState
+					   }) {
+		commit('c3s/settings/SET_LOADING', true, {root: true});
 		const now = '' + Date.now();
 		const id = 'anon' + SHA256(now);
 		const pwd = '' + SHA256(id);
 		let u = await dispatch('register', {'username': id, 'pwd': pwd});
 		return u;
 	},
+	/**
+	 * Logout user and remove from local store
+	 * @param state
+	 * @param commit
+	 */
 	logout({
-		state,
-		commit
-	}) {
-		commit('user/SET_CURRENT_USER', null, {
+			   state,
+			   commit
+		   }) {
+		commit('c3s/user/SET_CURRENT_USER', null, {
 			root: true
 		});
 	},
+	/**
+	 * Request to reset password
+	 * @param state
+	 * @param commit
+	 * @param dispatch
+	 * @param rootState
+	 * @param email
+	 * @returns {Promise<*|boolean|void>}
+	 */
 	async requestReset({
-		state,
-		commit,
-		dispatch,
-		rootState
-	}, email) {
-		return makeRequest(rootState.api.client.apis.Users.reset, {email: email}, undefined);
+						   state,
+						   commit,
+						   dispatch,
+						   rootState
+					   }, email) {
+		return makeRequest(commit, rootState.c3s.client.apis.Users.reset, {email: email}, undefined);
 	},
+	/**
+	 * Reset user password with code
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param reset
+	 * @returns {Promise<*|boolean|void>}
+	 */
 	async resetPwd({
-		state,
-		commit,
-		rootState
-	}, reset) {
-		return makeRequest(rootState.api.client.apis.Users.verify_reset, {reset: reset}, undefined);
+					   state,
+					   commit,
+					   rootState
+				   }, reset) {
+		return makeRequest(commit, rootState.c3s.client.apis.Users.verify_reset, {reset: reset}, undefined);
 	},
+	/**
+	 * Create a user account
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param user
+	 * @returns {Promise<*|boolean|void>}
+	 */
 	async register({
-		state,
-		commit,
-		rootState
-	}, user) {
-		commit('settings/SET_LOADING', true, {
-			root: true
-		});
-		return makeRequest(rootState.api.client.apis.Users.post, {user: user}, undefined);
+					   state,
+					   commit,
+					   rootState
+				   }, user) {
+		return makeRequest(commit, rootState.c3s.client.apis.Users.post, {user: user}, undefined);
 	},
-	getUser({
+	/**
+	 * Retrieve a list of users
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param id
+	 * @returns {Promise<*|boolean|void>}
+	 */
+	async getUser({
 		state,
 		commit,
 		rootState
 	}, id) {
-		return makeRequest(rootState.api.client.apis.Users.get_one, {id: id}, 'SET_USER');
+		return makeRequest(commit, rootState.c3s.client.apis.Users.get_one, {id: id}, 'c3s/user/SET_USER');
 	},
+	/**
+	 * Update user based on ID
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param id
+	 * @param info
+	 * @returns {Promise<*|boolean|void>}
+	 */
 	async updateUser({
-		state,
-		commit,
-		rootState
-	}, [id, info]) {
-		return makeRequest(rootState.api.client.apis.Users.put, {id: id, user: info}, 'SET_CURRENT_USER');
+						 state,
+						 commit,
+						 rootState
+					 }, [id, info]) {
+		return makeRequest(commit, rootState.c3s.client.apis.Users.put, {id: id, user: info}, 'c3s/user/SET_CURRENT_USER');
 	},
+	/**
+	 * Validate user existence and access based on API Key
+	 * @param state
+	 * @param commit
+	 * @param rootState
+	 * @param id
+	 * @returns {Promise<*|boolean|void>}
+	 */
 	async validate({
-		state,
-		commit,
-		rootState
-	}, id) {
+					   state,
+					   commit,
+					   rootState
+				   }, id) {
 		if (state.currentUser.api_key !== undefined) {
-			return makeRequest(rootState.api.client.apis.Users.validate, {key: state.currentUser.api_key}, 'SET_CURRENT_USER');
+			return makeRequest(commit, rootState.c3s.client.apis.Users.validate, {key: state.currentUser.api_key}, 'c3s/user/SET_CURRENT_USER');
 		}
 	}
 };

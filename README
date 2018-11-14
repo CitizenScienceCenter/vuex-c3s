@@ -1,0 +1,59 @@
+## Vuex-C3S
+
+### What?
+
+A small Vue plugin that integrates into your existing store, providing access to the Citizen Science API and allowing you to sync locally with your Vue site.
+
+## How
+
+```javascript
+import c3s from 'vuex-c3s'
+
+const swaggerURL = "https://swagger.petstore.io/swagger.json"
+Vue.use(c3s.plugin, {store, swaggerURL})
+
+***
+
+user: state => state.c3s.user.currentUser
+```
+
+## Store Structure
+
+**NB**: Below, Store properties are camel case and submodules are title case
+
+* C3S
+    * client
+    * host
+    * User
+        * user
+        * currentUser
+    * Project
+        * projects
+        * project
+        * media
+        * comments
+    * Activity
+        * activities
+        * activity
+        * media
+        * comments
+    * Task
+        * tasks
+        * task
+        * media
+        * comments
+    * Media
+        * media
+        * medium
+    * Comments
+        * comments
+        * comment
+        
+ ## Store Methods
+ 
+ Each module has the following methods available:
+ * get_**plural**search:JSON) - Retrieve all of the model, with a query object
+ * get_**singular**(id:String) - Retrieve a single model matching the ID
+ * create_**singula**(model: JSON) - Create an instance of the model
+ * update_**singular**(model:JSON, id:String) - Update an instance of the model
+ * delete_**singular**(id:String) - Delete an instance of the model

@@ -31,7 +31,15 @@ const modules = [
 		name: ['c3s', 'comments'],
 		module: C3SStore.comments
 	},
-]
+	{
+		name: ['c3s', 'projects'],
+		module: C3SStore.project
+	},
+	{
+		name: ['c3s', 'settings'],
+		module: C3SStore.settings
+	}
+];
 
 const C3SPlugin = {
 
