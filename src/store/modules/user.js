@@ -1,3 +1,4 @@
+import makeRequest from './utils';
 var SHA256 = require('crypto-js/sha256');
 // initial state
 // shape: [{ id, quantity }]

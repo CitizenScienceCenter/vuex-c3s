@@ -36,6 +36,62 @@ var api = {
   mutations: mutations
 };
 
+function makeRequest(_x, _x2, _x3, _x4) {
+  return _makeRequest.apply(this, arguments);
+}
+
+function _makeRequest() {
+  _makeRequest = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(commit, method, data, commmitMsg) {
+    var response;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            commit('c3s/settings/SET_LOADING', true, {
+              root: true
+            });
+            _context.next = 4;
+            return method(data);
+
+          case 4:
+            response = _context.sent;
+
+            if (commit !== undefined) {
+              commit(commitMsg, response.body, {
+                root: true
+              });
+            }
+
+            commit('c3s/settings/SET_LOADING', false, {
+              root: true
+            });
+            return _context.abrupt("return", response.body);
+
+          case 10:
+            _context.prev = 10;
+            _context.t0 = _context["catch"](0);
+            console.error(_context.t0);
+            commit('c3s/settings/SET_ERROR', 'Could not get Tasks', {
+              root: true
+            });
+            commit('c3s/settings/SET_LOADING', false, {
+              root: true
+            });
+            return _context.abrupt("return", false);
+
+          case 16:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, this, [[0, 10]]);
+  }));
+  return _makeRequest.apply(this, arguments);
+}
+
 var SHA256 = require('crypto-js/sha256'); // initial state
 // shape: [{ id, quantity }]
 
@@ -383,62 +439,6 @@ var user = {
   mutations: mutations$1
 };
 
-function makeRequest$1(_x, _x2, _x3, _x4) {
-  return _makeRequest.apply(this, arguments);
-}
-
-function _makeRequest() {
-  _makeRequest = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(commit, method, data, commmitMsg) {
-    var response;
-    return _regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            commit('c3s/settings/SET_LOADING', true, {
-              root: true
-            });
-            _context.next = 4;
-            return method(data);
-
-          case 4:
-            response = _context.sent;
-
-            if (commit !== undefined) {
-              commit(commitMsg, response.body, {
-                root: true
-              });
-            }
-
-            commit('c3s/settings/SET_LOADING', false, {
-              root: true
-            });
-            return _context.abrupt("return", response.body);
-
-          case 10:
-            _context.prev = 10;
-            _context.t0 = _context["catch"](0);
-            console.error(_context.t0);
-            commit('c3s/settings/SET_ERROR', 'Could not get Tasks', {
-              root: true
-            });
-            commit('c3s/settings/SET_LOADING', false, {
-              root: true
-            });
-            return _context.abrupt("return", false);
-
-          case 16:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, this, [[0, 10]]);
-  }));
-  return _makeRequest.apply(this, arguments);
-}
-
 // shape: [{ id, quantity }]
 
 var state$2 = {
@@ -465,7 +465,7 @@ var actions$2 = {
         commit = _ref.commit,
         dispatch = _ref.dispatch,
         rootState = _ref.rootState;
-    return makeRequest$1(commit, rootState.c3s.client.apis.Activities.get_activities, {
+    return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {
       search_term: search || undefined
     }, 'activity/SET_ACTIVITIES');
   },
@@ -503,7 +503,7 @@ var actions$2 = {
               }
 
               dispatch('getStats', id);
-              return _context.abrupt("return", makeRequest$1(commit, rootState.c3s.client.apis.Activities.get_activity, {
+              return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {
                 id: id
               }, 'c3s/activity/SET_ACTIVITY'));
 
@@ -523,7 +523,7 @@ var actions$2 = {
     var state = _ref5.state,
         commit = _ref5.commit,
         rootState = _ref5.rootState;
-    return makeRequest$1(commit, rootState.c3s.client.apis.Activities.activity_stats, {
+    return makeRequest(commit, rootState.c3s.client.apis.Activities.activity_stats, {
       id: id
     }, 'c3s/activity/SET_STATS');
   },
@@ -540,7 +540,7 @@ var actions$2 = {
     var state = _ref6.state,
         commit = _ref6.commit,
         rootState = _ref6.rootState;
-    return makeRequest$1(commit, rootState.c3s.client.apis.Activities.create_activity, {
+    return makeRequest(commit, rootState.c3s.client.apis.Activities.create_activity, {
       activity: activity
     }, 'c3s/activity/SET_ACTIVITY');
   },
@@ -564,7 +564,7 @@ var actions$2 = {
         localRemove = _ref9[1];
 
     if (localRemove) commit('c3s/activity/SET_ACTIVITY', null);
-    return makeRequest$1(commit, rootState.c3s.client.apis.Activities.delete_activity, {
+    return makeRequest(commit, rootState.c3s.client.apis.Activities.delete_activity, {
       id: pid
     }, undefined);
   }
@@ -620,7 +620,7 @@ var actions$3 = {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
-              return _context.abrupt("return", makeRequest$1(commit, rootState.c3s.client.apis.Tasks.get_tasks, {
+              return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {
                 search_term: search || undefined
               }, 'c3s/task/SET_TASKS'));
 
@@ -708,7 +708,7 @@ var actions$3 = {
           switch (_context4.prev = _context4.next) {
             case 0:
               state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
-              return _context4.abrupt("return", makeRequest$1(commit, rootState.c3s.client.apis.Tasks.get_task, {
+              return _context4.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task, {
                 id: id
               }, 'c3s/task/SET_TASK'));
 
@@ -768,7 +768,7 @@ var actions$3 = {
           switch (_context6.prev = _context6.next) {
             case 0:
               state = _ref10.state, commit = _ref10.commit, dispatch = _ref10.dispatch, rootState = _ref10.rootState;
-              res = makeRequest$1(commit, rootState.c3s.client.apis.Tasks.create_tasks, {
+              res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {
                 tasks: tasks
               }, undefined);
               dispatch('c3s/upload/addID', res[0].id, {
@@ -804,7 +804,7 @@ var actions$3 = {
         dispatch = _ref11.dispatch,
         rootState = _ref11.rootState;
     dispatch('SET_TASKS', null);
-    return makeRequest$1(commit, rootState.c3s.client.apis.Tasks.delete_tasks, {
+    return makeRequest(commit, rootState.c3s.client.apis.Tasks.delete_tasks, {
       tasks: tasks
     }, 'c3s/task/SET_TASKS');
   }
@@ -858,7 +858,7 @@ var actions$4 = {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
-              return _context.abrupt("return", makeRequest$1(commit, rootState.c3s.client.apis.Submissions.get_submissions, {
+              return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {
                 search_term: search || undefined
               }, 'c3s/submission/SET_SUBMISSIONS'));
 
@@ -893,7 +893,7 @@ var actions$4 = {
           switch (_context2.prev = _context2.next) {
             case 0:
               state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState, dispatch = _ref2.dispatch;
-              return _context2.abrupt("return", makeRequest$1(commit, rootState.c3s.client.apis.Submissions.create_submission, {
+              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, {
                 submission: state.submission
               }, 'c3s/submission/SET_SUBMISSION'));
 
@@ -928,7 +928,7 @@ var actions$4 = {
           switch (_context3.prev = _context3.next) {
             case 0:
               state = _ref3.state, commit = _ref3.commit, rootState = _ref3.rootState;
-              return _context3.abrupt("return", makeRequest$1(commit, rootState.c3s.client.apis.Submissions.update_submission, {
+              return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.update_submission, {
                 id: submission.id,
                 submission: submission
               }, 'submission/c3s/SET_SUBMISSION'));
@@ -969,8 +969,8 @@ var submission = {
   mutations: mutations$4
 };
 
-// initial state
 // shape: [{ id, quantity }]
+
 var state$5 = {
   media: []
 }; // getters
@@ -1054,8 +1054,8 @@ var media = {
   mutations: mutations$5
 };
 
-// initial state
 // shape: [{ id, quantity }]
+
 var state$6 = {
   id: null,
   content: []
@@ -1154,7 +1154,7 @@ var actions$7 = {
         commit = _ref.commit,
         dispatch = _ref.dispatch,
         rootState = _ref.rootState;
-    return makeRequest$1(commit, rootState.c3s.client.apis.Projects.get_projects, {
+    return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {
       search_term: search || undefined
     }, 'c3s/project/SET_PROJECTS');
   },
@@ -1192,7 +1192,7 @@ var actions$7 = {
               }
 
               dispatch('getStats', id);
-              return _context.abrupt("return", makeRequest$1(commit, rootState.c3s.client.apis.Projects.get_project, {
+              return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Projects.get_project, {
                 id: id
               }, 'c3s/project/SET_PROJECT'));
 
@@ -1221,7 +1221,7 @@ var actions$7 = {
     var state = _ref5.state,
         commit = _ref5.commit,
         rootState = _ref5.rootState;
-    return makeRequest$1(commit, rootState.c3s.client.apis.Projects.create_project, {
+    return makeRequest(commit, rootState.c3s.client.apis.Projects.create_project, {
       project: project
     }, 'c3s/project/SET_PROJECT');
   },
@@ -1245,7 +1245,7 @@ var actions$7 = {
         localRemove = _ref8[1];
 
     if (localRemove) commit('c3s/project/SET_PROJECT', null);
-    return makeRequest$1(commit, rootState.c3s.client.apis.Projects.delete_project, {
+    return makeRequest(commit, rootState.c3s.client.apis.Projects.delete_project, {
       id: pid
     }, undefined);
   }
@@ -1270,8 +1270,8 @@ var project$1 = {
   mutations: mutations$7
 };
 
-// initial state
 // shape: [{ id, quantity }]
+
 var state$8 = {
   comments: [],
   comment: null
