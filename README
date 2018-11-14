@@ -52,8 +52,14 @@ user: state => state.c3s.user.currentUser
  ## Store Methods
  
  Each module has the following methods available:
- * get_**plural**search:JSON) - Retrieve all of the model, with a query object
- * get_**singular**(id:String) - Retrieve a single model matching the ID
- * create_**singula**(model: JSON) - Create an instance of the model
- * update_**singular**(model:JSON, id:String) - Update an instance of the model
- * delete_**singular**(id:String) - Delete an instance of the model
+ * getP(search:JSON) - Retrieve all of the model, with a query object
+ * getSingular(id:String) - Retrieve a single model matching the ID
+ * createSingular(model: JSON) - Create an instance of the model
+ * updateSingular(model:JSON, id:String) - Update an instance of the model
+ * deleteSingular(id:String) - Delete an instance of the model
+ 
+ e.g.:
+ 
+ ```javascript
+this.$store.dispatch('c3s/tasks/getTask', 'abc4e6')
+```
