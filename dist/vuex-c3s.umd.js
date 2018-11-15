@@ -49,7 +49,7 @@
 	function _makeRequest() {
 	  _makeRequest = _asyncToGenerator(
 	  /*#__PURE__*/
-	  _regeneratorRuntime.mark(function _callee(commit, method, data, commmitMsg) {
+	  _regeneratorRuntime.mark(function _callee(commit, method, data, commitMsg) {
 	    var response;
 	    return _regeneratorRuntime.wrap(function _callee$(_context) {
 	      while (1) {
@@ -65,7 +65,7 @@
 	          case 4:
 	            response = _context.sent;
 
-	            if (commit !== undefined) {
+	            if (commitMsg !== undefined) {
 	              commit(commitMsg, response.body, {
 	                root: true
 	              });
@@ -293,11 +293,12 @@
 	          switch (_context5.prev = _context5.next) {
 	            case 0:
 	              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
-	              return _context5.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.post, {
+	              console.log(user);
+	              return _context5.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
 	                user: user
-	              }, undefined));
+	              }, 'c3s/user/SET_CURRENT_USER'));
 
-	            case 2:
+	            case 3:
 	            case "end":
 	              return _context5.stop();
 	          }
@@ -1392,16 +1393,32 @@
 	// shape: [{ id, quantity }]
 
 	var state$9 = {
-	  loading: false
+	  loading: false,
+	  error: null,
+	  errTimeout: 5000
 	}; // getters
 
 	var getters$9 = {}; //actions
 
-	var actions$9 = {}; // mutations
+	var actions$9 = {
+	  setError: function setError(_ref, err) {
+	    var state = _ref.state,
+	        commit = _ref.commit,
+	        rootState = _ref.rootState;
+	    console.log(err);
+	    commit('SET_ERROR', err);
+	    setTimeout(function () {
+	      commit('SET_ERROR', null);
+	    }, state.errTimeout);
+	  }
+	}; // mutations
 
 	var mutations$9 = {
 	  SET_LOADING: function SET_LOADING(state, l) {
 	    state.loading = l;
+	  },
+	  SET_ERROR: function SET_ERROR(state, e) {
+	    state.error = e;
 	  }
 	};
 	var settings = {
@@ -1426,6 +1443,16 @@
 		comments: comments,
 		settings: settings
 	});
+
+	/**
+	 * Loading primary plugin and setting up
+	 * the install method to link in to Vue instance
+	 */
+	/**
+	 * Modules array to list
+	 * the name of the submodule
+	 * and the file to import
+	 */
 
 	var modules = [{
 	  name: 'c3s',
@@ -1456,25 +1483,13 @@
 	  module: settings
 	}];
 	var C3SPlugin = {
+	  /**
+	   * Setup function for the plugin, must provide a store and a Swagger file URL
+	   * @param Vue
+	   * @param options
+	   */
 	  install: function install(Vue) {
 	    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-	    var store = options.store;
-	    var swaggerURL = options.swaggerURL;
-
-	    if (!store || !swaggerURL) {
-	      console.error('C3S: Missing store and/or Swagger URL params.');
-	      return;
-	    }
-
-	    for (var i in modules) {
-	      var m = modules[i];
-	      store.registerModule(m['name'], m['module']); // if (store.state.hasOwnProperty(m['name']) === false) {
-	      // 	console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', m['name']);
-	      // 	return;
-	      // }
-	      // TODO check why store reports this as false when it is created
-	    }
-
 	    Swagger({
 	      url: options.swaggerURL,
 	      requestInterceptor: function requestInterceptor(req) {// let u = store.getters['user/currentUser']
@@ -1484,13 +1499,42 @@
 	        // return req
 	      }
 	    }).then(function (client) {
+	      var store = options.store;
+	      var swaggerURL = options.swaggerURL;
+
+	      if (!store || !swaggerURL) {
+	        console.error('C3S: Missing store and/or Swagger URL params.');
+	        return;
+	      }
+
 	      console.log('Loaded');
+
+	      for (var i in modules) {
+	        var m = modules[i];
+	        store.registerModule(m['name'], m['module']); // if (store.state.hasOwnProperty(m['name']) === false) {
+	        // 	console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', m['name']);
+	        // 	return;
+	        // }
+	        // TODO check why store reports this as false when it is created
+	      }
+
 	      store.commit('c3s/SET_API', client);
+
+	      var isLoaded = function isLoaded() {
+	        if (store.c3s !== undefined && store.c3s.client !== null) {
+	          return true;
+	        } else {
+	          return false;
+	        }
+	      };
+
 	      Vue.prototype.$c3s = {
-	        store: C3SStore
+	        store: C3SStore,
+	        loaded: isLoaded
 	      };
 	      Vue.c3s = {
-	        store: C3SStore
+	        store: C3SStore,
+	        loaded: isLoaded
 	      };
 	    }).catch(function (err) {
 	      console.error('C3S: URL was not found or an initialisation error occurred');

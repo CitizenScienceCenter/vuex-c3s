@@ -108,7 +108,8 @@ const actions = {
 					   commit,
 					   rootState
 				   }, user) {
-		return makeRequest(commit, rootState.c3s.client.apis.Users.post, {user: user}, undefined);
+		console.log(user)
+		return makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: user}, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
 	 * Retrieve a list of users

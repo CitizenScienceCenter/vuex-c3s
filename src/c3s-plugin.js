@@ -58,23 +58,6 @@ const C3SPlugin = {
 	 */
 	install(Vue, options = {}) {
 
-		const store = options.store;
-		const swaggerURL = options.swaggerURL;
-		if (!store || !swaggerURL) {
-			console.error('C3S: Missing store and/or Swagger URL params.');
-			return;
-		}
-
-		for(let i in modules) {
-			const m = modules[i];
-			store.registerModule(m['name'], m['module']);
-			// if (store.state.hasOwnProperty(m['name']) === false) {
-			// 	console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', m['name']);
-			// 	return;
-			// }
-			// TODO check why store reports this as false when it is created
-		}
-
 		Swagger({
 			url: options.swaggerURL,
 			requestInterceptor(req) {
@@ -85,15 +68,38 @@ const C3SPlugin = {
 				// return req
 			}
 		}).then(client => {
+			const store = options.store;
+			const swaggerURL = options.swaggerURL;
+			if (!store || !swaggerURL) {
+				console.error('C3S: Missing store and/or Swagger URL params.');
+				return;
+			}
 			console.log('Loaded');
+			for(let i in modules) {
+				const m = modules[i];
+				store.registerModule(m['name'], m['module']);
+				// if (store.state.hasOwnProperty(m['name']) === false) {
+				// 	console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', m['name']);
+				// 	return;
+				// }
+				// TODO check why store reports this as false when it is created
+			}
 			store.commit('c3s/SET_API', client);
-
+			var isLoaded = function() {
+				if (store.c3s !== undefined && store.c3s.client !== null) {
+					return true;
+				} else {
+					return false;
+				}
+			}
 
 			Vue.prototype.$c3s = {
-				store: C3SStore
+				store: C3SStore,
+				loaded: isLoaded
 			};
 			Vue.c3s = {
-				store: C3SStore
+				store: C3SStore,
+				loaded: isLoaded
 			};
 		}).catch(err => {
 			console.error('C3S: URL was not found or an initialisation error occurred');
