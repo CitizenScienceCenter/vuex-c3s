@@ -8,7 +8,7 @@ let store = new Vuex.Store({});
 const swaggerURL = 'http://localhost:8080/api/v2/swagger.json';
 
 beforeAll(function(done) {
-	utils.createStore(store, swaggerURL, (c) => {
+	utils.createStore(store, swaggerURL, [], (c) => {
 		done();
 	});
 });
