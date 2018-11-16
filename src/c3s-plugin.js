@@ -61,11 +61,12 @@ const C3SPlugin = {
 		Swagger({
 			url: options.swaggerURL,
 			requestInterceptor(req) {
-				// let u = store.getters['user/currentUser']
-				// if (u !== null) {
-				//   req.headers['X-API-KEY'] = u.api_key
-				// }
-				// return req
+				// req.headers['content-type'] = 'application/json'
+				let u = options.store.state.c3s.user.currentUser;
+				if (u) {
+					req.headers['X-API-KEY'] = u.api_key;
+				}
+				return req;
 			}
 		}).then(client => {
 			const store = options.store;
@@ -74,7 +75,7 @@ const C3SPlugin = {
 				console.error('C3S: Missing store and/or Swagger URL params.');
 				return;
 			}
-			console.log('Loaded');
+			console.log('Loaded from ' + options.swaggerURL);
 			for(let i in modules) {
 				const m = modules[i];
 				store.registerModule(m['name'], m['module']);
@@ -104,7 +105,6 @@ const C3SPlugin = {
 		}).catch(err => {
 			console.error('C3S: URL was not found or an initialisation error occurred');
 			console.error(err);
-			return;
 		});
 	}
 };

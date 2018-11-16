@@ -1,4 +1,5 @@
 import makeRequest from './utils';
+
 var SHA256 = require('crypto-js/sha256');
 // initial state
 // shape: [{ id, quantity }]
@@ -47,7 +48,7 @@ const actions = {
 		const now = '' + Date.now();
 		const id = 'anon' + SHA256(now);
 		const pwd = '' + SHA256(id);
-		let u = await dispatch('register', {'username': id, 'pwd': pwd});
+		let u = await dispatch('register', {'username': id, 'pwd': pwd, 'confirmed': false});
 		return u;
 	},
 	/**
@@ -108,7 +109,6 @@ const actions = {
 					   commit,
 					   rootState
 				   }, user) {
-		console.log(user)
 		return makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: user}, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
@@ -140,7 +140,11 @@ const actions = {
 						 commit,
 						 rootState
 					 }, [id, info]) {
-		return makeRequest(commit, rootState.c3s.client.apis.Users.put, {id: id, user: info}, 'c3s/user/SET_CURRENT_USER');
+		console.log(info);
+		return makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
+			id: id,
+			user: info
+		}, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
 	 * Validate user existence and access based on API Key

@@ -11,7 +11,7 @@ async function makeRequest(commit, method, data, commitMsg) {
 		console.error(err);
 		commit('c3s/settings/SET_ERROR', 'Could not get Tasks', {root: true});
 		commit('c3s/settings/SET_LOADING', false, {root: true});
-		return false;
+		return err;
 	}
 }
 
