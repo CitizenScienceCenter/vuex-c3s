@@ -1548,6 +1548,11 @@
 	  }
 	};
 
-	return C3SPlugin;
+	var index = {
+		plugin: C3SPlugin,
+		store: C3SStore
+	};
+
+	return index;
 
 })));

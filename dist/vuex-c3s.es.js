@@ -1542,4 +1542,9 @@ var C3SPlugin = {
   }
 };
 
-export default C3SPlugin;
+var index = {
+	plugin: C3SPlugin,
+	store: C3SStore
+};
+
+export default index;

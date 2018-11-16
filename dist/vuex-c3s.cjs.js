@@ -1546,4 +1546,9 @@ var C3SPlugin = {
   }
 };
 
-module.exports = C3SPlugin;
+var index = {
+	plugin: C3SPlugin,
+	store: C3SStore
+};
+
+module.exports = index;

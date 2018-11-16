@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "minify": "uglifyjs dist/vuex-c3s.umd.js --output dist/vuex-c3s.min.js --compress --mangle"
+    "minify": "uglifyjs dist/vuex-c3s.umd.js --output dist/vuex-c3s.min.js --compress --mangle",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -45,14 +46,29 @@
     "@babel/preset-env": "^7.1.5",
     "@babel/runtime": "^7.1.5",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "crypto-js": "^3.1.9-1",
     "eslint-plugin-babel": "^5.2.1",
     "eslint-plugin-html": "^5.0.0",
+    "jest": "^23.6.0",
     "rollup": "^0.67.1",
     "rollup-plugin-babel": "4.0.3",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "swagger-client": "^3.8.22",
+    "vue": "^2.5.17",
+    "vue-jest": "^3.0.0",
     "vuex": "^3.0.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    }
   }
 }
