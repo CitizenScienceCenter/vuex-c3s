@@ -80,7 +80,7 @@ function _makeRequest() {
             commit('c3s/settings/SET_LOADING', false, {
               root: true
             });
-			  return _context.abrupt('return', _context.t0);
+            return _context.abrupt("return", _context.t0);
 
           case 16:
           case "end":
@@ -165,8 +165,8 @@ var actions$1 = {
               _context2.next = 7;
               return dispatch('register', {
                 'username': id,
-				  'pwd': pwd,
-				  'confirmed': false
+                'pwd': pwd,
+                'confirmed': false
               });
 
             case 7:
@@ -292,7 +292,7 @@ var actions$1 = {
                 user: user
               }, 'c3s/user/SET_CURRENT_USER'));
 
-			  case 2:
+            case 2:
             case "end":
               return _context5.stop();
           }
@@ -361,13 +361,13 @@ var actions$1 = {
             case 0:
               state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
               _ref10 = _slicedToArray(_ref9, 2), id = _ref10[0], info = _ref10[1];
-				console.log(info);
-				return _context7.abrupt('return', makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
+              console.log(info);
+              return _context7.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
                 id: id,
                 user: info
               }, 'c3s/user/SET_CURRENT_USER'));
 
-			  case 4:
+            case 4:
             case "end":
               return _context7.stop();
           }
@@ -1487,15 +1487,15 @@ var C3SPlugin = {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     Swagger({
       url: options.swaggerURL,
-		requestInterceptor: function requestInterceptor(req) {
-			// req.headers['content-type'] = 'application/json'
-			var u = options.store.state.c3s.user.currentUser;
+      requestInterceptor: function requestInterceptor(req) {
+        // req.headers['content-type'] = 'application/json'
+        var u = options.store.state.c3s.user.currentUser;
 
-			if (u) {
-				req.headers['X-API-KEY'] = u.api_key;
-			}
+        if (u) {
+          req.headers['X-API-KEY'] = u.api_key;
+        }
 
-			return req;
+        return req;
       }
     }).then(function (client) {
       var store = options.store;
@@ -1506,7 +1506,7 @@ var C3SPlugin = {
         return;
       }
 
-		console.log('Loaded from ' + options.swaggerURL);
+      console.log('Loaded from ' + options.swaggerURL);
 
       for (var i in modules) {
         var m = modules[i];
@@ -1543,8 +1543,8 @@ var C3SPlugin = {
 };
 
 var index = {
-	plugin: C3SPlugin,
-	store: C3SStore
+  plugin: C3SPlugin,
+  store: C3SStore
 };
 
 export default index;

@@ -40,7 +40,7 @@ const actions = {
 	 * @param associated
 	 * @returns {Promise<*|boolean|void>}
 	 */
-	async getActivity({
+	async getProject({
 		state,
 		commit,
 		dispatch,
@@ -65,7 +65,7 @@ const actions = {
 		state,
 		commit,
 		rootState
-	}, activity) {
+	}, project) {
 		return makeRequest(commit, rootState.c3s.client.apis.Projects.create_project, {project: project }, 'c3s/project/SET_PROJECT');
 	},
 	/**

@@ -46,7 +46,7 @@ const actions = {
 					   }) {
 		commit('c3s/settings/SET_LOADING', true, {root: true});
 		const now = '' + Date.now();
-		const id = 'anon' + SHA256(now);
+		const id = 'anon' + SHA256(now); // TODO add extra details to avoid clash OR delegate to server?
 		const pwd = '' + SHA256(id);
 		let u = await dispatch('register', {'username': id, 'pwd': pwd, 'confirmed': false});
 		return u;

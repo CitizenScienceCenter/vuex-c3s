@@ -41,7 +41,7 @@ const modules = [
 		module: C3SStore.comments
 	},
 	{
-		name: ['c3s', 'projects'],
+		name: ['c3s', 'project'],
 		module: C3SStore.project
 	},
 	{
