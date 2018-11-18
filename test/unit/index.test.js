@@ -2,8 +2,8 @@ import Vuex from 'vuex';
 import Vue from 'vue';
 import * as utils from '../utils';
 import * as config from '../unit_config';
-import {registerAnonymousTest} from "./user";
-import {createActivityTest} from "./activity";
+import * as UserTests from "./user";
+import * as ActivityTests from "./activity";
 
 Vue.use(Vuex);
 
@@ -16,11 +16,12 @@ beforeAll(function(done) {
     });
 });
 
-describe('pluginLoadedCheck', () => {
+describe('plugin loaded check', () => {
     it('has a client ready and loaded as an object', () => {
         expect(store.state.c3s.hasOwnProperty('client')).toBe(true);
     });
 });
 
-registerAnonymousTest(store);
-createActivityTest(store);
+UserTests.registerAnonymousTest(store);
+// UserTests.registerUserTest(store, config.test_user);
+ActivityTests.createActivityTest(store);

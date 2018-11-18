@@ -22,6 +22,7 @@ export const createActivityTest = (store) => {
                 "name": "activity project",
                 "description": "activity project"
             }).then(p => {
+                expect(p.status).toBe(201);
                 expect(p).toBeInstanceOf(Object);
                 expect.objectContaining({
                     'id': expect.any(String)
@@ -36,10 +37,11 @@ export const createActivityTest = (store) => {
                 "name": "Test Activity",
                 "description": "Test Activity",
                 "platform": "Both",
-                "part_of": project["id"],
+                "part_of": project.body["id"],
             };
             store.dispatch('c3s/activity/createActivity', act_dict).then(a => {
                 expect(a).toBeInstanceOf(Object);
+                expect(a.status).toBe(201);
                 expect.objectContaining({
                     'id': expect.any(String)
                 });
