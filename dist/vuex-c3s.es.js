@@ -68,7 +68,7 @@ function _makeRequest() {
             commit('c3s/settings/SET_LOADING', false, {
               root: true
             });
-            return _context.abrupt("return", response.body);
+            return _context.abrupt("return", response);
 
           case 10:
             _context.prev = 10;
@@ -160,7 +160,8 @@ var actions$1 = {
                 root: true
               });
               now = '' + Date.now();
-              id = 'anon' + SHA256(now);
+              id = 'anon' + SHA256(now); // TODO add extra details to avoid clash OR delegate to server?
+
               pwd = '' + SHA256(id);
               _context2.next = 7;
               return dispatch('register', {
@@ -1171,8 +1172,8 @@ var actions$7 = {
    * @param associated
    * @returns {Promise<*|boolean|void>}
    */
-  getActivity: function () {
-    var _getActivity = _asyncToGenerator(
+  getProject: function () {
+    var _getProject = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
       var state, commit, dispatch, rootState, _ref4, id, associated;
@@ -1206,8 +1207,8 @@ var actions$7 = {
       }, _callee, this);
     }));
 
-    return function getActivity(_x, _x2) {
-      return _getActivity.apply(this, arguments);
+    return function getProject(_x, _x2) {
+      return _getProject.apply(this, arguments);
     };
   }(),
 
@@ -1219,7 +1220,7 @@ var actions$7 = {
    * @param activity
    * @returns {Promise<*|boolean|void>}
    */
-  createProject: function createProject(_ref5, activity) {
+  createProject: function createProject(_ref5, project) {
     var state = _ref5.state,
         commit = _ref5.commit,
         rootState = _ref5.rootState;
@@ -1264,7 +1265,7 @@ var mutations$7 = {
     state.stats = stats;
   }
 };
-var project$1 = {
+var project = {
   namespaced: true,
   state: state$7,
   getters: getters$7,
@@ -1434,7 +1435,7 @@ var C3SStore = /*#__PURE__*/Object.freeze({
 	submission: submission,
 	media: media,
 	upload: upload,
-	project: project$1,
+	project: project,
 	comments: comments,
 	settings: settings
 });
@@ -1471,8 +1472,8 @@ var modules = [{
   name: ['c3s', 'comments'],
   module: comments
 }, {
-  name: ['c3s', 'projects'],
-  module: project$1
+  name: ['c3s', 'project'],
+  module: project
 }, {
   name: ['c3s', 'settings'],
   module: settings
@@ -1489,10 +1490,14 @@ var C3SPlugin = {
       url: options.swaggerURL,
       requestInterceptor: function requestInterceptor(req) {
         // req.headers['content-type'] = 'application/json'
-        var u = options.store.state.c3s.user.currentUser;
+        if (options.store.state.c3s) {
+          var u = options.store.state.c3s.user.currentUser;
 
-        if (u) {
-          req.headers['X-API-KEY'] = u.api_key;
+          if (u) {
+            req.headers['X-API-KEY'] = u.api_key;
+          }
+        } else {
+          console.log('c3s: state not loaded or not found');
         }
 
         return req;
