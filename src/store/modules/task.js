@@ -5,7 +5,8 @@ import rison from "rison-node";
 const state = {
 	tasks: [],
 	task: null,
-	media: []
+	media: [],
+    comments: []
 };
 
 // getters
@@ -97,6 +98,9 @@ const mutations = {
 	},
     SET_MEDIA(state, media) {
 	    state.media = media;
+    },
+    SET_COMMENTS(state, cmts) {
+	    state.comments = cmts
     }
 };
 

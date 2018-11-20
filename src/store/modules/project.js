@@ -6,7 +6,8 @@ const state = {
 	projects: [],
 	project: null,
 	stats: null,
-	media: []
+	media: [],
+    comments: []
 };
 
 // getters
@@ -99,7 +100,13 @@ const mutations = {
 	},
 	SET_STATS(state, stats) {
 		state.stats = stats;
-	}
+	},
+    SET_COMMENTS(state, cmts) {
+        state.comments = cmts
+    },
+    SET_MEDIA(state, media) {
+        state.media = media
+    }
 };
 
 export default {

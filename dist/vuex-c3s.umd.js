@@ -455,7 +455,8 @@
 	  activities: [],
 	  activity: null,
 	  stats: null,
-	  media: []
+	  media: [],
+	  comments: []
 	}; // getters
 
 	var getters$2 = {}; // actions
@@ -590,6 +591,12 @@
 	  },
 	  SET_STATS: function SET_STATS(state, stats) {
 	    state.stats = stats;
+	  },
+	  SET_COMMENTS: function SET_COMMENTS(state, cmts) {
+	    state.comments = cmts;
+	  },
+	  SET_MEDIA: function SET_MEDIA(state, media) {
+	    state.media = media;
 	  }
 	};
 	var activity = {
@@ -605,7 +612,8 @@
 	var state$3 = {
 	  tasks: [],
 	  task: null,
-	  media: []
+	  media: [],
+	  comments: []
 	}; // getters
 
 	var getters$3 = {// https://vuex.vuejs.org/guide/getters.html#method-style-access
@@ -835,6 +843,9 @@
 	  },
 	  SET_MEDIA: function SET_MEDIA(state, media) {
 	    state.media = media;
+	  },
+	  SET_COMMENTS: function SET_COMMENTS(state, cmts) {
+	    state.comments = cmts;
 	  }
 	};
 	var task = {
@@ -995,28 +1006,33 @@
 	var getters$5 = {}; // actions
 
 	var actions$5 = {
-	  getMedia: function getMedia(_ref, search) {
+	  getMedia: function getMedia(_ref, _ref2) {
 	    var state = _ref.state,
 	        commit = _ref.commit,
 	        rootState = _ref.rootState;
+
+	    var _ref3 = _slicedToArray(_ref2, 2),
+	        search = _ref3[0],
+	        commitMsg = _ref3[1];
+
 	    search = rison.encode(search);
 	    return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
 	      search_term: search || undefined
-	    }, 'c3s/media/SET_MEDIA');
+	    }, commitMsg);
 	  },
-	  deleteMedium: function deleteMedium(_ref2, id) {
-	    var state = _ref2.state,
-	        commit = _ref2.commit,
-	        dispatch = _ref2.dispatch,
-	        rootState = _ref2.rootState;
+	  deleteMedium: function deleteMedium(_ref4, id) {
+	    var state = _ref4.state,
+	        commit = _ref4.commit,
+	        dispatch = _ref4.dispatch,
+	        rootState = _ref4.rootState;
 	    return makeRequest(commit, rootState.c3s.client.apis.Media.delete_medium, {
 	      id: id
 	    }, undefined);
 	  },
-	  upload: function upload(_ref3, medium) {
-	    var state = _ref3.state,
-	        commit = _ref3.commit,
-	        rootState = _ref3.rootState;
+	  upload: function upload(_ref5, medium) {
+	    var state = _ref5.state,
+	        commit = _ref5.commit,
+	        rootState = _ref5.rootState;
 	    return makeRequest(commit, rootState.c3s.client.apis.Media.upload, medium, undefined);
 	  }
 	}; // mutations
@@ -1114,7 +1130,8 @@
 	  projects: [],
 	  project: null,
 	  stats: null,
-	  media: []
+	  media: [],
+	  comments: []
 	}; // getters
 
 	var getters$7 = {}; // actions
@@ -1241,6 +1258,12 @@
 	  },
 	  SET_STATS: function SET_STATS(state, stats) {
 	    state.stats = stats;
+	  },
+	  SET_COMMENTS: function SET_COMMENTS(state, cmts) {
+	    state.comments = cmts;
+	  },
+	  SET_MEDIA: function SET_MEDIA(state, media) {
+	    state.media = media;
 	  }
 	};
 	var project = {
@@ -1296,6 +1319,50 @@
 	      return _getComments.apply(this, arguments);
 	    };
 	  }(),
+	  getCommentsForID: function () {
+	    var _getCommentsForID = _asyncToGenerator(
+	    /*#__PURE__*/
+	    _regeneratorRuntime.mark(function _callee2(_ref2, _ref3) {
+	      var state, commit, rootState, _ref4, id, commitMsg, cmtQuery, search;
+
+	      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+	        while (1) {
+	          switch (_context2.prev = _context2.next) {
+	            case 0:
+	              state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState;
+	              _ref4 = _slicedToArray(_ref3, 2), id = _ref4[0], commitMsg = _ref4[1];
+	              cmtQuery = {
+	                "select": {
+	                  "fields": ["*"],
+	                  "orderBy": {
+	                    "created_at": "desc"
+	                  },
+	                  "tables": ["comments"]
+	                },
+	                "where": {
+	                  "source_id": {
+	                    "op": "e",
+	                    "val": id
+	                  }
+	                }
+	              };
+	              search = rison.encode(cmtQuery);
+	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Comments.get_all, {
+	                search_term: search || undefined
+	              }, commitMsg));
+
+	            case 5:
+	            case "end":
+	              return _context2.stop();
+	          }
+	        }
+	      }, _callee2, this);
+	    }));
+
+	    return function getCommentsForID(_x3, _x4) {
+	      return _getCommentsForID.apply(this, arguments);
+	    };
+	  }(),
 
 	  /**
 	   * Create a comment
@@ -1304,13 +1371,10 @@
 	   * @param rootState
 	   * @param cmt
 	   */
-	  createComment: function createComment(_ref2, cmt) {
-	    var state = _ref2.state,
-	        commit = _ref2.commit,
-	        rootState = _ref2.rootState;
-	    commit('c3s/settings/SET_LOADING', true, {
-	      root: true
-	    });
+	  createComment: function createComment(_ref5, cmt) {
+	    var state = _ref5.state,
+	        commit = _ref5.commit,
+	        rootState = _ref5.rootState;
 	    return makeRequest(commit, rootState.c3s.client.apis.Comments.create_comment, {
 	      comment: cmt
 	    }, 'c3s/comments/ADD_COMMENT');
