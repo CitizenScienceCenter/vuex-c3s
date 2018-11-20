@@ -28,6 +28,7 @@ const actions = {
 		dispatch,
 		rootState
 	}, user) {
+		console.log('loggin in')
 		return makeRequest(commit, rootState.c3s.client.apis.Users.login, user, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
@@ -48,8 +49,12 @@ const actions = {
 		const now = '' + Date.now();
 		const id = 'anon' + SHA256(now); // TODO add extra details to avoid clash OR delegate to server?
 		const pwd = '' + SHA256(id);
-		let u = await dispatch('register', {'username': id, 'pwd': pwd, 'confirmed': false});
-		return u;
+		const u = {
+		    'username': id,
+            'pwd': pwd,
+            'confirmed': false
+        }
+        return makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: u}, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
 	 * Logout user and remove from local store
@@ -140,7 +145,6 @@ const actions = {
 						 commit,
 						 rootState
 					 }, [id, info]) {
-		console.log(info);
 		return makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
 			id: id,
 			user: info

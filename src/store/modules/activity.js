@@ -54,10 +54,7 @@ const actions = {
                           rootState
                       }, [id, associated]) {
         if (associated) {
-            dispatch('media/getMedia', id, {root: true});
-            dispatch('media/getTasks', [id, 1, 0], {root: true});
         }
-        dispatch('getStats', id);
         return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {id: id}, 'c3s/activity/SET_ACTIVITY');
     },
     getStats({

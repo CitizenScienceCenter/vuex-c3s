@@ -130,9 +130,10 @@
 	          switch (_context.prev = _context.next) {
 	            case 0:
 	              state = _ref.state, commit = _ref.commit, dispatch = _ref.dispatch, rootState = _ref.rootState;
+	              console.log('loggin in');
 	              return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.login, user, 'c3s/user/SET_CURRENT_USER'));
 
-	            case 2:
+	            case 3:
 	            case "end":
 	              return _context.stop();
 	          }
@@ -170,18 +171,16 @@
 	              id = 'anon' + SHA256(now); // TODO add extra details to avoid clash OR delegate to server?
 
 	              pwd = '' + SHA256(id);
-	              _context2.next = 7;
-	              return dispatch('register', {
+	              u = {
 	                'username': id,
 	                'pwd': pwd,
 	                'confirmed': false
-	              });
+	              };
+	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
+	                user: u
+	              }, 'c3s/user/SET_CURRENT_USER'));
 
 	            case 7:
-	              u = _context2.sent;
-	              return _context2.abrupt("return", u);
-
-	            case 9:
 	            case "end":
 	              return _context2.stop();
 	          }
@@ -369,13 +368,12 @@
 	            case 0:
 	              state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
 	              _ref10 = _slicedToArray(_ref9, 2), id = _ref10[0], info = _ref10[1];
-	              console.log(info);
 	              return _context7.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
 	                id: id,
 	                user: info
 	              }, 'c3s/user/SET_CURRENT_USER'));
 
-	            case 4:
+	            case 3:
 	            case "end":
 	              return _context7.stop();
 	          }
@@ -505,21 +503,11 @@
 	              state = _ref2.state, commit = _ref2.commit, dispatch = _ref2.dispatch, rootState = _ref2.rootState;
 	              _ref4 = _slicedToArray(_ref3, 2), id = _ref4[0], associated = _ref4[1];
 
-	              if (associated) {
-	                dispatch('media/getMedia', id, {
-	                  root: true
-	                });
-	                dispatch('media/getTasks', [id, 1, 0], {
-	                  root: true
-	                });
-	              }
-
-	              dispatch('getStats', id);
 	              return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {
 	                id: id
 	              }, 'c3s/activity/SET_ACTIVITY'));
 
-	            case 5:
+	            case 4:
 	            case "end":
 	              return _context.stop();
 	          }
