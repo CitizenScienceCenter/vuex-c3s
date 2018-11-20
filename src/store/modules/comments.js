@@ -1,4 +1,5 @@
 import makeRequest from './utils';
+import rison from "rison-node";
 // initial state
 // shape: [{ id, quantity }]
 const state = {
@@ -21,21 +22,8 @@ const actions = {
 	 * @returns {Promise<void>}
 	 */
 	async getComments({ state, commit, rootState }, search) {
-		try {
-			commit('c3s/settings/SET_LOADING', true, { root: true });
-			let res = await rootState.c3s.client.apis.Comments.get_all({
-				search_term: search || undefined
-			});
-			commit('SET_COMMENTS', req.body);
-			commit('c3s/settings/SET_LOADING', false, { root: true });
-		} catch (err) {
-			commit('c3s/settings/SET_LOADING', false, {
-				root: true
-			});
-			commit('settings/SET_ERROR', err, {
-				root: true
-			});
-		}
+        search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Comments.get_all, {search_term: search || undefined}, 'c3s/comments/SET_COMMENTS');
 	},
 	/**
 	 * Create a comment
@@ -46,27 +34,17 @@ const actions = {
 	 */
 	createComment({ state, commit, rootState }, cmt) {
 		commit('c3s/settings/SET_LOADING', true, { root: true });
-		rootState.c3s.client.apis.Comments.create_comment({
-			comment: cmt
-		})
-			.then(req => {
-				commit('c3s/settings/SET_LOADING', false, { root: true });
-			})
-			.catch(err => {
-				commit('c3s/settings/SET_LOADING', false, {
-					root: true
-				});
-				commit('c3s/settings/SET_ERROR', err, {
-					root: true
-				});
-			});
+        return makeRequest(commit, rootState.c3s.client.apis.Comments.create_comment, {comment: cmt}, 'c3s/comments/ADD_COMMENT');
 	}
 };
 
 // mutations
 const mutations = {
-	SET_MEDIA(state, media) {
-		state.media = media;
+	SET_COMMENTS(state, comments) {
+		state.comments = comments;
+	},
+	ADD_COMMENT(state, comment) {
+		state.comments.push(comment)
 	}
 };
 

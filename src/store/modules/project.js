@@ -1,4 +1,5 @@
 import makeRequest from './utils';
+import rison from 'rison-node'
 // initial state
 // shape: [{ id, quantity }]
 const state = {
@@ -28,6 +29,7 @@ const actions = {
 		dispatch,
 		rootState
 	}, search) {
+		search = rison.encode(search);
 		return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {search_term: search || undefined }, 'c3s/project/SET_PROJECTS');
 	},
 	/**

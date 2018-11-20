@@ -8,7 +8,7 @@ import * as ActivityTests from "./activity";
 Vue.use(Vuex);
 
 let store = new Vuex.Store({});
-const swaggerURL = 'http://localhost:8080/api/v2/swagger.json';
+const swaggerURL = 'https://wenker.citizenscience.ch/api/v2/swagger.json';
 let user = null;
 beforeAll(function(done) {
     utils.createStore(store, swaggerURL, config.modules, (c) => {

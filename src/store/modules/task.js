@@ -1,4 +1,5 @@
 import makeRequest from './utils';
+import rison from "rison-node";
 // initial state
 // shape: [{ id, quantity }]
 const state = {
@@ -24,6 +25,7 @@ const actions = {
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	async getTasks({ state, commit, rootState }, search) {
+        search = rison.encode(search);
 		return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {search_term: search || undefined }, 'c3s/task/SET_TASKS');
 	},
 

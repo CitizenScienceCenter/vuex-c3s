@@ -1,13 +1,14 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@babel/runtime/helpers/defineProperty'), require('@babel/runtime/helpers/slicedToArray'), require('@babel/runtime/regenerator'), require('@babel/runtime/helpers/asyncToGenerator'), require('swagger-client')) :
-	typeof define === 'function' && define.amd ? define(['@babel/runtime/helpers/defineProperty', '@babel/runtime/helpers/slicedToArray', '@babel/runtime/regenerator', '@babel/runtime/helpers/asyncToGenerator', 'swagger-client'], factory) :
-	(global.vuexC3S = factory(global._defineProperty,global._slicedToArray,global._regeneratorRuntime,global._asyncToGenerator,global.Swagger));
-}(this, (function (_defineProperty,_slicedToArray,_regeneratorRuntime,_asyncToGenerator,Swagger) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@babel/runtime/helpers/defineProperty'), require('@babel/runtime/helpers/slicedToArray'), require('@babel/runtime/regenerator'), require('@babel/runtime/helpers/asyncToGenerator'), require('rison-node'), require('swagger-client')) :
+	typeof define === 'function' && define.amd ? define(['@babel/runtime/helpers/defineProperty', '@babel/runtime/helpers/slicedToArray', '@babel/runtime/regenerator', '@babel/runtime/helpers/asyncToGenerator', 'rison-node', 'swagger-client'], factory) :
+	(global.vuexC3S = factory(global._defineProperty,global._slicedToArray,global._regeneratorRuntime,global._asyncToGenerator,global.rison,global.Swagger));
+}(this, (function (_defineProperty,_slicedToArray,_regeneratorRuntime,_asyncToGenerator,rison,Swagger) { 'use strict';
 
 	_defineProperty = _defineProperty && _defineProperty.hasOwnProperty('default') ? _defineProperty['default'] : _defineProperty;
 	_slicedToArray = _slicedToArray && _slicedToArray.hasOwnProperty('default') ? _slicedToArray['default'] : _slicedToArray;
 	_regeneratorRuntime = _regeneratorRuntime && _regeneratorRuntime.hasOwnProperty('default') ? _regeneratorRuntime['default'] : _regeneratorRuntime;
 	_asyncToGenerator = _asyncToGenerator && _asyncToGenerator.hasOwnProperty('default') ? _asyncToGenerator['default'] : _asyncToGenerator;
+	rison = rison && rison.hasOwnProperty('default') ? rison['default'] : rison;
 	Swagger = Swagger && Swagger.hasOwnProperty('default') ? Swagger['default'] : Swagger;
 
 	// initial state
@@ -474,9 +475,10 @@
 	        commit = _ref.commit,
 	        dispatch = _ref.dispatch,
 	        rootState = _ref.rootState;
+	    search = rison.encode(search);
 	    return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {
 	      search_term: search || undefined
-	    }, 'activity/SET_ACTIVITIES');
+	    }, 'c3s/activity/SET_ACTIVITIES');
 	  },
 
 	  /**
@@ -629,11 +631,12 @@
 	          switch (_context.prev = _context.next) {
 	            case 0:
 	              state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
+	              search = rison.encode(search);
 	              return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {
 	                search_term: search || undefined
 	              }, 'c3s/task/SET_TASKS'));
 
-	            case 2:
+	            case 3:
 	            case "end":
 	              return _context.stop();
 	          }
@@ -867,11 +870,12 @@
 	          switch (_context.prev = _context.next) {
 	            case 0:
 	              state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
+	              search = rison.encode(search);
 	              return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {
 	                search_term: search || undefined
 	              }, 'c3s/submission/SET_SUBMISSIONS'));
 
-	            case 2:
+	            case 3:
 	            case "end":
 	              return _context.stop();
 	          }
@@ -991,62 +995,25 @@
 	    var state = _ref.state,
 	        commit = _ref.commit,
 	        rootState = _ref.rootState;
-	    commit('c3s/settings/SET_LOADING', true, {
-	      root: true
-	    });
-	    rootState.c3s.client.apis.Media.get_media({
+	    search = rison.encode(search);
+	    return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
 	      search_term: search || undefined
-	    }).then(function (req) {
-	      commit('SET_MEDIA', req.body);
-	      commit('c3s/settings/SET_LOADING', false, {
-	        root: true
-	      });
-	    }).catch(function (err) {
-	      if (err.response.status === 404) ;
-	    });
+	    }, 'c3s/media/SET_MEDIA');
 	  },
 	  deleteMedium: function deleteMedium(_ref2, id) {
 	    var state = _ref2.state,
 	        commit = _ref2.commit,
 	        dispatch = _ref2.dispatch,
 	        rootState = _ref2.rootState;
-	    commit('c3s/settings/SET_LOADING', true, {
-	      root: true
-	    });
-	    rootState.c3s.client.apis.Media.delete_medium({
-	      id: id || undefined
-	    }).then(function (req) {
-	      commit('c3s/settings/SET_LOADING', false, {
-	        root: true
-	      });
-	      dispatch('getMedia');
-	    }).catch(function (err) {
-	      console.log(err);
-
-	      if (err.response.status === 404) ;
-	    });
+	    return makeRequest(commit, rootState.c3s.client.apis.Media.delete_medium, {
+	      id: id
+	    }, undefined);
 	  },
 	  upload: function upload(_ref3, medium) {
-	    var _this = this;
-
 	    var state = _ref3.state,
 	        commit = _ref3.commit,
 	        rootState = _ref3.rootState;
-	    commit('c3s/settings/SET_LOADING', true, {
-	      root: true
-	    });
-	    rootState.c3s.client.Media.upload(medium).then(function (req) {
-	      commit('c3s/settings/SET_LOADING', false, {
-	        root: true
-	      });
-	      console.log(req);
-	      _this.fileSaved = true;
-	    }).catch(function (e) {
-	      commit('c3s/settings/SET_LOADING', false, {
-	        root: true
-	      });
-	      console.error(e);
-	    });
+	    return makeRequest(commit, rootState.c3s.client.apis.Media.upload, medium, undefined);
 	  }
 	}; // mutations
 
@@ -1163,6 +1130,7 @@
 	        commit = _ref.commit,
 	        dispatch = _ref.dispatch,
 	        rootState = _ref.rootState;
+	    search = rison.encode(search);
 	    return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {
 	      search_term: search || undefined
 	    }, 'c3s/project/SET_PROJECTS');
@@ -1301,46 +1269,23 @@
 	    var _getComments = _asyncToGenerator(
 	    /*#__PURE__*/
 	    _regeneratorRuntime.mark(function _callee(_ref, search) {
-	      var state, commit, rootState, res;
+	      var state, commit, rootState;
 	      return _regeneratorRuntime.wrap(function _callee$(_context) {
 	        while (1) {
 	          switch (_context.prev = _context.next) {
 	            case 0:
 	              state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
-	              _context.prev = 1;
-	              commit('c3s/settings/SET_LOADING', true, {
-	                root: true
-	              });
-	              _context.next = 5;
-	              return rootState.c3s.client.apis.Comments.get_all({
+	              search = rison.encode(search);
+	              return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Comments.get_all, {
 	                search_term: search || undefined
-	              });
+	              }, 'c3s/comments/SET_COMMENTS'));
 
-	            case 5:
-	              res = _context.sent;
-	              commit('SET_COMMENTS', req.body);
-	              commit('c3s/settings/SET_LOADING', false, {
-	                root: true
-	              });
-	              _context.next = 14;
-	              break;
-
-	            case 10:
-	              _context.prev = 10;
-	              _context.t0 = _context["catch"](1);
-	              commit('c3s/settings/SET_LOADING', false, {
-	                root: true
-	              });
-	              commit('settings/SET_ERROR', _context.t0, {
-	                root: true
-	              });
-
-	            case 14:
+	            case 3:
 	            case "end":
 	              return _context.stop();
 	          }
 	        }
-	      }, _callee, this, [[1, 10]]);
+	      }, _callee, this);
 	    }));
 
 	    return function getComments(_x, _x2) {
@@ -1362,26 +1307,18 @@
 	    commit('c3s/settings/SET_LOADING', true, {
 	      root: true
 	    });
-	    rootState.c3s.client.apis.Comments.create_comment({
+	    return makeRequest(commit, rootState.c3s.client.apis.Comments.create_comment, {
 	      comment: cmt
-	    }).then(function (req) {
-	      commit('c3s/settings/SET_LOADING', false, {
-	        root: true
-	      });
-	    }).catch(function (err) {
-	      commit('c3s/settings/SET_LOADING', false, {
-	        root: true
-	      });
-	      commit('c3s/settings/SET_ERROR', err, {
-	        root: true
-	      });
-	    });
+	    }, 'c3s/comments/ADD_COMMENT');
 	  }
 	}; // mutations
 
 	var mutations$8 = {
-	  SET_MEDIA: function SET_MEDIA(state, media) {
-	    state.media = media;
+	  SET_COMMENTS: function SET_COMMENTS(state, comments) {
+	    state.comments = comments;
+	  },
+	  ADD_COMMENT: function ADD_COMMENT(state, comment) {
+	    state.comments.push(comment);
 	  }
 	};
 	var comments = {
