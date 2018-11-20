@@ -671,16 +671,17 @@ var actions$3 = {
   getTaskMedia: function () {
     var _getTaskMedia = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee3(_ref5, _ref6) {
-      var state, commit, rootState, _ref7, pid, region;
-
+    _regeneratorRuntime.mark(function _callee3(_ref5, search) {
+      var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
-              _ref7 = _slicedToArray(_ref6, 2), pid = _ref7[0], region = _ref7[1];
-              return _context3.abrupt("return", undefined);
+              search = rison.encode(search);
+              return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
+                search_term: search || undefined
+              }, 'c3s/task/SET_MEDIA'));
 
             case 3:
             case "end":
@@ -707,13 +708,13 @@ var actions$3 = {
   getTask: function () {
     var _getTask = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee4(_ref8, id) {
+    _regeneratorRuntime.mark(function _callee4(_ref6, id) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
+              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
               return _context4.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task, {
                 id: id
               }, 'c3s/task/SET_TASK'));
@@ -733,13 +734,13 @@ var actions$3 = {
   activityTasks: function () {
     var _activityTasks = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee5(_ref9, id) {
+    _regeneratorRuntime.mark(function _callee5(_ref7, id) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              state = _ref9.state, commit = _ref9.commit, rootState = _ref9.rootState;
+              state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
               return _context5.abrupt("return", undefined);
 
             case 2:
@@ -767,13 +768,13 @@ var actions$3 = {
   createTasks: function () {
     var _createTasks = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee6(_ref10, tasks) {
-      var state, commit, dispatch, rootState;
+    _regeneratorRuntime.mark(function _callee6(_ref8, tasks) {
+      var state, commit, dispatch, rootState, res;
       return _regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              state = _ref10.state, commit = _ref10.commit, dispatch = _ref10.dispatch, rootState = _ref10.rootState;
+              state = _ref8.state, commit = _ref8.commit, dispatch = _ref8.dispatch, rootState = _ref8.rootState;
               res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {
                 tasks: tasks
               }, undefined);
@@ -804,11 +805,11 @@ var actions$3 = {
    * @param tasks
    * @returns {Promise<*|boolean|void>}
    */
-  deleteTasks: function deleteTasks(_ref11, tasks) {
-    var state = _ref11.state,
-        commit = _ref11.commit,
-        dispatch = _ref11.dispatch,
-        rootState = _ref11.rootState;
+  deleteTasks: function deleteTasks(_ref9, tasks) {
+    var state = _ref9.state,
+        commit = _ref9.commit,
+        dispatch = _ref9.dispatch,
+        rootState = _ref9.rootState;
     dispatch('SET_TASKS', null);
     return makeRequest(commit, rootState.c3s.client.apis.Tasks.delete_tasks, {
       tasks: tasks
@@ -825,6 +826,9 @@ var mutations$3 = {
   },
   UPDATE_TASK: function UPDATE_TASK(state, index, params) {
     Object.assign(state.tasks[index], _defineProperty({}, params.field, params.value));
+  },
+  SET_MEDIA: function SET_MEDIA(state, media) {
+    state.media = media;
   }
 };
 var task = {

@@ -33,9 +33,9 @@ const actions = {
 		// TODO implement
 		return undefined;
 	},
-	async getTaskMedia({ state, commit, rootState }, [pid, region]) {
-		// TODO implement
-		return undefined;
+	async getTaskMedia({ state, commit, rootState }, search) {
+        search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {search_term: search || undefined }, 'c3s/task/SET_MEDIA');
 	},
 	/**
 	 * Retrieve task matching an ID
@@ -62,7 +62,7 @@ const actions = {
 	 * @returns {Promise<*>}
 	 */
 	async createTasks({ state, commit, dispatch, rootState }, tasks) {
-		res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {tasks: tasks }, undefined);
+		const res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {tasks: tasks }, undefined);
 		dispatch('c3s/upload/addID', res[0].id, {root: true});
 		return res;
 	},
@@ -94,7 +94,10 @@ const mutations = {
 		Object.assign(state.tasks[index], {
 			[params.field]: params.value
 		});
-	}
+	},
+    SET_MEDIA(state, media) {
+	    state.media = media;
+    }
 };
 
 export default {
