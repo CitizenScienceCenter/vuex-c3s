@@ -5,6 +5,7 @@ async function makeRequest(commit, method, data, commitMsg) {
 		if (commitMsg !== undefined) {
 			commit(commitMsg, response.body, {root: true});
 		}
+
 		commit('c3s/settings/SET_LOADING', false, {root: true});
 		return response;
 	} catch (err) {

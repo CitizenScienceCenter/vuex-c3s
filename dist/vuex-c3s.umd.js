@@ -1335,7 +1335,7 @@
 	                }
 	              };
 	              search = rison.encode(cmtQuery);
-	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Comments.get_all, {
+	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Comments.get_comments, {
 	                search_term: search || undefined
 	              }, commitMsg));
 

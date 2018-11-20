@@ -45,7 +45,7 @@ const actions = {
             }
         };
         const search = rison.encode(cmtQuery);
-        return makeRequest(commit, rootState.c3s.client.apis.Comments.get_all, {search_term: search || undefined}, commitMsg);
+        return makeRequest(commit, rootState.c3s.client.apis.Comments.get_comments, {search_term: search || undefined}, commitMsg);
     },
     /**
      * Create a comment
