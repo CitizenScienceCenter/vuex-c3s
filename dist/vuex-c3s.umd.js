@@ -159,7 +159,7 @@
 	    var _generateAnon = _asyncToGenerator(
 	    /*#__PURE__*/
 	    _regeneratorRuntime.mark(function _callee2(_ref2) {
-	      var state, commit, dispatch, rootState, now, id, pwd, u;
+	      var state, commit, dispatch, rootState, now, id, pwd, u, response;
 	      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
 	        while (1) {
 	          switch (_context2.prev = _context2.next) {
@@ -180,11 +180,13 @@
 	                  'anonymous': true
 	                }
 	              };
-	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
+	              response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
 	                user: u
-	              }, 'c3s/user/SET_CURRENT_USER'));
+	              }, 'c3s/user/SET_CURRENT_USER');
+	              commit('SET_ANON', true);
+	              return _context2.abrupt("return", response);
 
-	            case 7:
+	            case 9:
 	            case "end":
 	              return _context2.stop();
 	          }
@@ -294,24 +296,17 @@
 	    var _register = _asyncToGenerator(
 	    /*#__PURE__*/
 	    _regeneratorRuntime.mark(function _callee5(_ref6, user) {
-	      var state, commit, rootState, userResponse, u;
+	      var state, commit, rootState;
 	      return _regeneratorRuntime.wrap(function _callee5$(_context5) {
 	        while (1) {
 	          switch (_context5.prev = _context5.next) {
 	            case 0:
 	              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
-	              userResponse = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
+	              return _context5.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
 	                user: user
-	              }, 'c3s/user/SET_CURRENT_USER');
-	              u = userResponse.body;
+	              }, 'c3s/user/SET_CURRENT_USER'));
 
-	              if (u.info.anonymous) {
-	                commit('SET_ANON', true);
-	              }
-
-	              commit('SET_CURRENT_USER', u);
-
-	            case 5:
+	            case 2:
 	            case "end":
 	              return _context5.stop();
 	          }

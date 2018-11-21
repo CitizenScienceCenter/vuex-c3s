@@ -58,7 +58,9 @@ const actions = {
 		        'anonymous': true
             }
         }
-        return makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: u}, 'c3s/user/SET_CURRENT_USER');
+        const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: u}, 'c3s/user/SET_CURRENT_USER');
+        commit('SET_ANON', true);
+        return response;
 	},
 	/**
 	 * Logout user and remove from local store
@@ -119,12 +121,7 @@ const actions = {
 					   commit,
 					   rootState
 				   }, user) {
-		const userResponse = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: user}, 'c3s/user/SET_CURRENT_USER');
-		const u = userResponse.body;
-		if (u.info.anonymous) {
-		    commit('SET_ANON', true);
-        }
-        commit('SET_CURRENT_USER', u);
+		return makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: user}, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
 	 * Retrieve a list of users
