@@ -105,7 +105,8 @@
 
 	var state$1 = {
 	  user: null,
-	  currentUser: null
+	  currentUser: null,
+	  isAnon: false
 	}; // getters
 
 	var getters$1 = {}; // actions
@@ -168,13 +169,16 @@
 	                root: true
 	              });
 	              now = '' + Date.now();
-	              id = 'anon' + SHA256(now); // TODO add extra details to avoid clash OR delegate to server?
+	              id = '_anon' + SHA256(now); // TODO add extra details to avoid clash OR delegate to server?
 
 	              pwd = '' + SHA256(id);
 	              u = {
 	                'username': id,
 	                'pwd': pwd,
-	                'confirmed': false
+	                'confirmed': false,
+	                info: {
+	                  'anonymous': true
+	                }
 	              };
 	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
 	                user: u
@@ -204,6 +208,7 @@
 	    commit('c3s/user/SET_CURRENT_USER', null, {
 	      root: true
 	    });
+	    commit('SET_ANON', false);
 	  },
 
 	  /**
@@ -289,17 +294,24 @@
 	    var _register = _asyncToGenerator(
 	    /*#__PURE__*/
 	    _regeneratorRuntime.mark(function _callee5(_ref6, user) {
-	      var state, commit, rootState;
+	      var state, commit, rootState, userResponse, u;
 	      return _regeneratorRuntime.wrap(function _callee5$(_context5) {
 	        while (1) {
 	          switch (_context5.prev = _context5.next) {
 	            case 0:
 	              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
-	              return _context5.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
+	              userResponse = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
 	                user: user
-	              }, 'c3s/user/SET_CURRENT_USER'));
+	              }, 'c3s/user/SET_CURRENT_USER');
+	              u = userResponse.body;
 
-	            case 2:
+	              if (u.info.anonymous) {
+	                commit('SET_ANON', true);
+	              }
+
+	              commit('SET_CURRENT_USER', u);
+
+	            case 5:
 	            case "end":
 	              return _context5.stop();
 	          }
@@ -437,6 +449,9 @@
 	  },
 	  SET_TASK_PROGRESS: function SET_TASK_PROGRESS(state, prog) {
 	    state.taskProgress = prog;
+	  },
+	  SET_ANON: function SET_ANON(state, flag) {
+	    state.isAnon = flag;
 	  }
 	};
 	var user = {
