@@ -529,10 +529,37 @@
 	      return _getActivity.apply(this, arguments);
 	    };
 	  }(),
-	  getStats: function getStats(_ref5, id) {
-	    var state = _ref5.state,
-	        commit = _ref5.commit,
-	        rootState = _ref5.rootState;
+	  getActivityCount: function () {
+	    var _getActivityCount = _asyncToGenerator(
+	    /*#__PURE__*/
+	    _regeneratorRuntime.mark(function _callee2(_ref5, search) {
+	      var state, commit, rootState;
+	      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+	        while (1) {
+	          switch (_context2.prev = _context2.next) {
+	            case 0:
+	              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+	              search = rison.encode(search);
+	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_count, {
+	                search_term: search || undefined
+	              }, undefined));
+
+	            case 3:
+	            case "end":
+	              return _context2.stop();
+	          }
+	        }
+	      }, _callee2, this);
+	    }));
+
+	    return function getActivityCount(_x3, _x4) {
+	      return _getActivityCount.apply(this, arguments);
+	    };
+	  }(),
+	  getStats: function getStats(_ref6, id) {
+	    var state = _ref6.state,
+	        commit = _ref6.commit,
+	        rootState = _ref6.rootState;
 	    return makeRequest(commit, rootState.c3s.client.apis.Activities.activity_stats, {
 	      id: id
 	    }, 'c3s/activity/SET_STATS');
@@ -546,10 +573,10 @@
 	   * @param activity
 	   * @returns {Promise<*|boolean|void>}
 	   */
-	  createActivity: function createActivity(_ref6, activity) {
-	    var state = _ref6.state,
-	        commit = _ref6.commit,
-	        rootState = _ref6.rootState;
+	  createActivity: function createActivity(_ref7, activity) {
+	    var state = _ref7.state,
+	        commit = _ref7.commit,
+	        rootState = _ref7.rootState;
 	    return makeRequest(commit, rootState.c3s.client.apis.Activities.create_activity, {
 	      activity: activity
 	    }, 'c3s/activity/SET_ACTIVITY');
@@ -564,14 +591,14 @@
 	   * @param localRemove
 	   * @returns {Promise<*|boolean|void>}
 	   */
-	  deleteActivity: function deleteActivity(_ref7, _ref8) {
-	    var state = _ref7.state,
-	        commit = _ref7.commit,
-	        rootState = _ref7.rootState;
+	  deleteActivity: function deleteActivity(_ref8, _ref9) {
+	    var state = _ref8.state,
+	        commit = _ref8.commit,
+	        rootState = _ref8.rootState;
 
-	    var _ref9 = _slicedToArray(_ref8, 2),
-	        pid = _ref9[0],
-	        localRemove = _ref9[1];
+	    var _ref10 = _slicedToArray(_ref9, 2),
+	        pid = _ref10[0],
+	        localRemove = _ref10[1];
 
 	    if (localRemove) commit('c3s/activity/SET_ACTIVITY', null);
 	    return makeRequest(commit, rootState.c3s.client.apis.Activities.delete_activity, {
@@ -654,19 +681,20 @@
 	      return _getTasks.apply(this, arguments);
 	    };
 	  }(),
-	  getTaskRegion: function () {
-	    var _getTaskRegion = _asyncToGenerator(
+	  getTaskCount: function () {
+	    var _getTaskCount = _asyncToGenerator(
 	    /*#__PURE__*/
-	    _regeneratorRuntime.mark(function _callee2(_ref2, _ref3) {
-	      var state, commit, rootState, _ref4, pid, region;
-
+	    _regeneratorRuntime.mark(function _callee2(_ref2, search) {
+	      var state, commit, rootState;
 	      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
 	        while (1) {
 	          switch (_context2.prev = _context2.next) {
 	            case 0:
 	              state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState;
-	              _ref4 = _slicedToArray(_ref3, 2), pid = _ref4[0], region = _ref4[1];
-	              return _context2.abrupt("return", undefined);
+	              search = rison.encode(search);
+	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_count, {
+	                search_term: search || undefined
+	              }, undefined));
 
 	            case 3:
 	            case "end":
@@ -676,24 +704,23 @@
 	      }, _callee2, this);
 	    }));
 
-	    return function getTaskRegion(_x3, _x4) {
-	      return _getTaskRegion.apply(this, arguments);
+	    return function getTaskCount(_x3, _x4) {
+	      return _getTaskCount.apply(this, arguments);
 	    };
 	  }(),
-	  getTaskMedia: function () {
-	    var _getTaskMedia = _asyncToGenerator(
+	  getTaskRegion: function () {
+	    var _getTaskRegion = _asyncToGenerator(
 	    /*#__PURE__*/
-	    _regeneratorRuntime.mark(function _callee3(_ref5, search) {
-	      var state, commit, rootState;
+	    _regeneratorRuntime.mark(function _callee3(_ref3, _ref4) {
+	      var state, commit, rootState, _ref5, pid, region;
+
 	      return _regeneratorRuntime.wrap(function _callee3$(_context3) {
 	        while (1) {
 	          switch (_context3.prev = _context3.next) {
 	            case 0:
-	              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
-	              search = rison.encode(search);
-	              return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
-	                search_term: search || undefined
-	              }, 'c3s/task/SET_MEDIA'));
+	              state = _ref3.state, commit = _ref3.commit, rootState = _ref3.rootState;
+	              _ref5 = _slicedToArray(_ref4, 2), pid = _ref5[0], region = _ref5[1];
+	              return _context3.abrupt("return", undefined);
 
 	            case 3:
 	            case "end":
@@ -703,7 +730,34 @@
 	      }, _callee3, this);
 	    }));
 
-	    return function getTaskMedia(_x5, _x6) {
+	    return function getTaskRegion(_x5, _x6) {
+	      return _getTaskRegion.apply(this, arguments);
+	    };
+	  }(),
+	  getTaskMedia: function () {
+	    var _getTaskMedia = _asyncToGenerator(
+	    /*#__PURE__*/
+	    _regeneratorRuntime.mark(function _callee4(_ref6, search) {
+	      var state, commit, rootState;
+	      return _regeneratorRuntime.wrap(function _callee4$(_context4) {
+	        while (1) {
+	          switch (_context4.prev = _context4.next) {
+	            case 0:
+	              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
+	              search = rison.encode(search);
+	              return _context4.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
+	                search_term: search || undefined
+	              }, 'c3s/task/SET_MEDIA'));
+
+	            case 3:
+	            case "end":
+	              return _context4.stop();
+	          }
+	        }
+	      }, _callee4, this);
+	    }));
+
+	    return function getTaskMedia(_x7, _x8) {
 	      return _getTaskMedia.apply(this, arguments);
 	    };
 	  }(),
@@ -720,32 +774,6 @@
 	  getTask: function () {
 	    var _getTask = _asyncToGenerator(
 	    /*#__PURE__*/
-	    _regeneratorRuntime.mark(function _callee4(_ref6, id) {
-	      var state, commit, rootState;
-	      return _regeneratorRuntime.wrap(function _callee4$(_context4) {
-	        while (1) {
-	          switch (_context4.prev = _context4.next) {
-	            case 0:
-	              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
-	              return _context4.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task, {
-	                id: id
-	              }, 'c3s/task/SET_TASK'));
-
-	            case 2:
-	            case "end":
-	              return _context4.stop();
-	          }
-	        }
-	      }, _callee4, this);
-	    }));
-
-	    return function getTask(_x7, _x8) {
-	      return _getTask.apply(this, arguments);
-	    };
-	  }(),
-	  activityTasks: function () {
-	    var _activityTasks = _asyncToGenerator(
-	    /*#__PURE__*/
 	    _regeneratorRuntime.mark(function _callee5(_ref7, id) {
 	      var state, commit, rootState;
 	      return _regeneratorRuntime.wrap(function _callee5$(_context5) {
@@ -753,7 +781,9 @@
 	          switch (_context5.prev = _context5.next) {
 	            case 0:
 	              state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
-	              return _context5.abrupt("return", undefined);
+	              return _context5.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task, {
+	                id: id
+	              }, 'c3s/task/SET_TASK'));
 
 	            case 2:
 	            case "end":
@@ -763,7 +793,31 @@
 	      }, _callee5, this);
 	    }));
 
-	    return function activityTasks(_x9, _x10) {
+	    return function getTask(_x9, _x10) {
+	      return _getTask.apply(this, arguments);
+	    };
+	  }(),
+	  activityTasks: function () {
+	    var _activityTasks = _asyncToGenerator(
+	    /*#__PURE__*/
+	    _regeneratorRuntime.mark(function _callee6(_ref8, id) {
+	      var state, commit, rootState;
+	      return _regeneratorRuntime.wrap(function _callee6$(_context6) {
+	        while (1) {
+	          switch (_context6.prev = _context6.next) {
+	            case 0:
+	              state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
+	              return _context6.abrupt("return", undefined);
+
+	            case 2:
+	            case "end":
+	              return _context6.stop();
+	          }
+	        }
+	      }, _callee6, this);
+	    }));
+
+	    return function activityTasks(_x11, _x12) {
 	      return _activityTasks.apply(this, arguments);
 	    };
 	  }(),
@@ -780,30 +834,30 @@
 	  createTasks: function () {
 	    var _createTasks = _asyncToGenerator(
 	    /*#__PURE__*/
-	    _regeneratorRuntime.mark(function _callee6(_ref8, tasks) {
+	    _regeneratorRuntime.mark(function _callee7(_ref9, tasks) {
 	      var state, commit, dispatch, rootState, res;
-	      return _regeneratorRuntime.wrap(function _callee6$(_context6) {
+	      return _regeneratorRuntime.wrap(function _callee7$(_context7) {
 	        while (1) {
-	          switch (_context6.prev = _context6.next) {
+	          switch (_context7.prev = _context7.next) {
 	            case 0:
-	              state = _ref8.state, commit = _ref8.commit, dispatch = _ref8.dispatch, rootState = _ref8.rootState;
+	              state = _ref9.state, commit = _ref9.commit, dispatch = _ref9.dispatch, rootState = _ref9.rootState;
 	              res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {
 	                tasks: tasks
 	              }, undefined);
 	              dispatch('c3s/upload/addID', res[0].id, {
 	                root: true
 	              });
-	              return _context6.abrupt("return", res);
+	              return _context7.abrupt("return", res);
 
 	            case 4:
 	            case "end":
-	              return _context6.stop();
+	              return _context7.stop();
 	          }
 	        }
-	      }, _callee6, this);
+	      }, _callee7, this);
 	    }));
 
-	    return function createTasks(_x11, _x12) {
+	    return function createTasks(_x13, _x14) {
 	      return _createTasks.apply(this, arguments);
 	    };
 	  }(),
@@ -817,11 +871,11 @@
 	   * @param tasks
 	   * @returns {Promise<*|boolean|void>}
 	   */
-	  deleteTasks: function deleteTasks(_ref9, tasks) {
-	    var state = _ref9.state,
-	        commit = _ref9.commit,
-	        dispatch = _ref9.dispatch,
-	        rootState = _ref9.rootState;
+	  deleteTasks: function deleteTasks(_ref10, tasks) {
+	    var state = _ref10.state,
+	        commit = _ref10.commit,
+	        dispatch = _ref10.dispatch,
+	        rootState = _ref10.rootState;
 	    dispatch('SET_TASKS', null);
 	    return makeRequest(commit, rootState.c3s.client.apis.Tasks.delete_tasks, {
 	      tasks: tasks
@@ -900,6 +954,33 @@
 	      return _getSubmissions.apply(this, arguments);
 	    };
 	  }(),
+	  getSubmissionCount: function () {
+	    var _getSubmissionCount = _asyncToGenerator(
+	    /*#__PURE__*/
+	    _regeneratorRuntime.mark(function _callee2(_ref2, search) {
+	      var state, commit, rootState;
+	      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+	        while (1) {
+	          switch (_context2.prev = _context2.next) {
+	            case 0:
+	              state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState;
+	              search = rison.encode(search);
+	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submission_count, {
+	                search_term: search || undefined
+	              }, undefined));
+
+	            case 3:
+	            case "end":
+	              return _context2.stop();
+	          }
+	        }
+	      }, _callee2, this);
+	    }));
+
+	    return function getSubmissionCount(_x3, _x4) {
+	      return _getSubmissionCount.apply(this, arguments);
+	    };
+	  }(),
 
 	  /**
 	   * Create a submission
@@ -912,26 +993,26 @@
 	  createSubmission: function () {
 	    var _createSubmission = _asyncToGenerator(
 	    /*#__PURE__*/
-	    _regeneratorRuntime.mark(function _callee2(_ref2) {
+	    _regeneratorRuntime.mark(function _callee3(_ref3) {
 	      var state, commit, rootState, dispatch;
-	      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+	      return _regeneratorRuntime.wrap(function _callee3$(_context3) {
 	        while (1) {
-	          switch (_context2.prev = _context2.next) {
+	          switch (_context3.prev = _context3.next) {
 	            case 0:
-	              state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState, dispatch = _ref2.dispatch;
-	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, {
+	              state = _ref3.state, commit = _ref3.commit, rootState = _ref3.rootState, dispatch = _ref3.dispatch;
+	              return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, {
 	                submission: state.submission
 	              }, 'c3s/submission/SET_SUBMISSION'));
 
 	            case 2:
 	            case "end":
-	              return _context2.stop();
+	              return _context3.stop();
 	          }
 	        }
-	      }, _callee2, this);
+	      }, _callee3, this);
 	    }));
 
-	    return function createSubmission(_x3) {
+	    return function createSubmission(_x5) {
 	      return _createSubmission.apply(this, arguments);
 	    };
 	  }(),
@@ -947,27 +1028,27 @@
 	  updateSubmission: function () {
 	    var _updateSubmission = _asyncToGenerator(
 	    /*#__PURE__*/
-	    _regeneratorRuntime.mark(function _callee3(_ref3, submission) {
+	    _regeneratorRuntime.mark(function _callee4(_ref4, submission) {
 	      var state, commit, rootState;
-	      return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+	      return _regeneratorRuntime.wrap(function _callee4$(_context4) {
 	        while (1) {
-	          switch (_context3.prev = _context3.next) {
+	          switch (_context4.prev = _context4.next) {
 	            case 0:
-	              state = _ref3.state, commit = _ref3.commit, rootState = _ref3.rootState;
-	              return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.update_submission, {
+	              state = _ref4.state, commit = _ref4.commit, rootState = _ref4.rootState;
+	              return _context4.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.update_submission, {
 	                id: submission.id,
 	                submission: submission
 	              }, 'submission/c3s/SET_SUBMISSION'));
 
 	            case 2:
 	            case "end":
-	              return _context3.stop();
+	              return _context4.stop();
 	          }
 	        }
-	      }, _callee3, this);
+	      }, _callee4, this);
 	    }));
 
-	    return function updateSubmission(_x4, _x5) {
+	    return function updateSubmission(_x6, _x7) {
 	      return _updateSubmission.apply(this, arguments);
 	    };
 	  }()
@@ -1204,6 +1285,33 @@
 	      return _getProject.apply(this, arguments);
 	    };
 	  }(),
+	  getProjectCount: function () {
+	    var _getProjectCount = _asyncToGenerator(
+	    /*#__PURE__*/
+	    _regeneratorRuntime.mark(function _callee2(_ref5, search) {
+	      var state, commit, rootState;
+	      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+	        while (1) {
+	          switch (_context2.prev = _context2.next) {
+	            case 0:
+	              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+	              search = rison.encode(search);
+	              return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Projects.get_project_count, {
+	                search_term: search || undefined
+	              }, undefined));
+
+	            case 3:
+	            case "end":
+	              return _context2.stop();
+	          }
+	        }
+	      }, _callee2, this);
+	    }));
+
+	    return function getProjectCount(_x3, _x4) {
+	      return _getProjectCount.apply(this, arguments);
+	    };
+	  }(),
 
 	  /**
 	   * Create a project
@@ -1213,10 +1321,10 @@
 	   * @param activity
 	   * @returns {Promise<*|boolean|void>}
 	   */
-	  createProject: function createProject(_ref5, project) {
-	    var state = _ref5.state,
-	        commit = _ref5.commit,
-	        rootState = _ref5.rootState;
+	  createProject: function createProject(_ref6, project) {
+	    var state = _ref6.state,
+	        commit = _ref6.commit,
+	        rootState = _ref6.rootState;
 	    return makeRequest(commit, rootState.c3s.client.apis.Projects.create_project, {
 	      project: project
 	    }, 'c3s/project/SET_PROJECT');
@@ -1231,14 +1339,14 @@
 	   * @param localRemove
 	   * @returns {Promise<*|boolean|void>}
 	   */
-	  deleteProject: function deleteProject(_ref6, _ref7) {
-	    var state = _ref6.state,
-	        commit = _ref6.commit,
-	        rootState = _ref6.rootState;
+	  deleteProject: function deleteProject(_ref7, _ref8) {
+	    var state = _ref7.state,
+	        commit = _ref7.commit,
+	        rootState = _ref7.rootState;
 
-	    var _ref8 = _slicedToArray(_ref7, 2),
-	        pid = _ref8[0],
-	        localRemove = _ref8[1];
+	    var _ref9 = _slicedToArray(_ref8, 2),
+	        pid = _ref9[0],
+	        localRemove = _ref9[1];
 
 	    if (localRemove) commit('c3s/project/SET_PROJECT', null);
 	    return makeRequest(commit, rootState.c3s.client.apis.Projects.delete_project, {

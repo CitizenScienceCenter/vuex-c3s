@@ -56,6 +56,11 @@ const actions = {
 		dispatch('getStats', id);
 		return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project, {id: id }, 'c3s/project/SET_PROJECT');
 	},
+
+    async getProjectCount({state, commit, rootState}, search) {
+        search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project_count, {search_term: search || undefined }, undefined);
+    },
 	/**
 	 * Create a project
 	 * @param state

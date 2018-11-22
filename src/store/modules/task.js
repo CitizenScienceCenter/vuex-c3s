@@ -30,6 +30,11 @@ const actions = {
 		return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {search_term: search || undefined }, 'c3s/task/SET_TASKS');
 	},
 
+    async getTaskCount({state, commit, rootState}, search) {
+	    search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_count, {search_term: search || undefined }, undefined);
+    },
+
 	async getTaskRegion({ state, commit, rootState }, [pid, region]) {
 		// TODO implement
 		return undefined;

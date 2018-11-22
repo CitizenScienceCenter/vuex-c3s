@@ -57,6 +57,11 @@ const actions = {
         }
         return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {id: id}, 'c3s/activity/SET_ACTIVITY');
     },
+
+    async getActivityCount({state, commit, rootState}, search) {
+        search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_count, {search_term: search || undefined }, undefined);
+    },
     getStats({
                  state,
                  commit,
