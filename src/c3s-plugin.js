@@ -82,7 +82,7 @@ const C3SPlugin = {
             console.log('Loaded from ' + options.swaggerURL);
             for (let i in modules) {
                 const m = modules[i];
-                store.registerModule(m['name'], m['module']);
+                store.registerModule(m['name'], m['module'], { preserveState: true });
                 // if (store.state.hasOwnProperty(m['name']) === false) {
                 // 	console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', m['name']);
                 // 	return;

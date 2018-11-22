@@ -1522,7 +1522,9 @@ var C3SPlugin = {
 
       for (var i in modules) {
         var m = modules[i];
-        store.registerModule(m['name'], m['module']); // if (store.state.hasOwnProperty(m['name']) === false) {
+        store.registerModule(m['name'], m['module'], {
+          preserveState: true
+        }); // if (store.state.hasOwnProperty(m['name']) === false) {
         // 	console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', m['name']);
         // 	return;
         // }
