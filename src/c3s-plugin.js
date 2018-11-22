@@ -62,7 +62,7 @@ const C3SPlugin = {
             url: options.swaggerURL,
             requestInterceptor(req) {
                 // req.headers['content-type'] = 'application/json'
-                if (options.store.state.c3s) {
+                if (options.store.state.c3s && options.store.state.c3s.user) {
                     let u = options.store.state.c3s.user.currentUser;
                     if (u) {
                         req.headers['X-API-KEY'] = u.api_key;
@@ -82,7 +82,19 @@ const C3SPlugin = {
             console.log('Loaded from ' + options.swaggerURL);
             for (let i in modules) {
                 const m = modules[i];
-                store.registerModule(m['name'], m['module'], { preserveState: true });
+                let name = m['name'];
+                let preserve = true
+                if ( Array.isArray(name)) {
+                    if (store.state.c3s && store.state.c3s[name[1]] === undefined) {
+                        preserve = false
+                    }
+                } else {
+                    if (store.state[name] === undefined) {
+                        preserve = false
+                    }
+                }
+
+                store.registerModule(name, m['module'], { preserveState: preserve});
                 // if (store.state.hasOwnProperty(m['name']) === false) {
                 // 	console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', m['name']);
                 // 	return;
