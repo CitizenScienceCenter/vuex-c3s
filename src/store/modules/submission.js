@@ -66,6 +66,9 @@ const mutations = {
 	SET_SUBMISSION(state, sub) {
 		state.submission = sub;
 	},
+    SET_SUBMISSIONS(state, sub) {
+        state.submissions = sub;
+    },
 	SET_SUBMISSION_RESPONSE(state, r, i) {
 		state.submission.content.responses[i] = r;
 	},
