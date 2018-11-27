@@ -1,6 +1,6 @@
 {
   "name": "vuex-c3s",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "SDK for the Citizen Science Framework API, using Swagger and Vuex",
   "directories": {
     "test": "test"
