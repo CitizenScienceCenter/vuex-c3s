@@ -1061,6 +1061,9 @@
 	  SET_SUBMISSION: function SET_SUBMISSION(state, sub) {
 	    state.submission = sub;
 	  },
+	  SET_SUBMISSIONS: function SET_SUBMISSIONS(state, sub) {
+	    state.submissions = sub;
+	  },
 	  SET_SUBMISSION_RESPONSE: function SET_SUBMISSION_RESPONSE(state, r, i) {
 	    state.submission.content.responses[i] = r;
 	  },
