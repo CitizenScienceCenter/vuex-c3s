@@ -21,9 +21,9 @@ const actions = {
 	 * @param search
 	 * @returns {Promise<*|boolean|void>}
 	 */
-	async getSubmissions({ state, commit, rootState }, search) {
+	async getSubmissions({ state, commit, rootState }, [search, limit]) {
         search = rison.encode(search);
-		return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {search_term: search || undefined }, 'c3s/submission/SET_SUBMISSIONS');
+		return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {search_term: search || undefined, limit: limit || 100 }, 'c3s/submission/SET_SUBMISSIONS');
 	},
 
     async getSubmissionCount({state, commit, rootState}, search) {

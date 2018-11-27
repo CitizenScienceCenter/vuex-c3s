@@ -24,7 +24,7 @@ const actions = {
         search = rison.encode(search);
         return makeRequest(commit, rootState.c3s.client.apis.Comments.get_all, {search_term: search || undefined}, 'c3s/comments/SET_COMMENTS');
     },
-    async getCommentsForID({state, commit, rootState}, [id, commitMsg]) {
+    async getCommentsForID({state, commit, rootState}, [id, commitMsg, limit]) {
         const cmtQuery = {
             "select": {
                 "fields": [
@@ -45,7 +45,7 @@ const actions = {
             }
         };
         const search = rison.encode(cmtQuery);
-        return makeRequest(commit, rootState.c3s.client.apis.Comments.get_comments, {search_term: search || undefined}, commitMsg);
+        return makeRequest(commit, rootState.c3s.client.apis.Comments.get_comments, {search_term: search || undefined, limit: limit || 100 }, commitMsg);
     },
     /**
      * Create a comment

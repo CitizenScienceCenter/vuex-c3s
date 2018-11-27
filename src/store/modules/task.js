@@ -25,9 +25,9 @@ const actions = {
 	 * @param search
 	 * @returns {Promise<*|boolean|void>}
 	 */
-	async getTasks({ state, commit, rootState }, search) {
+	async getTasks({ state, commit, rootState }, [search, limit]) {
         search = rison.encode(search);
-		return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {search_term: search || undefined }, 'c3s/task/SET_TASKS');
+		return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {search_term: search || undefined, limit: limit || 100 }, 'c3s/task/SET_TASKS');
 	},
 
     async getTaskCount({state, commit, rootState}, search) {

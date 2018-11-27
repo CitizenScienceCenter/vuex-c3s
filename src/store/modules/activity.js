@@ -33,9 +33,9 @@ const actions = {
                       commit,
                       dispatch,
                       rootState
-                  }, search) {
+                  }, [search, limit]) {
         search = rison.encode(search);
-        return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {search_term: search || undefined}, 'c3s/activity/SET_ACTIVITIES');
+        return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {search_term: search || undefined, limit: limit || 100 }, 'c3s/activity/SET_ACTIVITIES');
     },
     /**
      * Retrieve a single activity based on the ID

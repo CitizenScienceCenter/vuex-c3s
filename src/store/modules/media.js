@@ -12,9 +12,9 @@ const getters = {
 
 // actions
 const actions = {
-	getMedia({state, commit, rootState}, [search, commitMsg]) {
+	getMedia({state, commit, rootState}, [search, commitMsg, limit]) {
         search = rison.encode(search);
-        return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {search_term: search || undefined }, commitMsg);
+        return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {search_term: search || undefined, limit: limit || 100 }, commitMsg);
 	},
 	deleteMedium({state, commit, dispatch, rootState}, id) {
         return makeRequest(commit, rootState.c3s.client.apis.Media.delete_medium, {id: id}, undefined);

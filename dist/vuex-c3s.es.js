@@ -473,14 +473,20 @@ var actions$2 = {
    * @param search
    * @returns {Promise<*|boolean|void>}
    */
-  getActivities: function getActivities(_ref, search) {
+  getActivities: function getActivities(_ref, _ref2) {
     var state = _ref.state,
         commit = _ref.commit,
         dispatch = _ref.dispatch,
         rootState = _ref.rootState;
+
+    var _ref3 = _slicedToArray(_ref2, 2),
+        search = _ref3[0],
+        limit = _ref3[1];
+
     search = rison.encode(search);
     return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {
-      search_term: search || undefined
+      search_term: search || undefined,
+      limit: limit || 100
     }, 'c3s/activity/SET_ACTIVITIES');
   },
 
@@ -497,15 +503,15 @@ var actions$2 = {
   getActivity: function () {
     var _getActivity = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
-      var state, commit, dispatch, rootState, _ref4, id, associated;
+    _regeneratorRuntime.mark(function _callee(_ref4, _ref5) {
+      var state, commit, dispatch, rootState, _ref6, id, associated;
 
       return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              state = _ref2.state, commit = _ref2.commit, dispatch = _ref2.dispatch, rootState = _ref2.rootState;
-              _ref4 = _slicedToArray(_ref3, 2), id = _ref4[0], associated = _ref4[1];
+              state = _ref4.state, commit = _ref4.commit, dispatch = _ref4.dispatch, rootState = _ref4.rootState;
+              _ref6 = _slicedToArray(_ref5, 2), id = _ref6[0], associated = _ref6[1];
 
               return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {
                 id: id
@@ -526,13 +532,13 @@ var actions$2 = {
   getActivityCount: function () {
     var _getActivityCount = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee2(_ref5, search) {
+    _regeneratorRuntime.mark(function _callee2(_ref7, search) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+              state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
               search = rison.encode(search);
               return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_count, {
                 search_term: search || undefined
@@ -550,10 +556,10 @@ var actions$2 = {
       return _getActivityCount.apply(this, arguments);
     };
   }(),
-  getStats: function getStats(_ref6, id) {
-    var state = _ref6.state,
-        commit = _ref6.commit,
-        rootState = _ref6.rootState;
+  getStats: function getStats(_ref8, id) {
+    var state = _ref8.state,
+        commit = _ref8.commit,
+        rootState = _ref8.rootState;
     return makeRequest(commit, rootState.c3s.client.apis.Activities.activity_stats, {
       id: id
     }, 'c3s/activity/SET_STATS');
@@ -567,10 +573,10 @@ var actions$2 = {
    * @param activity
    * @returns {Promise<*|boolean|void>}
    */
-  createActivity: function createActivity(_ref7, activity) {
-    var state = _ref7.state,
-        commit = _ref7.commit,
-        rootState = _ref7.rootState;
+  createActivity: function createActivity(_ref9, activity) {
+    var state = _ref9.state,
+        commit = _ref9.commit,
+        rootState = _ref9.rootState;
     return makeRequest(commit, rootState.c3s.client.apis.Activities.create_activity, {
       activity: activity
     }, 'c3s/activity/SET_ACTIVITY');
@@ -585,14 +591,14 @@ var actions$2 = {
    * @param localRemove
    * @returns {Promise<*|boolean|void>}
    */
-  deleteActivity: function deleteActivity(_ref8, _ref9) {
-    var state = _ref8.state,
-        commit = _ref8.commit,
-        rootState = _ref8.rootState;
+  deleteActivity: function deleteActivity(_ref10, _ref11) {
+    var state = _ref10.state,
+        commit = _ref10.commit,
+        rootState = _ref10.rootState;
 
-    var _ref10 = _slicedToArray(_ref9, 2),
-        pid = _ref10[0],
-        localRemove = _ref10[1];
+    var _ref12 = _slicedToArray(_ref11, 2),
+        pid = _ref12[0],
+        localRemove = _ref12[1];
 
     if (localRemove) commit('c3s/activity/SET_ACTIVITY', null);
     return makeRequest(commit, rootState.c3s.client.apis.Activities.delete_activity, {
@@ -651,19 +657,22 @@ var actions$3 = {
   getTasks: function () {
     var _getTasks = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee(_ref, search) {
-      var state, commit, rootState;
+    _regeneratorRuntime.mark(function _callee(_ref, _ref2) {
+      var state, commit, rootState, _ref3, search, limit;
+
       return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
+              _ref3 = _slicedToArray(_ref2, 2), search = _ref3[0], limit = _ref3[1];
               search = rison.encode(search);
               return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {
-                search_term: search || undefined
+                search_term: search || undefined,
+                limit: limit || 100
               }, 'c3s/task/SET_TASKS'));
 
-            case 3:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -678,13 +687,13 @@ var actions$3 = {
   getTaskCount: function () {
     var _getTaskCount = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee2(_ref2, search) {
+    _regeneratorRuntime.mark(function _callee2(_ref4, search) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState;
+              state = _ref4.state, commit = _ref4.commit, rootState = _ref4.rootState;
               search = rison.encode(search);
               return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_count, {
                 search_term: search || undefined
@@ -705,15 +714,15 @@ var actions$3 = {
   getTaskRegion: function () {
     var _getTaskRegion = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee3(_ref3, _ref4) {
-      var state, commit, rootState, _ref5, pid, region;
+    _regeneratorRuntime.mark(function _callee3(_ref5, _ref6) {
+      var state, commit, rootState, _ref7, pid, region;
 
       return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              state = _ref3.state, commit = _ref3.commit, rootState = _ref3.rootState;
-              _ref5 = _slicedToArray(_ref4, 2), pid = _ref5[0], region = _ref5[1];
+              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+              _ref7 = _slicedToArray(_ref6, 2), pid = _ref7[0], region = _ref7[1];
               return _context3.abrupt("return", undefined);
 
             case 3:
@@ -731,13 +740,13 @@ var actions$3 = {
   getTaskMedia: function () {
     var _getTaskMedia = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee4(_ref6, search) {
+    _regeneratorRuntime.mark(function _callee4(_ref8, search) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
+              state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
               search = rison.encode(search);
               return _context4.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
                 search_term: search || undefined
@@ -768,13 +777,13 @@ var actions$3 = {
   getTask: function () {
     var _getTask = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee5(_ref7, id) {
+    _regeneratorRuntime.mark(function _callee5(_ref9, id) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
+              state = _ref9.state, commit = _ref9.commit, rootState = _ref9.rootState;
               return _context5.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task, {
                 id: id
               }, 'c3s/task/SET_TASK'));
@@ -794,13 +803,13 @@ var actions$3 = {
   activityTasks: function () {
     var _activityTasks = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee6(_ref8, id) {
+    _regeneratorRuntime.mark(function _callee6(_ref10, id) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
+              state = _ref10.state, commit = _ref10.commit, rootState = _ref10.rootState;
               return _context6.abrupt("return", undefined);
 
             case 2:
@@ -828,13 +837,13 @@ var actions$3 = {
   createTasks: function () {
     var _createTasks = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee7(_ref9, tasks) {
+    _regeneratorRuntime.mark(function _callee7(_ref11, tasks) {
       var state, commit, dispatch, rootState, res;
       return _regeneratorRuntime.wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
-              state = _ref9.state, commit = _ref9.commit, dispatch = _ref9.dispatch, rootState = _ref9.rootState;
+              state = _ref11.state, commit = _ref11.commit, dispatch = _ref11.dispatch, rootState = _ref11.rootState;
               res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {
                 tasks: tasks
               }, undefined);
@@ -865,11 +874,11 @@ var actions$3 = {
    * @param tasks
    * @returns {Promise<*|boolean|void>}
    */
-  deleteTasks: function deleteTasks(_ref10, tasks) {
-    var state = _ref10.state,
-        commit = _ref10.commit,
-        dispatch = _ref10.dispatch,
-        rootState = _ref10.rootState;
+  deleteTasks: function deleteTasks(_ref12, tasks) {
+    var state = _ref12.state,
+        commit = _ref12.commit,
+        dispatch = _ref12.dispatch,
+        rootState = _ref12.rootState;
     dispatch('SET_TASKS', null);
     return makeRequest(commit, rootState.c3s.client.apis.Tasks.delete_tasks, {
       tasks: tasks
@@ -924,19 +933,22 @@ var actions$4 = {
   getSubmissions: function () {
     var _getSubmissions = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee(_ref, search) {
-      var state, commit, rootState;
+    _regeneratorRuntime.mark(function _callee(_ref, _ref2) {
+      var state, commit, rootState, _ref3, search, limit;
+
       return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
+              _ref3 = _slicedToArray(_ref2, 2), search = _ref3[0], limit = _ref3[1];
               search = rison.encode(search);
               return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {
-                search_term: search || undefined
+                search_term: search || undefined,
+                limit: limit || 100
               }, 'c3s/submission/SET_SUBMISSIONS'));
 
-            case 3:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -951,13 +963,13 @@ var actions$4 = {
   getSubmissionCount: function () {
     var _getSubmissionCount = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee2(_ref2, search) {
+    _regeneratorRuntime.mark(function _callee2(_ref4, search) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState;
+              state = _ref4.state, commit = _ref4.commit, rootState = _ref4.rootState;
               search = rison.encode(search);
               return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submission_count, {
                 search_term: search || undefined
@@ -987,13 +999,13 @@ var actions$4 = {
   createSubmission: function () {
     var _createSubmission = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee3(_ref3) {
+    _regeneratorRuntime.mark(function _callee3(_ref5) {
       var state, commit, rootState, dispatch;
       return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              state = _ref3.state, commit = _ref3.commit, rootState = _ref3.rootState, dispatch = _ref3.dispatch;
+              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState, dispatch = _ref5.dispatch;
               return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, {
                 submission: state.submission
               }, 'c3s/submission/SET_SUBMISSION'));
@@ -1022,13 +1034,13 @@ var actions$4 = {
   updateSubmission: function () {
     var _updateSubmission = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee4(_ref4, submission) {
+    _regeneratorRuntime.mark(function _callee4(_ref6, submission) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              state = _ref4.state, commit = _ref4.commit, rootState = _ref4.rootState;
+              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
               return _context4.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.update_submission, {
                 id: submission.id,
                 submission: submission
@@ -1087,13 +1099,15 @@ var actions$5 = {
         commit = _ref.commit,
         rootState = _ref.rootState;
 
-    var _ref3 = _slicedToArray(_ref2, 2),
+    var _ref3 = _slicedToArray(_ref2, 3),
         search = _ref3[0],
-        commitMsg = _ref3[1];
+        commitMsg = _ref3[1],
+        limit = _ref3[2];
 
     search = rison.encode(search);
     return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
-      search_term: search || undefined
+      search_term: search || undefined,
+      limit: limit || 100
     }, commitMsg);
   },
   deleteMedium: function deleteMedium(_ref4, id) {
@@ -1222,14 +1236,20 @@ var actions$7 = {
    * @param search
    * @returns {Promise<*|boolean|void>}
    */
-  getProjects: function getProjects(_ref, search) {
+  getProjects: function getProjects(_ref, _ref2) {
     var state = _ref.state,
         commit = _ref.commit,
         dispatch = _ref.dispatch,
         rootState = _ref.rootState;
+
+    var _ref3 = _slicedToArray(_ref2, 2),
+        search = _ref3[0],
+        limit = _ref3[1];
+
     search = rison.encode(search);
     return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {
-      search_term: search || undefined
+      search_term: search || undefined,
+      limit: limit || 100
     }, 'c3s/project/SET_PROJECTS');
   },
 
@@ -1246,15 +1266,15 @@ var actions$7 = {
   getProject: function () {
     var _getProject = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee(_ref2, _ref3) {
-      var state, commit, dispatch, rootState, _ref4, id, associated;
+    _regeneratorRuntime.mark(function _callee(_ref4, _ref5) {
+      var state, commit, dispatch, rootState, _ref6, id, associated;
 
       return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              state = _ref2.state, commit = _ref2.commit, dispatch = _ref2.dispatch, rootState = _ref2.rootState;
-              _ref4 = _slicedToArray(_ref3, 2), id = _ref4[0], associated = _ref4[1];
+              state = _ref4.state, commit = _ref4.commit, dispatch = _ref4.dispatch, rootState = _ref4.rootState;
+              _ref6 = _slicedToArray(_ref5, 2), id = _ref6[0], associated = _ref6[1];
 
               if (associated) {
                 dispatch('media/getMedia', id, {
@@ -1285,13 +1305,13 @@ var actions$7 = {
   getProjectCount: function () {
     var _getProjectCount = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee2(_ref5, search) {
+    _regeneratorRuntime.mark(function _callee2(_ref7, search) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+              state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
               search = rison.encode(search);
               return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Projects.get_project_count, {
                 search_term: search || undefined
@@ -1318,10 +1338,10 @@ var actions$7 = {
    * @param activity
    * @returns {Promise<*|boolean|void>}
    */
-  createProject: function createProject(_ref6, project) {
-    var state = _ref6.state,
-        commit = _ref6.commit,
-        rootState = _ref6.rootState;
+  createProject: function createProject(_ref8, project) {
+    var state = _ref8.state,
+        commit = _ref8.commit,
+        rootState = _ref8.rootState;
     return makeRequest(commit, rootState.c3s.client.apis.Projects.create_project, {
       project: project
     }, 'c3s/project/SET_PROJECT');
@@ -1336,14 +1356,14 @@ var actions$7 = {
    * @param localRemove
    * @returns {Promise<*|boolean|void>}
    */
-  deleteProject: function deleteProject(_ref7, _ref8) {
-    var state = _ref7.state,
-        commit = _ref7.commit,
-        rootState = _ref7.rootState;
+  deleteProject: function deleteProject(_ref9, _ref10) {
+    var state = _ref9.state,
+        commit = _ref9.commit,
+        rootState = _ref9.rootState;
 
-    var _ref9 = _slicedToArray(_ref8, 2),
-        pid = _ref9[0],
-        localRemove = _ref9[1];
+    var _ref11 = _slicedToArray(_ref10, 2),
+        pid = _ref11[0],
+        localRemove = _ref11[1];
 
     if (localRemove) commit('c3s/project/SET_PROJECT', null);
     return makeRequest(commit, rootState.c3s.client.apis.Projects.delete_project, {
@@ -1426,14 +1446,14 @@ var actions$8 = {
     var _getCommentsForID = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee2(_ref2, _ref3) {
-      var state, commit, rootState, _ref4, id, commitMsg, cmtQuery, search;
+      var state, commit, rootState, _ref4, id, commitMsg, limit, cmtQuery, search;
 
       return _regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               state = _ref2.state, commit = _ref2.commit, rootState = _ref2.rootState;
-              _ref4 = _slicedToArray(_ref3, 2), id = _ref4[0], commitMsg = _ref4[1];
+              _ref4 = _slicedToArray(_ref3, 3), id = _ref4[0], commitMsg = _ref4[1], limit = _ref4[2];
               cmtQuery = {
                 "select": {
                   "fields": ["*"],
@@ -1451,7 +1471,8 @@ var actions$8 = {
               };
               search = rison.encode(cmtQuery);
               return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Comments.get_comments, {
-                search_term: search || undefined
+                search_term: search || undefined,
+                limit: limit || 100
               }, commitMsg));
 
             case 5:
