@@ -1,4 +1,5 @@
 import makeRequest from './utils';
+import rison from "rison-node";
 // initial state
 // shape: [{ id, quantity }]
 const state = {
@@ -20,9 +21,15 @@ const actions = {
 	 * @param search
 	 * @returns {Promise<*|boolean|void>}
 	 */
-	async getSubmissions({ state, commit, rootState }, search) {
-		return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {search_term: search || undefined }, 'c3s/submission/SET_SUBMISSIONS');
+	async getSubmissions({ state, commit, rootState }, [search, limit]) {
+        search = rison.encode(search);
+		return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {search_term: search || undefined, limit: limit || 100 }, 'c3s/submission/SET_SUBMISSIONS');
 	},
+
+    async getSubmissionCount({state, commit, rootState}, search) {
+        search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submission_count, {search_term: search || undefined }, undefined);
+    },
 	/**
 	 * Create a submission
 	 * @param state
@@ -59,6 +66,9 @@ const mutations = {
 	SET_SUBMISSION(state, sub) {
 		state.submission = sub;
 	},
+    SET_SUBMISSIONS(state, sub) {
+        state.submissions = sub;
+    },
 	SET_SUBMISSION_RESPONSE(state, r, i) {
 		state.submission.content.responses[i] = r;
 	},

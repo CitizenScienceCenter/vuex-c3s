@@ -1,11 +1,13 @@
 import makeRequest from './utils';
+import rison from 'rison-node'
 // initial state
 // shape: [{ id, quantity }]
 const state = {
 	projects: [],
 	project: null,
 	stats: null,
-	media: []
+	media: [],
+    comments: []
 };
 
 // getters
@@ -31,8 +33,9 @@ const actions = {
 		commit,
 		dispatch,
 		rootState
-	}, search) {
-		return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {search_term: search || undefined }, 'c3s/project/SET_PROJECTS');
+	}, [search, limit]) {
+		search = rison.encode(search);
+		return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {search_term: search || undefined, limit: limit || 100 }, 'c3s/project/SET_PROJECTS');
 	},
 	/**
 	 * Retrieve a single activity based on the ID
@@ -44,7 +47,7 @@ const actions = {
 	 * @param associated
 	 * @returns {Promise<*|boolean|void>}
 	 */
-	async getActivity({
+	async getProject({
 		state,
 		commit,
 		dispatch,
@@ -57,6 +60,11 @@ const actions = {
 		dispatch('getStats', id);
 		return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project, {id: id }, 'c3s/project/SET_PROJECT');
 	},
+
+    async getProjectCount({state, commit, rootState}, search) {
+        search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project_count, {search_term: search || undefined }, undefined);
+    },
 	/**
 	 * Create a project
 	 * @param state
@@ -69,7 +77,7 @@ const actions = {
 		state,
 		commit,
 		rootState
-	}, activity) {
+	}, project) {
 		return makeRequest(commit, rootState.c3s.client.apis.Projects.create_project, {project: project }, 'c3s/project/SET_PROJECT');
 	},
 	/**
@@ -101,7 +109,13 @@ const mutations = {
 	},
 	SET_STATS(state, stats) {
 		state.stats = stats;
-	}
+	},
+    SET_COMMENTS(state, cmts) {
+        state.comments = cmts
+    },
+    SET_MEDIA(state, media) {
+        state.media = media
+    }
 };
 
 /**

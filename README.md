@@ -52,11 +52,11 @@ user: state => state.c3s.user.currentUser
  ## Store Methods
  
  Each module has the following methods available:
- * getP(search:JSON) - Retrieve all of the model, with a query object
- * getSingular(id:String) - Retrieve a single model matching the ID
- * createSingular(model: JSON) - Create an instance of the model
- * updateSingular(model:JSON, id:String) - Update an instance of the model
- * deleteSingular(id:String) - Delete an instance of the model
+ * get`Plural`**(**search**:JSON) - Retrieve all of the model, with a query object
+ * get`Singular`(**id**:String) - Retrieve a single model matching the ID
+ * create`Singular`(**model**: JSON) - Create an instance of the model
+ * update`Singular`(**model**:JSON, **id**:String) - Update an instance of the model
+ * delete`Singular`(**id**:String) - Delete an instance of the model
  
  e.g.:
  

@@ -1,2 +1,5 @@
 node_modules/*
 .idea/*
+.gitsecret/keys/random_seed
+test/unit_config.js
+

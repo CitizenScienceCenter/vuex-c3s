@@ -5,7 +5,8 @@ var SHA256 = require('crypto-js/sha256');
 // shape: [{ id, quantity }]
 const state = {
 	user: null,
-	currentUser: null
+	currentUser: null,
+    isAnon: false
 };
 
 // getters
@@ -28,6 +29,7 @@ const actions = {
 		dispatch,
 		rootState
 	}, user) {
+		console.log('loggin in')
 		return makeRequest(commit, rootState.c3s.client.apis.Users.login, user, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
@@ -46,10 +48,19 @@ const actions = {
 					   }) {
 		commit('c3s/settings/SET_LOADING', true, {root: true});
 		const now = '' + Date.now();
-		const id = 'anon' + SHA256(now);
+		const id = '_anon' + SHA256(now); // TODO add extra details to avoid clash OR delegate to server?
 		const pwd = '' + SHA256(id);
-		let u = await dispatch('register', {'username': id, 'pwd': pwd, 'confirmed': false});
-		return u;
+		const u = {
+		    'username': id,
+            'pwd': pwd,
+            'confirmed': false,
+            info: {
+		        'anonymous': true
+            }
+        }
+        const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: u}, 'c3s/user/SET_CURRENT_USER');
+        commit('SET_ANON', true);
+        return response;
 	},
 	/**
 	 * Logout user and remove from local store
@@ -63,6 +74,7 @@ const actions = {
 		commit('c3s/user/SET_CURRENT_USER', null, {
 			root: true
 		});
+		commit('SET_ANON', false);
 	},
 	/**
 	 * Request to reset password
@@ -140,7 +152,6 @@ const actions = {
 						 commit,
 						 rootState
 					 }, [id, info]) {
-		console.log(info);
 		return makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
 			id: id,
 			user: info
@@ -175,7 +186,10 @@ const mutations = {
 	},
 	SET_TASK_PROGRESS(state, prog) {
 		state.taskProgress = prog;
-	}
+	},
+    SET_ANON(state, flag) {
+	    state.isAnon = flag;
+    }
 };
 
 export default {

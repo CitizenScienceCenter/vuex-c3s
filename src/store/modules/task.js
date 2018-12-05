@@ -1,10 +1,12 @@
 import makeRequest from './utils';
+import rison from "rison-node";
 // initial state
 // shape: [{ id, quantity }]
 const state = {
 	tasks: [],
 	task: null,
-	media: []
+	media: [],
+    comments: []
 };
 
 // getters
@@ -26,17 +28,23 @@ const actions = {
 	 * @param search
 	 * @returns {Promise<*|boolean|void>}
 	 */
-	async getTasks({ state, commit, rootState }, search) {
-		return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {search_term: search || undefined }, 'c3s/task/SET_TASKS');
+	async getTasks({ state, commit, rootState }, [search, limit]) {
+        search = rison.encode(search);
+		return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {search_term: search || undefined, limit: limit || 100 }, 'c3s/task/SET_TASKS');
 	},
+
+    async getTaskCount({state, commit, rootState}, search) {
+	    search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_count, {search_term: search || undefined }, undefined);
+    },
 
 	async getTaskRegion({ state, commit, rootState }, [pid, region]) {
 		// TODO implement
 		return undefined;
 	},
-	async getTaskMedia({ state, commit, rootState }, [pid, region]) {
-		// TODO implement
-		return undefined;
+	async getTaskMedia({ state, commit, rootState }, search) {
+        search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {search_term: search || undefined }, 'c3s/task/SET_MEDIA');
 	},
 	/**
 	 * Retrieve task matching an ID
@@ -63,7 +71,7 @@ const actions = {
 	 * @returns {Promise<*>}
 	 */
 	async createTasks({ state, commit, dispatch, rootState }, tasks) {
-		res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {tasks: tasks }, undefined);
+		const res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {tasks: tasks }, undefined);
 		dispatch('c3s/upload/addID', res[0].id, {root: true});
 		return res;
 	},
@@ -95,7 +103,13 @@ const mutations = {
 		Object.assign(state.tasks[index], {
 			[params.field]: params.value
 		});
-	}
+	},
+    SET_MEDIA(state, media) {
+	    state.media = media;
+    },
+    SET_COMMENTS(state, cmts) {
+	    state.comments = cmts
+    }
 };
 
 /**

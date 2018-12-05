@@ -1,6 +1,6 @@
 {
   "name": "vuex-c3s",
-  "version": "0.1.12",
+  "version": "1.0.3",
   "description": "SDK for the Citizen Science Framework API, using Swagger and Vuex",
   "directories": {
     "test": "test"
@@ -38,7 +38,8 @@
   },
   "homepage": "https://github.com/citizensciencecenter/vuex-c3s#readme",
   "dependencies": {
-    "babel-plugin-transform-runtime": "^6.23.0"
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "rison-node": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",

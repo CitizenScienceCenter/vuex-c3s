@@ -2,9 +2,6 @@ import c3s from '../dist/vuex-c3s.es';
 import Swagger from 'swagger-client';
 
 export const createStore = (store, url, modules=[], cb) => {
-	store.registerModule('c3s', c3s.store.api);
-	store.registerModule(['c3s', 'user'], c3s.store.user);
-	store.registerModule(['c3s', 'settings'], c3s.store.settings);
 	if (modules && modules.length > 0) {
 		for(let i in modules) {
 			const m = modules[i];
