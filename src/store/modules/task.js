@@ -1,7 +1,15 @@
 import makeRequest from './utils';
 import rison from "rison-node";
-// initial state
-// shape: [{ id, quantity }]
+
+/** @module c3s/task */
+
+/**
+ * state
+ * @property {Array} tasks
+ * @property {Object} task
+ * @property {Array} media
+ * @property {Array} comments
+ */
 const state = {
 	tasks: [],
 	task: null,
@@ -9,22 +17,24 @@ const state = {
     comments: []
 };
 
-// getters
+/** getters
+ * @namespace getters
+ */
 const getters = {
 	// https://vuex.vuejs.org/guide/getters.html#method-style-access
 	// allTasks: state => state.tasks.concat(state.clientTasks)
 };
 
-// actions
 /**
- * @memberof task
- * @namespace task.actions
+ * actions
+ * @alias module:c3s/task
+ * @namespace actions
  */
 const actions = {
 	/**
-	 * @memberof task.actions
 	 * @param {Provided} param0 
 	 * @param {Array} Search An array containing a search object and a limit integer
+	 * 
 	 */
 	async getTasks({ state, commit, rootState }, [search, limit]) {
         search = rison.encode(search);
@@ -32,7 +42,6 @@ const actions = {
 	},
 
 	/**
-	 * @memberof task.actions
 	 * @param {Provided} param0 Provied by Vuex, DO NOT PASS
 	 * @param {Object} search A search term to match a JTOS object
 	 */
@@ -40,38 +49,27 @@ const actions = {
 	    search = rison.encode(search);
         return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_count, {search_term: search || undefined }, undefined);
     },
-
-	async getTaskRegion({ state, commit, rootState }, [pid, region]) {
-		// TODO implement
-		return undefined;
-	},
+	/**
+	 * Get Task Media
+	 * @param {Provided} param0 
+	 * @param {Object} search 
+	 */
 	async getTaskMedia({ state, commit, rootState }, search) {
         search = rison.encode(search);
         return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {search_term: search || undefined }, 'c3s/task/SET_MEDIA');
 	},
 	/**
-	 * Retrieve task matching an ID
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param pid
-	 * @param region
-	 * @returns {Promise<undefined>}
+	 * Retrieve a task matching an ID
+	 * @param {Provided} param0 
+	 * @param {String} id Task ID
 	 */
 	async getTask({ state, commit, rootState }, id) {
 		return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task, {id: id }, 'c3s/task/SET_TASK');
 	},
-	async activityTasks({ state, commit, rootState }, id) {
-		return undefined;
-	},
 	/**
-	 * Create an array of tasks
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
-	 * @param tasks
-	 * @returns {Promise<*>}
+	 * @description Create an array of tasks
+	 * @param {Provided} param0 
+	 * @param {Array} tasks Array of tasks to be created
 	 */
 	async createTasks({ state, commit, dispatch, rootState }, tasks) {
 		const res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {tasks: tasks }, undefined);
@@ -79,13 +77,9 @@ const actions = {
 		return res;
 	},
 	/**
-	 * Delete an array of tasks
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
-	 * @param tasks
-	 * @returns {Promise<*|boolean|void>}
+	 * Deletes an array of tasks
+	 * @param {Provided} param0 
+	 * @param {Array} tasks Tasks to be deleted, ID is required as a key here
 	 */
 	deleteTasks({ state, commit, dispatch, rootState }, tasks) {
 		dispatch('SET_TASKS', null);
@@ -94,7 +88,9 @@ const actions = {
 
 };
 
-// mutations
+/** mutations
+ * @namespace mutations
+ */
 const mutations = {
 	SET_TASKS(state, tasks) {
 		state.tasks = tasks;
@@ -116,8 +112,7 @@ const mutations = {
 };
 
 /**
- * A module for linking activities to the API
- * @namespace task
+ * Task store submodule
  */
 export default {
 	namespaced: true,

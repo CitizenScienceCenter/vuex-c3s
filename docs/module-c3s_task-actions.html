@@ -29,7 +29,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="activity.html">activity</a>.</span>actions</h2>
+            <span class="ancestors"><a href="module-c3s_task.html">c3s/task</a>~</span>actions</h2>
         
     
 </header>
@@ -73,7 +73,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_activity.js.html">store/modules/activity.js</a>, <a href="store_modules_activity.js.html#line22">line 22</a>
+        <a href="store_modules_task.js.html">store/modules/task.js</a>, <a href="store_modules_task.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -112,17 +112,17 @@
     
 
     
-    <h4 class="name" id=".createActivity"><span class="type-signature">(static) </span>createActivity<span class="signature">(state, commit, rootState, activity)</span><span class="type-signature"> &rarr; {Promise.&lt;(*|boolean|void)>}</span></h4>
+    <h4 class="name" id=".createTasks"><span class="type-signature">(static) </span>createTasks<span class="signature">(param0, tasks)</span><span class="type-signature"></span></h4>
     
 
     
-    <p class="summary">Create an activity.</p>
+    <p class="summary">Create an array of tasks.</p>
     
 
 
 
 <div class="description">
-    Create an activity
+    Create an array of tasks
 </div>
 
 
@@ -158,10 +158,15 @@
 
         <tr>
             
-                <td class="name"><code>state</code></td>
+                <td class="name"><code>param0</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
             
             </td>
 
@@ -176,10 +181,15 @@
 
         <tr>
             
-                <td class="name"><code>commit</code></td>
+                <td class="name"><code>tasks</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
             
             </td>
 
@@ -187,43 +197,7 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>rootState</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>activity</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">Array of tasks to be created</td>
         </tr>
 
     
@@ -264,7 +238,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_activity.js.html">store/modules/activity.js</a>, <a href="store_modules_activity.js.html#line91">line 91</a>
+        <a href="store_modules_task.js.html">store/modules/task.js</a>, <a href="store_modules_task.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -287,24 +261,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(*|boolean|void)></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -316,17 +272,17 @@
     
 
     
-    <h4 class="name" id=".deleteActivity"><span class="type-signature">(static) </span>deleteActivity<span class="signature">(state, commit, rootState, pid, localRemove)</span><span class="type-signature"> &rarr; {Promise.&lt;(*|boolean|void)>}</span></h4>
+    <h4 class="name" id=".deleteTasks"><span class="type-signature">(static) </span>deleteTasks<span class="signature">(param0, tasks)</span><span class="type-signature"></span></h4>
     
 
     
-    <p class="summary">Delete an activity matching the supplied ID.</p>
+    <p class="summary">Deletes an array of tasks.</p>
     
 
 
 
 <div class="description">
-    Delete an activity matching the supplied ID
+    Deletes an array of tasks
 </div>
 
 
@@ -362,10 +318,15 @@
 
         <tr>
             
-                <td class="name"><code>state</code></td>
+                <td class="name"><code>param0</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
             
             </td>
 
@@ -380,10 +341,15 @@
 
         <tr>
             
-                <td class="name"><code>commit</code></td>
+                <td class="name"><code>tasks</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
             
             </td>
 
@@ -391,61 +357,7 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>rootState</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>pid</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>localRemove</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">Tasks to be deleted, ID is required as a key here</td>
         </tr>
 
     
@@ -486,7 +398,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_activity.js.html">store/modules/activity.js</a>, <a href="store_modules_activity.js.html#line108">line 108</a>
+        <a href="store_modules_task.js.html">store/modules/task.js</a>, <a href="store_modules_task.js.html#line84">line 84</a>
     </li></ul></dd>
     
 
@@ -509,24 +421,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(*|boolean|void)></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -538,17 +432,17 @@
     
 
     
-    <h4 class="name" id=".getActivities"><span class="type-signature">(static) </span>getActivities<span class="signature">(state, commit, dispatch, rootState, search)</span><span class="type-signature"> &rarr; {Promise.&lt;(*|boolean|void)>}</span></h4>
+    <h4 class="name" id=".getTask"><span class="type-signature">(static) </span>getTask<span class="signature">(param0, id)</span><span class="type-signature"></span></h4>
     
 
     
-    <p class="summary">Retrieve an array of activities based on a provided query object.</p>
+    <p class="summary">Retrieve a task matching an ID.</p>
     
 
 
 
 <div class="description">
-    Retrieve an array of activities based on a provided query object
+    Retrieve a task matching an ID
 </div>
 
 
@@ -584,286 +478,15 @@
 
         <tr>
             
-                <td class="name"><code>state</code></td>
+                <td class="name"><code>param0</code></td>
             
 
             <td class="type">
             
-            </td>
+                
+<span class="param-type">Provided</span>
 
-            
 
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>commit</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>dispatch</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>rootState</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>search</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_activity.js.html">store/modules/activity.js</a>, <a href="store_modules_activity.js.html#line40">line 40</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(*|boolean|void)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getActivity"><span class="type-signature">(static) </span>getActivity<span class="signature">(state, commit, dispatch, rootState, id, associated)</span><span class="type-signature"> &rarr; {Promise.&lt;(*|boolean|void)>}</span></h4>
-    
-
-    
-    <p class="summary">Retrieve a single activity based on the ID.</p>
-    
-
-
-
-<div class="description">
-    Retrieve a single activity based on the ID
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>state</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>commit</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>dispatch</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>rootState</code></td>
-            
-
-            <td class="type">
             
             </td>
 
@@ -883,6 +506,302 @@
 
             <td class="type">
             
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Task ID</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store_modules_task.js.html">store/modules/task.js</a>, <a href="store_modules_task.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getTaskCount"><span class="type-signature">(static) </span>getTaskCount<span class="signature">(param0, search)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Provied by Vuex, DO NOT PASS</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>search</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A search term to match a JTOS object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store_modules_task.js.html">store/modules/task.js</a>, <a href="store_modules_task.js.html#line48">line 48</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getTaskMedia"><span class="type-signature">(static) </span>getTaskMedia<span class="signature">(param0, search)</span><span class="type-signature"></span></h4>
+    
+
+    
+    <p class="summary">Get Task Media.</p>
+    
+
+
+
+<div class="description">
+    Get Task Media
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
+            
             </td>
 
             
@@ -896,10 +815,15 @@
 
         <tr>
             
-                <td class="name"><code>associated</code></td>
+                <td class="name"><code>search</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
             
             </td>
 
@@ -948,7 +872,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_activity.js.html">store/modules/activity.js</a>, <a href="store_modules_activity.js.html#line60">line 60</a>
+        <a href="store_modules_task.js.html">store/modules/task.js</a>, <a href="store_modules_task.js.html#line57">line 57</a>
     </li></ul></dd>
     
 
@@ -971,24 +895,160 @@
 
 
 
-<h5>Returns:</h5>
+
+
+
+
 
         
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;(*|boolean|void)></span>
-
-
-    </dd>
-</dl>
+            
 
     
+
+    
+    <h4 class="name" id=".getTasks"><span class="type-signature">(static) </span>getTasks<span class="signature">(param0, Search)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Search</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array containing a search object and a limit integer</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store_modules_task.js.html">store/modules/task.js</a>, <a href="store_modules_task.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

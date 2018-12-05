@@ -1,23 +1,22 @@
+/** @module c3s */
 
-// initial state
-// shape: [{ id, quantity }]
 const state = {
 	client: null,
 	host: undefined
 };
 
-// getters
+/** getters */
 const getters = {
 };
 
-// actions
+/** actions */
 const actions = {
 	setClient({ commit }, client) {
 		commit('SET_API', client);
 	}
 };
 
-// mutations
+/** mutations */
 const mutations = {
 	SET_API(state, client) {
 		state.client = client;
@@ -29,9 +28,7 @@ const mutations = {
 
 
 /**
- * Core module containing API client and baase URL
- * @export c3s
- * @module c3s
+ * api
  */
 export default {
 	namespaced: true,
