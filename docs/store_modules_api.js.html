@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: store/modules/api.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,125 +17,60 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: store/modules/api.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+// initial state
+// shape: [{ id, quantity }]
+const state = {
+	client: null,
+	host: undefined
+};
+
+// getters
+const getters = {
+};
+
+// actions
+const actions = {
+	setClient({ commit }, client) {
+		commit('SET_API', client);
+	}
+};
+
+// mutations
+const mutations = {
+	SET_API(state, client) {
+		state.client = client;
+	},
+	SET_HOST(state, h) {
+		state.host = h;
+	}
+};
 
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>store/modules/activity.js</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">store/modules/activity.js</div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_activity.js.html">store/modules/activity.js</a>, <a href="store_modules_activity.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * Core module containing API client and baase URL
+ * @exports c3s
+ * @namespace c3s
+ */
+export default {
+	namespaced: true,
+	state,
+	getters,
+	actions,
+	mutations
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

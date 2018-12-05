@@ -12,6 +12,10 @@ const state = {
 const getters = {};
 
 // actions
+/**
+ * actions
+ * @alias module:c3s/projects
+ */
 const actions = {
 	/**
 	 * Retrieve an array of projects based on a provided query object
@@ -100,6 +104,11 @@ const mutations = {
 	}
 };
 
+/**
+ * @exports c3s/projects
+ * @namespace projects
+ * @memberof c3s
+ */
 export default {
 	namespaced: true,
 	state,

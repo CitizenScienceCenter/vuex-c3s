@@ -14,6 +14,9 @@ const getters = {
 };
 
 // actions
+/**
+ * @alias module:c3s.task
+ */
 const actions = {
 	/**
 	 * Retrieve all tasks matching the supplied query object
@@ -95,6 +98,10 @@ const mutations = {
 	}
 };
 
+/**
+ * A module for linking activities to the API
+ * @exports c3s.task
+ */
 export default {
 	namespaced: true,
 	state,

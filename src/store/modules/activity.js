@@ -1,7 +1,9 @@
 /**
  * The activity submodule of the store to deal
  * with retrieving, updating and deleting activities
+ * @file store/modules/activity.js
  */
+
 import makeRequest from './utils';
 // initial state
 // shape: [{ id, quantity }]
@@ -15,7 +17,12 @@ const state = {
 // getters
 const getters = {};
 
-// actions
+/**
+ *  actions 
+  * @constant
+	@type {object}
+	@alias module:c3s/activity
+*/
 const actions = {
 	/**
 	 * Retrieve an array of activities based on a provided query object
@@ -111,6 +118,11 @@ const mutations = {
 	}
 };
 
+/**
+ * A module for linking activities to the API
+ * @exports c3s/activity
+ * @memberof c3s
+ */
 export default {
 	namespaced: true,
 	state,
