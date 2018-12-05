@@ -17,22 +17,25 @@ const getters = {
 
 // actions
 /**
- * @alias module:c3s.task
+ * @memberof task
+ * @namespace task.actions
  */
 const actions = {
 	/**
-	 * Retrieve all tasks matching the supplied query object
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param search
-	 * @returns {Promise<*|boolean|void>}
+	 * @memberof task.actions
+	 * @param {Provided} param0 
+	 * @param {Array} Search An array containing a search object and a limit integer
 	 */
 	async getTasks({ state, commit, rootState }, [search, limit]) {
         search = rison.encode(search);
 		return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {search_term: search || undefined, limit: limit || 100 }, 'c3s/task/SET_TASKS');
 	},
 
+	/**
+	 * @memberof task.actions
+	 * @param {Provided} param0 Provied by Vuex, DO NOT PASS
+	 * @param {Object} search A search term to match a JTOS object
+	 */
     async getTaskCount({state, commit, rootState}, search) {
 	    search = rison.encode(search);
         return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_count, {search_term: search || undefined }, undefined);
@@ -114,7 +117,7 @@ const mutations = {
 
 /**
  * A module for linking activities to the API
- * @exports c3s.task
+ * @namespace task
  */
 export default {
 	namespaced: true,

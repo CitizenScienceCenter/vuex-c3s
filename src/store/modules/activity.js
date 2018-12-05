@@ -23,7 +23,8 @@ const getters = {};
  *  actions 
   * @constant
 	@type {object}
-	@alias module:c3s/activity
+    @memberof activity
+    @namespace activity.actions
 */
 const actions = {
     /**
@@ -33,6 +34,7 @@ const actions = {
      * @param dispatch
      * @param rootState
      * @param search
+     * @memberof activity.actions
      * @returns {Promise<*|boolean|void>}
      */
     getActivities({
@@ -52,6 +54,7 @@ const actions = {
      * @param rootState
      * @param id
      * @param associated
+     * @memberof activity.actions
      * @returns {Promise<*|boolean|void>}
      */
     async getActivity({
@@ -82,6 +85,7 @@ const actions = {
      * @param commit
      * @param rootState
      * @param activity
+     * @memberof activity.actions
      * @returns {Promise<*|boolean|void>}
      */
     createActivity({
@@ -98,6 +102,7 @@ const actions = {
      * @param rootState
      * @param pid
      * @param localRemove
+     * @memberof activity.actions
      * @returns {Promise<*|boolean|void>}
      */
     deleteActivity({
@@ -110,8 +115,19 @@ const actions = {
     }
 };
 
-// mutations
+/**
+ * @constant mutations
+ * @type {object}
+ * @memberof activity
+ * @namespace activity.mutations
+ */
 const mutations = {
+    /**
+     * Sets the activities in the store
+     * @memberof activity.mutations
+     * @param {Object} state 
+     * @param {Array} acts 
+     */
     SET_ACTIVITIES(state, acts) {
         state.activities = acts;
     },
@@ -131,8 +147,7 @@ const mutations = {
 
 /**
  * A module for linking activities to the API
- * @exports c3s/activity
- * @memberof c3s
+ * @namespace activity
  */
 export default {
     namespaced: true,

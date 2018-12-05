@@ -30,8 +30,8 @@ const mutations = {
 
 /**
  * Core module containing API client and baase URL
- * @exports c3s
- * @namespace c3s
+ * @export c3s
+ * @module c3s
  */
 export default {
 	namespaced: true,

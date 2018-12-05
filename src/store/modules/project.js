@@ -13,10 +13,10 @@ const state = {
 // getters
 const getters = {};
 
-// actions
 /**
  * actions
- * @alias module:c3s/projects
+ * @memberof project
+ * @namespace actions
  */
 const actions = {
 	/**
@@ -99,8 +99,18 @@ const actions = {
 	}
 };
 
-// mutations
+/**
+ * @constant mutations
+ * @type Object
+ * @memberof project
+ * @namespace project.mutations
+ */
 const mutations = {
+	/**
+	 * @memberof project.mutations
+	 * @param {Object} state 
+	 * @param {Array} ps 
+	 */
 	SET_PROJECTS(state, ps) {
 		state.projects = ps;
 	},
@@ -119,9 +129,7 @@ const mutations = {
 };
 
 /**
- * @exports c3s/projects
- * @namespace projects
- * @memberof c3s
+ * @namespace project
  */
 export default {
 	namespaced: true,

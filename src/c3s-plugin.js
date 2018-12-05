@@ -10,6 +10,7 @@ import Swagger from 'swagger-client';
  * Modules array to list
  * the name of the submodule
  * and the file to import
+ * @alias module:C3SPlugin
  */
 const modules = [
     {
@@ -55,6 +56,7 @@ const C3SPlugin = {
      * Setup function for the plugin, must provide a store and a Swagger file URL
      * @param Vue
      * @param options
+     * @alias C3SPlugin
      */
     install(Vue, options = {}) {
 
@@ -125,4 +127,7 @@ const C3SPlugin = {
     }
 };
 
+/**
+ * @exports C3SPlugin
+ */
 export default C3SPlugin;

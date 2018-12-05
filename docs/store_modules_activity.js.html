@@ -33,13 +33,15 @@
  */
 
 import makeRequest from './utils';
+import rison from "rison-node";
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-	activities: [],
-	activity: null,
-	stats: null,
-	media: []
+    activities: [],
+    activity: null,
+    stats: null,
+    media: [],
+    comments: []
 };
 
 // getters
@@ -49,114 +51,138 @@ const getters = {};
  *  actions 
   * @constant
 	@type {object}
-	@alias module:c3s/activity
+    @memberof activity
+    @namespace activity.actions
 */
 const actions = {
-	/**
-	 * Retrieve an array of activities based on a provided query object
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
-	 * @param search
-	 * @returns {Promise&lt;*|boolean|void>}
-	 */
-	getActivities({
-					  state,
-					  commit,
-					  dispatch,
-					  rootState
-				  }, search) {
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {search_term: search || undefined }, 'activity/SET_ACTIVITIES');
-	},
-	/**
-	 * Retrieve a single activity based on the ID
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
-	 * @param id
-	 * @param associated
-	 * @returns {Promise&lt;*|boolean|void>}
-	 */
-	async getActivity({
-						  state,
-						  commit,
-						  dispatch,
-						  rootState
-					  }, [id, associated]) {
-		if (associated) {
-			dispatch('media/getMedia', id, {root: true});
-			dispatch('media/getTasks', [id, 1, 0], {root: true});
-		}
-		dispatch('getStats', id);
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {id: id }, 'c3s/activity/SET_ACTIVITY');
-	},
-	getStats({
-				 state,
-				 commit,
-				 rootState
-			 }, id) {
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.activity_stats, {id: id }, 'c3s/activity/SET_STATS');
-	},
-	/**
-	 * Create an activity
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param activity
-	 * @returns {Promise&lt;*|boolean|void>}
-	 */
-	createActivity({
-					   state,
-					   commit,
-					   rootState
-				   }, activity) {
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.create_activity, {activity: activity }, 'c3s/activity/SET_ACTIVITY');
-	},
-	/**
-	 * Delete an activity matching the supplied ID
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param pid
-	 * @param localRemove
-	 * @returns {Promise&lt;*|boolean|void>}
-	 */
-	deleteActivity({
-					   state,
-					   commit,
-					   rootState
-				   }, [pid, localRemove]) {
-		if (localRemove) commit('c3s/activity/SET_ACTIVITY', null);
-		return makeRequest(commit, rootState.c3s.client.apis.Activities.delete_activity, {id: pid}, undefined);
-	}
+    /**
+     * Retrieve an array of activities based on a provided query object
+     * @param state
+     * @param commit
+     * @param dispatch
+     * @param rootState
+     * @param search
+     * @memberof activity.actions
+     * @returns {Promise&lt;*|boolean|void>}
+     */
+    getActivities({
+                      state,
+                      commit,
+                      dispatch,
+                      rootState
+                  }, [search, limit]) {
+        search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {search_term: search || undefined, limit: limit || 100 }, 'c3s/activity/SET_ACTIVITIES');
+    },
+    /**
+     * Retrieve a single activity based on the ID
+     * @param state
+     * @param commit
+     * @param dispatch
+     * @param rootState
+     * @param id
+     * @param associated
+     * @memberof activity.actions
+     * @returns {Promise&lt;*|boolean|void>}
+     */
+    async getActivity({
+                          state,
+                          commit,
+                          dispatch,
+                          rootState
+                      }, [id, associated]) {
+        if (associated) {
+        }
+        return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {id: id}, 'c3s/activity/SET_ACTIVITY');
+    },
+
+    async getActivityCount({state, commit, rootState}, search) {
+        search = rison.encode(search);
+        return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_count, {search_term: search || undefined }, undefined);
+    },
+    getStats({
+                 state,
+                 commit,
+                 rootState
+             }, id) {
+        return makeRequest(commit, rootState.c3s.client.apis.Activities.activity_stats, {id: id}, 'c3s/activity/SET_STATS');
+    },
+    /**
+     * Create an activity
+     * @param state
+     * @param commit
+     * @param rootState
+     * @param activity
+     * @memberof activity.actions
+     * @returns {Promise&lt;*|boolean|void>}
+     */
+    createActivity({
+                       state,
+                       commit,
+                       rootState
+                   }, activity) {
+        return makeRequest(commit, rootState.c3s.client.apis.Activities.create_activity, {activity: activity}, 'c3s/activity/SET_ACTIVITY');
+    },
+    /**
+     * Delete an activity matching the supplied ID
+     * @param state
+     * @param commit
+     * @param rootState
+     * @param pid
+     * @param localRemove
+     * @memberof activity.actions
+     * @returns {Promise&lt;*|boolean|void>}
+     */
+    deleteActivity({
+                       state,
+                       commit,
+                       rootState
+                   }, [pid, localRemove]) {
+        if (localRemove) commit('c3s/activity/SET_ACTIVITY', null);
+        return makeRequest(commit, rootState.c3s.client.apis.Activities.delete_activity, {id: pid}, undefined);
+    }
 };
 
-// mutations
+/**
+ * @constant mutations
+ * @type {object}
+ * @memberof activity
+ * @namespace activity.mutations
+ */
 const mutations = {
-	SET_ACTIVITIES(state, acts) {
-		state.activities = acts;
-	},
-	SET_ACTIVITY(state, act) {
-		state.activity = act;
-	},
-	SET_STATS(state, stats) {
-		state.stats = stats;
-	}
+    /**
+     * Sets the activities in the store
+     * @memberof activity.mutations
+     * @param {Object} state 
+     * @param {Array} acts 
+     */
+    SET_ACTIVITIES(state, acts) {
+        state.activities = acts;
+    },
+    SET_ACTIVITY(state, act) {
+        state.activity = act;
+    },
+    SET_STATS(state, stats) {
+        state.stats = stats;
+    },
+    SET_COMMENTS(state, cmts) {
+        state.comments = cmts
+    },
+    SET_MEDIA(state, media) {
+        state.media = media
+    }
 };
 
 /**
  * A module for linking activities to the API
- * @exports c3s/activity
- * @memberof c3s
+ * @namespace activity
  */
 export default {
-	namespaced: true,
-	state,
-	getters,
-	actions,
-	mutations
+    namespaced: true,
+    state,
+    getters,
+    actions,
+    mutations
 };
 </code></pre>
         </article>
@@ -168,13 +194,13 @@ export default {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="c3s.module_task.html">task</a></li><li><a href="module-c3s_activity.html">c3s/activity</a></li></ul><h3>Namespaces</h3><ul><li><a href="c3s.html">c3s</a></li><li><a href="projects.html">projects</a></li></ul><h3>Global</h3><ul><li><a href="global.html#modules">modules</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-c3s.html">c3s</a></li><li><a href="module-C3SPlugin.html">C3SPlugin</a></li></ul><h3>Namespaces</h3><ul><li><a href="activity.html">activity</a></li><li><a href="activity.actions.html">actions</a></li><li><a href="activity.mutations.html">mutations</a></li><li><a href="project.html">project</a></li><li><a href="project.actions.html">actions</a></li><li><a href="project.mutations.html">mutations</a></li><li><a href="task.html">task</a></li><li><a href="task.actions.html">actions</a></li></ul><h3>Global</h3><ul><li><a href="global.html#C3SPlugin">C3SPlugin</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Dec 05 2018 15:32:23 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Dec 05 2018 17:18:26 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
