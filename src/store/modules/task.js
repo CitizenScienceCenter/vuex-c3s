@@ -92,20 +92,46 @@ const actions = {
  * @namespace mutations
  */
 const mutations = {
+	/**
+	 * Set array of tasks in store
+	 * @param {Provided} state 
+	 * @param {Array} tasks 
+	 */
 	SET_TASKS(state, tasks) {
 		state.tasks = tasks;
 	},
+	/**
+	 *  Set single task in store
+	 * @param {Provided} state 
+	 * @param {Object} task 
+	 */
 	SET_TASK(state, task) {
 		state.task = task;
 	},
+	/**
+	 * Update task in store
+	 * @param {Provided} state 
+	 * @param {int} index Index of array to update 
+	 * @param {Object} params New task object 
+	 */
 	UPDATE_TASK(state, index, params) {
 		Object.assign(state.tasks[index], {
 			[params.field]: params.value
 		});
 	},
+	/**
+	 * Commit media to store
+	 * @param {Provided} state 
+	 * @param {Array} media  Array of media objects
+	 */
     SET_MEDIA(state, media) {
 	    state.media = media;
-    },
+	},
+	/**
+	 * Set array of task comments in store
+	 * @param {Provided} state 
+	 * @param {Array} cmts 
+	 */
     SET_COMMENTS(state, cmts) {
 	    state.comments = cmts
     }
@@ -113,6 +139,7 @@ const mutations = {
 
 /**
  * Task store submodule
+ * @name Task 
  */
 export default {
 	namespaced: true,

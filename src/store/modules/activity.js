@@ -33,7 +33,6 @@ const getters = {};
  *  actions 
   * @constant
 	@type {object}
-    @alias module:c3s/activity
     @namespace actions
 */
 const actions = {
@@ -120,13 +119,11 @@ const actions = {
 /**
  * @constant mutations
  * @type {object}
- * @memberof activity
- * @namespace activity.mutations
+ * @namespace mutations
  */
 const mutations = {
     /**
      * Sets the activities in the store
-     * @memberof activity.mutations
      * @param {Object} state 
      * @param {Array} acts 
      */

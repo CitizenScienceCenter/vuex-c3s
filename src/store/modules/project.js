@@ -23,13 +23,13 @@ const state = {
 };
 
 /**
- * 
+ * @constant getters
+ * @namespace getters 
  */
 const getters = {};
 
 /**
  * @constant
- * @alias module:c3s/project
  * @namespace actions
  */
 const actions = {

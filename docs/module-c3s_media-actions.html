@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: c3s/project</title>
+    <title>JSDoc: Namespace: actions</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: c3s/project</h1>
+    <h1 class="page-title">Namespace: actions</h1>
 
     
 
@@ -28,6 +28,8 @@
 
 <header>
     
+        <h2>
+            <span class="ancestors"><a href="module-c3s_media.html">c3s/media</a>~</span>actions</h2>
         
     
 </header>
@@ -36,6 +38,50 @@
     <div class="container-overview">
     
         
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store_modules_media.js.html">store/modules/media.js</a>, <a href="store_modules_media.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
 
         
     
@@ -52,36 +98,109 @@
     
 
     
-        <h3 class="subsection-title">Namespaces</h3>
 
-        <dl>
-            <dt><a href="module-c3s_project-actions.html">actions</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-c3s_project-getters.html">getters</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-c3s_project-mutations.html">mutations</a></dt>
-            <dd></dd>
-        </dl>
     
 
     
-        <h3 class="subsection-title">Members</h3>
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<h4 class="name" id="~Project"><span class="type-signature">(inner) </span>Project<span class="type-signature"></span></h4>
 
+    
 
-<p class="summary">Project store submodule.</p>
+    
+    <h4 class="name" id=".deleteMedium"><span class="type-signature">(static) </span>deleteMedium<span class="signature">(param0, })</span><span class="type-signature"></span></h4>
+    
+
+    
+    <p class="summary">Delete media with ID.</p>
+    
 
 
 
 <div class="description">
-    Project store submodule. Path: c3s.project
+    Delete media with ID
 </div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>}</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">id</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -117,7 +236,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line157">line 157</a>
+        <a href="store_modules_media.js.html">store/modules/media.js</a>, <a href="store_modules_media.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -133,40 +252,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
         
             
-<h4 class="name" id="~state"><span class="type-signature">(inner, constant) </span>state<span class="type-signature"> :Object</span></h4>
 
+    
 
-<p class="summary">State structure.</p>
+    
+    <h4 class="name" id=".getMedia"><span class="type-signature">(static) </span>getMedia<span class="signature">(param0, Terms)</span><span class="type-signature"></span></h4>
+    
+
+    
+    <p class="summary">Get media matching search.</p>
+    
 
 
 
 <div class="description">
-    State structure
+    Get media matching search
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
 
 
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
 
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -176,11 +304,7 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -192,7 +316,30 @@
 
         <tr>
             
-                <td class="name"><code>projects</code></td>
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Terms</code></td>
             
 
             <td class="type">
@@ -205,21 +352,144 @@
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
+
+            <td class="description last">Array with Object of search query, messaage to commit to store (or undefined) and the limit to retrieve</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store_modules_media.js.html">store/modules/media.js</a>, <a href="store_modules_media.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".upload"><span class="type-signature">(static) </span>upload<span class="signature">(param0, medium)</span><span class="type-signature"></span></h4>
+    
+
+    
+    <p class="summary">Upload a file.</p>
+    
+
+
+
+<div class="description">
+    Upload a file
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
                 
-                    []
-                
-                </td>
+<span class="param-type">Provided</span>
+
+
+            
+            </td>
+
+            
+
             
 
             <td class="description last"></td>
@@ -229,145 +499,20 @@
 
         <tr>
             
-                <td class="name"><code>project</code></td>
+                <td class="name"><code>medium</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">FormData</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    null
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>stats</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    null
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>media</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    []
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>comments</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    []
-                
-                </td>
             
 
             <td class="description last"></td>
@@ -380,6 +525,8 @@
 
 
 
+
+
 <dl class="details">
 
     
@@ -409,7 +556,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line6">line 6</a>
+        <a href="store_modules_media.js.html">store/modules/media.js</a>, <a href="store_modules_media.js.html#line59">line 59</a>
     </li></ul></dd>
     
 
@@ -425,9 +572,19 @@
 
 
 
-        
-    
 
+
+
+
+
+
+
+
+
+
+
+
+        
     
 
     

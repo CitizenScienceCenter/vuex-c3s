@@ -1,27 +1,39 @@
+/**
+ * @module c3s/user
+ */
+
 import makeRequest from './utils';
 
 var SHA256 = require('crypto-js/sha256');
-// initial state
-// shape: [{ id, quantity }]
+
+/**
+ * @constant state
+ * @property {Object} [user=null] Userr information
+ * @property {Object} [currentUser=null] Information of logged in user
+ * @property {Object} [isAnon=null] If the current user is an anonymous user
+ */
 const state = {
 	user: null,
 	currentUser: null,
     isAnon: false
 };
 
-// getters
+/**
+ * @constant getters
+ * @namespace getters
+ */
 const getters = {};
 
-// actions
+/**
+ * @constant actions
+ * @namespace actionss
+ */
 const actions = {
 	/**
 	 * Login user
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
-	 * @param user
-	 * @returns {Promise<*|boolean|void>}
+	 * @param {Provided} param0 
+	 * @param {Object} user Username/email and password of user
+	 * @returns {Promise<*>}
 	 */
 	async login({
 		state,
@@ -29,15 +41,11 @@ const actions = {
 		dispatch,
 		rootState
 	}, user) {
-		console.log('loggin in')
 		return makeRequest(commit, rootState.c3s.client.apis.Users.login, user, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
 	 * Create anonymouse user and register with backend
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
+	 * @param {Provided} param0
 	 * @returns {Promise<*>}
 	 */
 	async generateAnon({
@@ -77,13 +85,10 @@ const actions = {
 		commit('SET_ANON', false);
 	},
 	/**
-	 * Request to reset password
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
-	 * @param email
-	 * @returns {Promise<*|boolean|void>}
+	 * Request to reset password 
+	 * @param {Provided} param0 
+	 * @param {String} email 
+	 * @returns {Promise<*>}
 	 */
 	async requestReset({
 						   state,
@@ -95,10 +100,7 @@ const actions = {
 	},
 	/**
 	 * Reset user password with code
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param reset
+	 * @param {Provided} param0 
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	async resetPwd({
@@ -110,10 +112,8 @@ const actions = {
 	},
 	/**
 	 * Create a user account
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param user
+	 * @param {Provided} param0 
+	 * @param {Object} user
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	async register({
@@ -125,10 +125,8 @@ const actions = {
 	},
 	/**
 	 * Retrieve a list of users
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param id
+	 * @param {Provided} param0 
+	 * @param {String} id
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	async getUser({
@@ -140,11 +138,8 @@ const actions = {
 	},
 	/**
 	 * Update user based on ID
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param id
-	 * @param info
+	 * @param {Provided} param0 
+	 * @param {Array} (id, info)
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	async updateUser({
@@ -159,10 +154,8 @@ const actions = {
 	},
 	/**
 	 * Validate user existence and access based on API Key
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param id
+	 * @param {Provided} param0 
+	 * @param {String} id
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	async validate({
@@ -170,28 +163,47 @@ const actions = {
 					   commit,
 					   rootState
 				   }, id) {
-		if (state.currentUser.api_key !== undefined) {
+		if (state.currentUser
+			.api_key !== undefined) {
 			return makeRequest(commit, rootState.c3s.client.apis.Users.validate, {key: state.currentUser.api_key}, 'c3s/user/SET_CURRENT_USER');
 		}
 	}
 };
 
-// mutations
+/**
+ * @constant
+ * @namespace mutations
+ */
 const mutations = {
+	/**
+	 * Set user outside of the currently logged in
+	 * @param {Provided} state 
+	 * @param {Object} user 
+	 */
 	SET_USER(state, user) {
 		state.user = user;
 	},
+	/**
+	 * Set current user
+	 * @param {Provided} state 
+	 * @param {Object} user 
+	 */
 	SET_CURRENT_USER(state, user) {
 		state.currentUser = user;
 	},
-	SET_TASK_PROGRESS(state, prog) {
-		state.taskProgress = prog;
-	},
+	/**
+	 * Set anonymous state of current user
+	 * @param {Provided} state 
+	 * @param {Boolean} flag 
+	 */
     SET_ANON(state, flag) {
 	    state.isAnon = flag;
     }
 };
 
+/**
+ * name User
+ */
 export default {
 	namespaced: true,
 	state,

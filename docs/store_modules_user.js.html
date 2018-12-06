@@ -26,30 +26,42 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import makeRequest from './utils';
+            <pre class="prettyprint source linenums"><code>/**
+ * @module c3s/user
+ */
+
+import makeRequest from './utils';
 
 var SHA256 = require('crypto-js/sha256');
-// initial state
-// shape: [{ id, quantity }]
+
+/**
+ * @constant state
+ * @property {Object} [user=null] Userr information
+ * @property {Object} [currentUser=null] Information of logged in user
+ * @property {Object} [isAnon=null] If the current user is an anonymous user
+ */
 const state = {
 	user: null,
 	currentUser: null,
     isAnon: false
 };
 
-// getters
+/**
+ * @constant getters
+ * @namespace getters
+ */
 const getters = {};
 
-// actions
+/**
+ * @constant actions
+ * @namespace actionss
+ */
 const actions = {
 	/**
 	 * Login user
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
-	 * @param user
-	 * @returns {Promise&lt;*|boolean|void>}
+	 * @param {Provided} param0 
+	 * @param {Object} user Username/email and password of user
+	 * @returns {Promise&lt;*>}
 	 */
 	async login({
 		state,
@@ -57,15 +69,11 @@ const actions = {
 		dispatch,
 		rootState
 	}, user) {
-		console.log('loggin in')
 		return makeRequest(commit, rootState.c3s.client.apis.Users.login, user, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
 	 * Create anonymouse user and register with backend
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
+	 * @param {Provided} param0
 	 * @returns {Promise&lt;*>}
 	 */
 	async generateAnon({
@@ -105,13 +113,10 @@ const actions = {
 		commit('SET_ANON', false);
 	},
 	/**
-	 * Request to reset password
-	 * @param state
-	 * @param commit
-	 * @param dispatch
-	 * @param rootState
-	 * @param email
-	 * @returns {Promise&lt;*|boolean|void>}
+	 * Request to reset password 
+	 * @param {Provided} param0 
+	 * @param {String} email 
+	 * @returns {Promise&lt;*>}
 	 */
 	async requestReset({
 						   state,
@@ -123,10 +128,7 @@ const actions = {
 	},
 	/**
 	 * Reset user password with code
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param reset
+	 * @param {Provided} param0 
 	 * @returns {Promise&lt;*|boolean|void>}
 	 */
 	async resetPwd({
@@ -138,10 +140,8 @@ const actions = {
 	},
 	/**
 	 * Create a user account
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param user
+	 * @param {Provided} param0 
+	 * @param {Object} user
 	 * @returns {Promise&lt;*|boolean|void>}
 	 */
 	async register({
@@ -153,10 +153,8 @@ const actions = {
 	},
 	/**
 	 * Retrieve a list of users
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param id
+	 * @param {Provided} param0 
+	 * @param {String} id
 	 * @returns {Promise&lt;*|boolean|void>}
 	 */
 	async getUser({
@@ -168,11 +166,8 @@ const actions = {
 	},
 	/**
 	 * Update user based on ID
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param id
-	 * @param info
+	 * @param {Provided} param0 
+	 * @param {Array} (id, info)
 	 * @returns {Promise&lt;*|boolean|void>}
 	 */
 	async updateUser({
@@ -187,10 +182,8 @@ const actions = {
 	},
 	/**
 	 * Validate user existence and access based on API Key
-	 * @param state
-	 * @param commit
-	 * @param rootState
-	 * @param id
+	 * @param {Provided} param0 
+	 * @param {String} id
 	 * @returns {Promise&lt;*|boolean|void>}
 	 */
 	async validate({
@@ -198,28 +191,47 @@ const actions = {
 					   commit,
 					   rootState
 				   }, id) {
-		if (state.currentUser.api_key !== undefined) {
+		if (state.currentUser
+			.api_key !== undefined) {
 			return makeRequest(commit, rootState.c3s.client.apis.Users.validate, {key: state.currentUser.api_key}, 'c3s/user/SET_CURRENT_USER');
 		}
 	}
 };
 
-// mutations
+/**
+ * @constant
+ * @namespace mutations
+ */
 const mutations = {
+	/**
+	 * Set user outside of the currently logged in
+	 * @param {Provided} state 
+	 * @param {Object} user 
+	 */
 	SET_USER(state, user) {
 		state.user = user;
 	},
+	/**
+	 * Set current user
+	 * @param {Provided} state 
+	 * @param {Object} user 
+	 */
 	SET_CURRENT_USER(state, user) {
 		state.currentUser = user;
 	},
-	SET_TASK_PROGRESS(state, prog) {
-		state.taskProgress = prog;
-	},
+	/**
+	 * Set anonymous state of current user
+	 * @param {Provided} state 
+	 * @param {Boolean} flag 
+	 */
     SET_ANON(state, flag) {
 	    state.isAnon = flag;
     }
 };
 
+/**
+ * name User
+ */
 export default {
 	namespaced: true,
 	state,
@@ -237,13 +249,13 @@ export default {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-c3s.html">c3s</a></li><li><a href="module-c3s_activity.html">c3s/activity</a></li><li><a href="module-c3s_project.html">c3s/project</a></li><li><a href="module-c3s_task.html">c3s/task</a></li><li><a href="module-C3SPlugin.html">C3SPlugin</a></li></ul><h3>Namespaces</h3><ul><li><a href="activity.mutations.html">mutations</a></li><li><a href="module-c3s_activity-actions.html">actions</a></li><li><a href="module-c3s_project-actions.html">actions</a></li><li><a href="module-c3s_project-mutations.html">mutations</a></li><li><a href="module-c3s_task-actions.html">actions</a></li><li><a href="module-c3s_task-getters.html">getters</a></li><li><a href="module-c3s_task-mutations.html">mutations</a></li></ul><h3>Global</h3><ul><li><a href="global.html#C3SPlugin">C3SPlugin</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-C3Plugin.html">C3Plugin</a></li><li><a href="module-c3s.html">c3s</a></li><li><a href="module-c3s_activity.html">c3s/activity</a></li><li><a href="module-c3s_media.html">c3s/media</a></li><li><a href="module-c3s_project.html">c3s/project</a></li><li><a href="module-c3s_task.html">c3s/task</a></li><li><a href="module-c3s_user.html">c3s/user</a></li><li><a href="module-C3SPlugin.html">C3SPlugin</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-c3s_activity-actions.html">actions</a></li><li><a href="module-c3s_activity-mutations.html">mutations</a></li><li><a href="module-c3s_media-actions.html">actions</a></li><li><a href="module-c3s_media-getters.html">getters</a></li><li><a href="module-c3s_media-mutations.html">mutations</a></li><li><a href="module-c3s_project-actions.html">actions</a></li><li><a href="module-c3s_project-getters.html">getters</a></li><li><a href="module-c3s_project-mutations.html">mutations</a></li><li><a href="module-c3s_task-actions.html">actions</a></li><li><a href="module-c3s_task-getters.html">getters</a></li><li><a href="module-c3s_task-mutations.html">mutations</a></li><li><a href="module-c3s_user-actionss.html">actionss</a></li><li><a href="module-c3s_user-getters.html">getters</a></li><li><a href="module-c3s_user-mutations.html">mutations</a></li><li><a href="module-c3s-actions.html">actions</a></li><li><a href="module-c3s-mutations.html">mutations</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Dec 06 2018 08:04:37 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Dec 06 2018 14:10:05 GMT+0100 (Central European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

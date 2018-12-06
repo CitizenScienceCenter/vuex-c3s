@@ -1,6 +1,7 @@
 /**
  * Loading primary plugin and setting up
  * the install method to link in to Vue instance
+ * @module C3Plugin
  */
 
 import * as C3SStore from './store/index';
@@ -54,9 +55,8 @@ const modules = [
 const C3SPlugin = {
     /**
      * Setup function for the plugin, must provide a store and a Swagger file URL
-     * @param Vue
-     * @param options
-     * @alias C3SPlugin
+     * @param {Provided} Vue
+     * @param {Object} options Expects the store and Swagger URL 
      */
     install(Vue, options = {}) {
 
