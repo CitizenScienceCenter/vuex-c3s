@@ -4,7 +4,15 @@ import makeRequest from './utils';
 import rison from 'rison-node';
 
 /**
- * 
+ * @constant state
+ * @type Object
+ * @description State structure
+ * @alias module:c3s/project
+ * @property {Array} [projects = []] 
+ * @property {Object} [project = null]
+ * @property {Object} [stats = null]
+ * @property {Array} [media = []]
+ * @property {Array} [comments = []]
  */
 const state = {
 	projects: [],
@@ -20,13 +28,17 @@ const state = {
 const getters = {};
 
 /**
- * actions
+ * @constant
+ * @alias module:c3s/project
+ * @namespace actions
  */
 const actions = {
 	/**
+	 * Get projects matching a search object
 	 * Retrieve projects matching query and save into the `projects` array
+	 * @function
 	 * @param {Provided} param0 
-	 * @param {Array[]} search Array containing a search object (based on JTOS) and an integer for the limit of results
+	 * @param {Array} (search, limit) Array containing a search object (based on JTOS) and an integer for the limit of results
 	 */
 	getProjects({
 		state,
@@ -38,9 +50,10 @@ const actions = {
 		return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {search_term: search || undefined, limit: limit || 100 }, 'c3s/project/SET_PROJECTS');
 	},
 	/**
-	 * 
+	 * Get a project matching the provided ID
+	 * DOES save project to store
 	 * @param {Provided} param0 
-	 * @param {Array[]} id An array containing the ID of the project and a boolean of whether you want the tasks and media associated
+	 * @param {Array} (id,associated) An array containing the ID of the project and a boolean of whether you want the tasks and media associated
 	 */
 	async getProject({
 		state,
@@ -56,10 +69,21 @@ const actions = {
 		return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project, {id: id }, 'c3s/project/SET_PROJECT');
 	},
 
+	/**
+	 * Get count of projects matching search criteria
+	 * @param {Provided} param0 
+	 * @param {Object} search 
+	 */
     async getProjectCount({state, commit, rootState}, search) {
         search = rison.encode(search);
         return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project_count, {search_term: search || undefined }, undefined);
-    },
+	},
+	/**
+	 * Create a project with a provided object. 
+	 * DOES save project to store
+	 * @param {Provided} param0 
+	 * @param {Object} project 
+	 */
 	createProject({
 		state,
 		commit,
@@ -67,6 +91,11 @@ const actions = {
 	}, project) {
 		return makeRequest(commit, rootState.c3s.client.apis.Projects.create_project, {project: project }, 'c3s/project/SET_PROJECT');
 	},
+	/**
+	 * Delete a project with the provided ID
+	 * @param {*} param0 
+	 * @param {Array} (pid, localRemove) The ID of the project and a boolean on whether to remove the project from the store
+	 */
 	deleteProject({
 		state,
 		commit,
@@ -78,21 +107,48 @@ const actions = {
 };
 
 /**
- * 
+ * @constant
+ * @alias module:c3s/project
+ * @namespace mutations
  */
 const mutations = {
+	/**
+	 * Commit array of projects to store
+	 * @param {Provided} state 
+	 * @param {Array} ps 
+	 */
 	SET_PROJECTS(state, ps) {
 		state.projects = ps;
 	},
+	/**
+	 * Commit project to store
+	 * @param {Provided} state 
+	 * @param {Object} p 
+	 */
 	SET_PROJECT(state, p) {
 		state.project = p;
 	},
+	/**
+	 * Commit project stats to store
+	 * @param {Provided} state 
+	 * @param {Object} stats 
+	 */
 	SET_STATS(state, stats) {
 		state.stats = stats;
 	},
+	/**
+	 * Commit comments array related to project to store
+	 * @param {Provided} state 
+	 * @param {Array} cmts 
+	 */
     SET_COMMENTS(state, cmts) {
         state.comments = cmts
-    },
+	},
+	/**
+	 * Commit media array related to project to store
+	 * @param {Provided} state 
+	 * @param {Array} media 
+	 */
     SET_MEDIA(state, media) {
         state.media = media
     }

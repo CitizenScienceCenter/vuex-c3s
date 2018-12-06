@@ -2,12 +2,19 @@
  * The activity submodule of the store to deal
  * with retrieving, updating and deleting activities
  * @file store/modules/activity.js
+ * @module c3s/activity
  */
 
 import makeRequest from './utils';
 import rison from "rison-node";
-// initial state
-// shape: [{ id, quantity }]
+/**
+ * @constant
+ * @property {Array} [activities=[]]
+ * @property {Object} [activity=null]
+ * @property {Object} [stats=null]
+ * @property {Array} [media=[]]
+ * @property {Array} [comments=[]] 
+ */
 const state = {
     activities: [],
     activity: null,
@@ -16,26 +23,24 @@ const state = {
     comments: []
 };
 
-// getters
+/**
+ * @type Object
+ * @constant
+ */
 const getters = {};
 
 /**
  *  actions 
   * @constant
 	@type {object}
-    @memberof activity
-    @namespace activity.actions
+    @alias module:c3s/activity
+    @namespace actions
 */
 const actions = {
     /**
-     * Retrieve an array of activities based on a provided query object
-     * @param state
-     * @param commit
-     * @param dispatch
-     * @param rootState
-     * @param search
-     * @memberof activity.actions
-     * @returns {Promise<*|boolean|void>}
+     * Retrieve an array of activities based on a provided query object 
+     * @param {Provided} param0 
+     * @param {*} param1 
      */
     getActivities({
                       state,
@@ -54,7 +59,6 @@ const actions = {
      * @param rootState
      * @param id
      * @param associated
-     * @memberof activity.actions
      * @returns {Promise<*|boolean|void>}
      */
     async getActivity({
@@ -85,7 +89,6 @@ const actions = {
      * @param commit
      * @param rootState
      * @param activity
-     * @memberof activity.actions
      * @returns {Promise<*|boolean|void>}
      */
     createActivity({
@@ -102,7 +105,6 @@ const actions = {
      * @param rootState
      * @param pid
      * @param localRemove
-     * @memberof activity.actions
      * @returns {Promise<*|boolean|void>}
      */
     deleteActivity({
@@ -147,7 +149,6 @@ const mutations = {
 
 /**
  * A module for linking activities to the API
- * @namespace activity
  */
 export default {
     namespaced: true,

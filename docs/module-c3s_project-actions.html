@@ -38,8 +38,6 @@
     <div class="container-overview">
     
         
-            <div class="description">actions</div>
-        
 
         
 
@@ -73,7 +71,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line22">line 22</a>
+        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -112,17 +110,500 @@
     
 
     
-    <h4 class="name" id=".getProjects"><span class="type-signature">(static) </span>getProjects<span class="signature">(param0, search)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".createProject"><span class="type-signature">(static) </span>createProject<span class="signature">(param0, project)</span><span class="type-signature"></span></h4>
     
 
     
-    <p class="summary">Retrieve projects matching query and save into the `projects` array.</p>
+    <p class="summary">Create a project with a provided object.</p>
     
 
 
 
 <div class="description">
-    Retrieve projects matching query and save into the `projects` array
+    Create a project with a provided object. 
+DOES save project to store
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>project</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line87">line 87</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".deleteProject"><span class="type-signature">(static) </span>deleteProject<span class="signature">(param0, (pid,)</span><span class="type-signature"></span></h4>
+    
+
+    
+    <p class="summary">Delete a project with the provided ID.</p>
+    
+
+
+
+<div class="description">
+    Delete a project with the provided ID
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>(pid,</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">localRemove) The ID of the project and a boolean on whether to remove the project from the store</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getProject"><span class="type-signature">(static) </span>getProject<span class="signature">(param0, (id,associated))</span><span class="type-signature"></span></h4>
+    
+
+    
+    <p class="summary">Get a project matching the provided ID
+DOES save project to store.</p>
+    
+
+
+
+<div class="description">
+    Get a project matching the provided ID
+DOES save project to store
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>(id,associated)</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array containing the ID of the project and a boolean of whether you want the tasks and media associated</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getProjectCount"><span class="type-signature">(static) </span>getProjectCount<span class="signature">(param0, search)</span><span class="type-signature"></span></h4>
+    
+
+    
+    <p class="summary">Get count of projects matching search criteria.</p>
+    
+
+
+
+<div class="description">
+    Get count of projects matching search criteria
 </div>
 
 
@@ -187,7 +668,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;Array></span>
+<span class="param-type">Object</span>
 
 
             
@@ -197,7 +678,7 @@
 
             
 
-            <td class="description last">Term object</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -238,7 +719,169 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line32">line 32</a>
+        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line77">line 77</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getProjects"><span class="type-signature">(static) </span>getProjects<span class="signature">(param0, (search,)</span><span class="type-signature"></span></h4>
+    
+
+    
+    <p class="summary">Get projects matching a search object
+Retrieve projects matching query and save into the `projects` array.</p>
+    
+
+
+
+<div class="description">
+    Get projects matching a search object
+Retrieve projects matching query and save into the `projects` array
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param0</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Provided</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>(search,</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">limit) Array containing a search object (based on JTOS) and an integer for the limit of results</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store_modules_project.js.html">store/modules/project.js</a>, <a href="store_modules_project.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -282,13 +925,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-c3s.html">c3s</a></li><li><a href="module-c3s_project.html">c3s/project</a></li><li><a href="module-c3s_task.html">c3s/task</a></li><li><a href="module-C3SPlugin.html">C3SPlugin</a></li></ul><h3>Namespaces</h3><ul><li><a href="activity.html">activity</a></li><li><a href="activity.actions.html">actions</a></li><li><a href="activity.mutations.html">mutations</a></li><li><a href="module-c3s_project-actions.html">actions</a></li></ul><h3>Global</h3><ul><li><a href="global.html#C3SPlugin">C3SPlugin</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-c3s.html">c3s</a></li><li><a href="module-c3s_activity.html">c3s/activity</a></li><li><a href="module-c3s_project.html">c3s/project</a></li><li><a href="module-c3s_task.html">c3s/task</a></li><li><a href="module-C3SPlugin.html">C3SPlugin</a></li></ul><h3>Namespaces</h3><ul><li><a href="activity.mutations.html">mutations</a></li><li><a href="module-c3s_activity-actions.html">actions</a></li><li><a href="module-c3s_project-actions.html">actions</a></li><li><a href="module-c3s_project-mutations.html">mutations</a></li><li><a href="module-c3s_task-actions.html">actions</a></li><li><a href="module-c3s_task-getters.html">getters</a></li><li><a href="module-c3s_task-mutations.html">mutations</a></li></ul><h3>Global</h3><ul><li><a href="global.html#C3SPlugin">C3SPlugin</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Dec 05 2018 22:42:47 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Dec 06 2018 08:04:37 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
