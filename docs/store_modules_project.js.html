@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8">
-    <title>JSDoc: Source: store/modules/project.js</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <title>store/modules/project.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-    <h1 class="page-title">Source: store/modules/project.js</h1>
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-c3s.html">c3s</a></li><li><a href="module-c3s_activity.html">c3s/activity</a></li><li><a href="module-c3s_media.html">c3s/media</a></li><li><a href="module-c3s_project.html">c3s/project</a></li><li><a href="module-c3s_submission.html">c3s/submission</a></li><li><a href="module-c3s_task.html">c3s/task</a></li><li><a href="module-c3s_user.html">c3s/user</a></li><li><a href="module-C3SPlugin.html">C3SPlugin</a><ul class='methods'><li data-type='method'><a href="module-C3SPlugin.html#~install">install</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="module-c3s_activity-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_activity-actions.html#.createActivity">createActivity</a></li><li data-type='method'><a href="module-c3s_activity-actions.html#.deleteActivity">deleteActivity</a></li><li data-type='method'><a href="module-c3s_activity-actions.html#.getActivities">getActivities</a></li><li data-type='method'><a href="module-c3s_activity-actions.html#.getActivity">getActivity</a></li><li data-type='method'><a href="module-c3s_activity-actions.html#.getActivityCount">getActivityCount</a></li></ul></li><li><a href="module-c3s_activity-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_activity-mutations.html#.SET_ACTIVITIES">SET_ACTIVITIES</a></li><li data-type='method'><a href="module-c3s_activity-mutations.html#.SET_ACTIVITY">SET_ACTIVITY</a></li><li data-type='method'><a href="module-c3s_activity-mutations.html#.SET_COMMENTS">SET_COMMENTS</a></li><li data-type='method'><a href="module-c3s_activity-mutations.html#.SET_MEDIA">SET_MEDIA</a></li><li data-type='method'><a href="module-c3s_activity-mutations.html#.SET_STATS">SET_STATS</a></li></ul></li><li><a href="module-c3s_media-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_media-actions.html#.deleteMedium">deleteMedium</a></li><li data-type='method'><a href="module-c3s_media-actions.html#.getMedia">getMedia</a></li><li data-type='method'><a href="module-c3s_media-actions.html#.upload">upload</a></li></ul></li><li><a href="module-c3s_media-getters.html">getters</a></li><li><a href="module-c3s_media-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_media-mutations.html#.SET_MEDIA">SET_MEDIA</a></li></ul></li><li><a href="module-c3s_project-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_project-actions.html#.createProject">createProject</a></li><li data-type='method'><a href="module-c3s_project-actions.html#.deleteProject">deleteProject</a></li><li data-type='method'><a href="module-c3s_project-actions.html#.getProject">getProject</a></li><li data-type='method'><a href="module-c3s_project-actions.html#.getProjectCount">getProjectCount</a></li><li data-type='method'><a href="module-c3s_project-actions.html#.getProjects">getProjects</a></li></ul></li><li><a href="module-c3s_project-getters.html">getters</a></li><li><a href="module-c3s_project-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_COMMENTS">SET_COMMENTS</a></li><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_MEDIA">SET_MEDIA</a></li><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_PROJECT">SET_PROJECT</a></li><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_PROJECTS">SET_PROJECTS</a></li><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_STATS">SET_STATS</a></li></ul></li><li><a href="module-c3s_submission-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_submission-actions.html#.createSubmission">createSubmission</a></li><li data-type='method'><a href="module-c3s_submission-actions.html#.getSubmissionCount">getSubmissionCount</a></li><li data-type='method'><a href="module-c3s_submission-actions.html#.getSubmissions">getSubmissions</a></li><li data-type='method'><a href="module-c3s_submission-actions.html#.updateSubmission">updateSubmission</a></li></ul></li><li><a href="module-c3s_submission-getters.html">getters</a></li><li><a href="module-c3s_submission-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_MEDIA">SET_MEDIA</a></li><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_SUBMISSION">SET_SUBMISSION</a></li><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_SUBMISSION_RESPONSE">SET_SUBMISSION_RESPONSE</a></li><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_SUBMISSION_RESPONSES">SET_SUBMISSION_RESPONSES</a></li><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_SUBMISSIONS">SET_SUBMISSIONS</a></li></ul></li><li><a href="module-c3s_task-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_task-actions.html#.createTasks">createTasks</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.deleteTasks">deleteTasks</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.getTask">getTask</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.getTaskCount">getTaskCount</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.getTaskMedia">getTaskMedia</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.getTasks">getTasks</a></li></ul></li><li><a href="module-c3s_task-getters.html">getters</a></li><li><a href="module-c3s_task-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_task-mutations.html#.SET_COMMENTS">SET_COMMENTS</a></li><li data-type='method'><a href="module-c3s_task-mutations.html#.SET_MEDIA">SET_MEDIA</a></li><li data-type='method'><a href="module-c3s_task-mutations.html#.SET_TASK">SET_TASK</a></li><li data-type='method'><a href="module-c3s_task-mutations.html#.SET_TASKS">SET_TASKS</a></li><li data-type='method'><a href="module-c3s_task-mutations.html#.UPDATE_TASK">UPDATE_TASK</a></li></ul></li><li><a href="module-c3s_user-actionss.html">actionss</a></li><li><a href="module-c3s_user-getters.html">getters</a></li><li><a href="module-c3s_user-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_user-mutations.html#.SET_ANON">SET_ANON</a></li><li data-type='method'><a href="module-c3s_user-mutations.html#.SET_CURRENT_USER">SET_CURRENT_USER</a></li><li data-type='method'><a href="module-c3s_user-mutations.html#.SET_USER">SET_USER</a></li></ul></li><li><a href="module-c3s-actions.html">actions</a></li><li><a href="module-c3s-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s-mutations.html#.SET_API">SET_API</a></li><li data-type='method'><a href="module-c3s-mutations.html#.SET_HOST">SET_HOST</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">store/modules/project.js</h1>
+    
 
     
 
@@ -65,8 +80,7 @@ const actions = {
 	 * Get projects matching a search object
 	 * Retrieve projects matching query and save into the `projects` array
 	 * @function
-	 * @param {Provided} param0 
-	 * @param {Array} (search, limit) Array containing a search object (based on JTOS) and an integer for the limit of results
+	 * @param {Array&lt;Object, number>} Search Array containing a search object (based on JTOS) and an integer for the limit of results
 	 */
 	getProjects({
 		state,
@@ -80,8 +94,7 @@ const actions = {
 	/**
 	 * Get a project matching the provided ID
 	 * DOES save project to store
-	 * @param {Provided} param0 
-	 * @param {Array} (id,associated) An array containing the ID of the project and a boolean of whether you want the tasks and media associated
+	 * @param {Array&lt;string, number>} ID An array containing the ID of the project and a boolean of whether you want the tasks and media associated
 	 */
 	async getProject({
 		state,
@@ -99,7 +112,6 @@ const actions = {
 
 	/**
 	 * Get count of projects matching search criteria
-	 * @param {Provided} param0 
 	 * @param {Object} search 
 	 */
     async getProjectCount({state, commit, rootState}, search) {
@@ -109,7 +121,6 @@ const actions = {
 	/**
 	 * Create a project with a provided object. 
 	 * DOES save project to store
-	 * @param {Provided} param0 
 	 * @param {Object} project 
 	 */
 	createProject({
@@ -121,8 +132,7 @@ const actions = {
 	},
 	/**
 	 * Delete a project with the provided ID
-	 * @param {*} param0 
-	 * @param {Array} (pid, localRemove) The ID of the project and a boolean on whether to remove the project from the store
+	 * @param {Array&lt;string, boolean>} PID The ID of the project and a boolean on whether to remove the project from the store
 	 */
 	deleteProject({
 		state,
@@ -142,7 +152,6 @@ const actions = {
 const mutations = {
 	/**
 	 * Commit array of projects to store
-	 * @param {Provided} state 
 	 * @param {Array} ps 
 	 */
 	SET_PROJECTS(state, ps) {
@@ -150,15 +159,13 @@ const mutations = {
 	},
 	/**
 	 * Commit project to store
-	 * @param {Provided} state 
 	 * @param {Object} p 
 	 */
 	SET_PROJECT(state, p) {
 		state.project = p;
 	},
 	/**
-	 * Commit project stats to store
-	 * @param {Provided} state 
+	 * Commit project stats to store 
 	 * @param {Object} stats 
 	 */
 	SET_STATS(state, stats) {
@@ -166,7 +173,6 @@ const mutations = {
 	},
 	/**
 	 * Commit comments array related to project to store
-	 * @param {Provided} state 
 	 * @param {Array} cmts 
 	 */
     SET_COMMENTS(state, cmts) {
@@ -174,7 +180,6 @@ const mutations = {
 	},
 	/**
 	 * Commit media array related to project to store
-	 * @param {Provided} state 
 	 * @param {Array} media 
 	 */
     SET_MEDIA(state, media) {
@@ -200,19 +205,19 @@ export default {
 
 
 
+    
+    
 </div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-C3Plugin.html">C3Plugin</a></li><li><a href="module-c3s.html">c3s</a></li><li><a href="module-c3s_activity.html">c3s/activity</a></li><li><a href="module-c3s_media.html">c3s/media</a></li><li><a href="module-c3s_project.html">c3s/project</a></li><li><a href="module-c3s_task.html">c3s/task</a></li><li><a href="module-c3s_user.html">c3s/user</a></li><li><a href="module-C3SPlugin.html">C3SPlugin</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-c3s_activity-actions.html">actions</a></li><li><a href="module-c3s_activity-mutations.html">mutations</a></li><li><a href="module-c3s_media-actions.html">actions</a></li><li><a href="module-c3s_media-getters.html">getters</a></li><li><a href="module-c3s_media-mutations.html">mutations</a></li><li><a href="module-c3s_project-actions.html">actions</a></li><li><a href="module-c3s_project-getters.html">getters</a></li><li><a href="module-c3s_project-mutations.html">mutations</a></li><li><a href="module-c3s_task-actions.html">actions</a></li><li><a href="module-c3s_task-getters.html">getters</a></li><li><a href="module-c3s_task-mutations.html">mutations</a></li><li><a href="module-c3s_user-actionss.html">actionss</a></li><li><a href="module-c3s_user-getters.html">getters</a></li><li><a href="module-c3s_user-mutations.html">mutations</a></li><li><a href="module-c3s-actions.html">actions</a></li><li><a href="module-c3s-mutations.html">mutations</a></li></ul>
-</nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Dec 06 2018 14:10:05 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Dec 07 2018 08:03:51 GMT+0100 (CET) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+
 </body>
 </html>

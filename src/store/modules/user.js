@@ -31,7 +31,6 @@ const getters = {};
 const actions = {
 	/**
 	 * Login user
-	 * @param {Provided} param0 
 	 * @param {Object} user Username/email and password of user
 	 * @returns {Promise<*>}
 	 */
@@ -45,7 +44,6 @@ const actions = {
 	},
 	/**
 	 * Create anonymouse user and register with backend
-	 * @param {Provided} param0
 	 * @returns {Promise<*>}
 	 */
 	async generateAnon({
@@ -72,8 +70,6 @@ const actions = {
 	},
 	/**
 	 * Logout user and remove from local store
-	 * @param state
-	 * @param commit
 	 */
 	logout({
 			   state,
@@ -86,7 +82,6 @@ const actions = {
 	},
 	/**
 	 * Request to reset password 
-	 * @param {Provided} param0 
 	 * @param {String} email 
 	 * @returns {Promise<*>}
 	 */
@@ -100,7 +95,7 @@ const actions = {
 	},
 	/**
 	 * Reset user password with code
-	 * @param {Provided} param0 
+	 * @param {string} reset 
 	 * @returns {Promise<*|boolean|void>}
 	 */
 	async resetPwd({
@@ -112,7 +107,6 @@ const actions = {
 	},
 	/**
 	 * Create a user account
-	 * @param {Provided} param0 
 	 * @param {Object} user
 	 * @returns {Promise<*|boolean|void>}
 	 */
@@ -124,8 +118,7 @@ const actions = {
 		return makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: user}, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
-	 * Retrieve a list of users
-	 * @param {Provided} param0 
+	 * Retrieve a user based on ID
 	 * @param {String} id
 	 * @returns {Promise<*|boolean|void>}
 	 */
@@ -138,7 +131,6 @@ const actions = {
 	},
 	/**
 	 * Update user based on ID
-	 * @param {Provided} param0 
 	 * @param {Array} (id, info)
 	 * @returns {Promise<*|boolean|void>}
 	 */
@@ -154,7 +146,6 @@ const actions = {
 	},
 	/**
 	 * Validate user existence and access based on API Key
-	 * @param {Provided} param0 
 	 * @param {String} id
 	 * @returns {Promise<*|boolean|void>}
 	 */
@@ -177,7 +168,6 @@ const actions = {
 const mutations = {
 	/**
 	 * Set user outside of the currently logged in
-	 * @param {Provided} state 
 	 * @param {Object} user 
 	 */
 	SET_USER(state, user) {
@@ -185,7 +175,6 @@ const mutations = {
 	},
 	/**
 	 * Set current user
-	 * @param {Provided} state 
 	 * @param {Object} user 
 	 */
 	SET_CURRENT_USER(state, user) {
@@ -193,7 +182,6 @@ const mutations = {
 	},
 	/**
 	 * Set anonymous state of current user
-	 * @param {Provided} state 
 	 * @param {Boolean} flag 
 	 */
     SET_ANON(state, flag) {
@@ -202,7 +190,7 @@ const mutations = {
 };
 
 /**
- * name User
+ * @name User
  */
 export default {
 	namespaced: true,

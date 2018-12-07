@@ -38,8 +38,7 @@ const getters = {};
 const actions = {
     /**
      * Retrieve an array of activities based on a provided query object 
-     * @param {Provided} param0 
-     * @param {*} param1 
+     * @param {Array<Object, number>} search An array containing the search object and the limit for the number of results to return
      */
     getActivities({
                       state,
@@ -52,12 +51,7 @@ const actions = {
     },
     /**
      * Retrieve a single activity based on the ID
-     * @param state
-     * @param commit
-     * @param dispatch
-     * @param rootState
-     * @param id
-     * @param associated
+     * @param {Array<string, boolean>} ID An array containing the ID of the activity and a boolean to determine whether or not to retrieve the media and comments also
      * @returns {Promise<*|boolean|void>}
      */
     async getActivity({
@@ -70,7 +64,10 @@ const actions = {
         }
         return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {id: id}, 'c3s/activity/SET_ACTIVITY');
     },
-
+    /**
+     * Returns a count for the number of activities matching criteria
+     * @param {Object} search Search object the same as one would use in getActivities
+     */
     async getActivityCount({state, commit, rootState}, search) {
         search = rison.encode(search);
         return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_count, {search_term: search || undefined }, undefined);
@@ -84,10 +81,7 @@ const actions = {
     },
     /**
      * Create an activity
-     * @param state
-     * @param commit
-     * @param rootState
-     * @param activity
+     * @param {Object} activity
      * @returns {Promise<*|boolean|void>}
      */
     createActivity({
@@ -99,11 +93,7 @@ const actions = {
     },
     /**
      * Delete an activity matching the supplied ID
-     * @param state
-     * @param commit
-     * @param rootState
-     * @param pid
-     * @param localRemove
+     * @param {Array<string, boolean>} ID An array containing the ID of the activity and a boolean to determine whether or not to remove from the store also
      * @returns {Promise<*|boolean|void>}
      */
     deleteActivity({
@@ -117,28 +107,43 @@ const actions = {
 };
 
 /**
- * @constant mutations
+ * @constant mutations All mutations one can commit to the activity submodule
  * @type {object}
  * @namespace mutations
  */
 const mutations = {
     /**
      * Sets the activities in the store
-     * @param {Object} state 
      * @param {Array} acts 
      */
     SET_ACTIVITIES(state, acts) {
         state.activities = acts;
     },
+    /**
+     * Sets a single activity
+     * @param {Object} act 
+     */
     SET_ACTIVITY(state, act) {
         state.activity = act;
     },
+    /**
+     * Set statistics for an activity
+     * @param {Object} stats 
+     */
     SET_STATS(state, stats) {
         state.stats = stats;
     },
+    /**
+     * Set comments for an activity
+     * @param {Arrya} cmts 
+     */
     SET_COMMENTS(state, cmts) {
         state.comments = cmts
     },
+    /**
+     * Set media for an activity
+     * @param {Array} media 
+     */
     SET_MEDIA(state, media) {
         state.media = media
     }
@@ -146,6 +151,7 @@ const mutations = {
 
 /**
  * A module for linking activities to the API
+ * @name Activity
  */
 export default {
     namespaced: true,

@@ -32,8 +32,8 @@ const getters = {
  */
 const actions = {
 	/**
-	 * @param {Provided} param0 
-	 * @param {Array} Search An array containing a search object and a limit integer
+	 * Retrieve an array of tasks
+	 * @param {Array<Object, number>} Search An array containing a search object and a limit integer
 	 * 
 	 */
 	async getTasks({ state, commit, rootState }, [search, limit]) {
@@ -42,7 +42,6 @@ const actions = {
 	},
 
 	/**
-	 * @param {Provided} param0 Provied by Vuex, DO NOT PASS
 	 * @param {Object} search A search term to match a JTOS object
 	 */
     async getTaskCount({state, commit, rootState}, search) {
@@ -51,7 +50,6 @@ const actions = {
     },
 	/**
 	 * Get Task Media
-	 * @param {Provided} param0 
 	 * @param {Object} search 
 	 */
 	async getTaskMedia({ state, commit, rootState }, search) {
@@ -60,7 +58,6 @@ const actions = {
 	},
 	/**
 	 * Retrieve a task matching an ID
-	 * @param {Provided} param0 
 	 * @param {String} id Task ID
 	 */
 	async getTask({ state, commit, rootState }, id) {
@@ -68,8 +65,7 @@ const actions = {
 	},
 	/**
 	 * @description Create an array of tasks
-	 * @param {Provided} param0 
-	 * @param {Array} tasks Array of tasks to be created
+	 * @param {Array<Object>} tasks Array of tasks to be created
 	 */
 	async createTasks({ state, commit, dispatch, rootState }, tasks) {
 		const res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {tasks: tasks }, undefined);
@@ -78,8 +74,7 @@ const actions = {
 	},
 	/**
 	 * Deletes an array of tasks
-	 * @param {Provided} param0 
-	 * @param {Array} tasks Tasks to be deleted, ID is required as a key here
+	 * @param {Array<Object>} tasks Tasks to be deleted, ID is required as a key here
 	 */
 	deleteTasks({ state, commit, dispatch, rootState }, tasks) {
 		dispatch('SET_TASKS', null);
@@ -94,7 +89,6 @@ const actions = {
 const mutations = {
 	/**
 	 * Set array of tasks in store
-	 * @param {Provided} state 
 	 * @param {Array} tasks 
 	 */
 	SET_TASKS(state, tasks) {
@@ -102,7 +96,6 @@ const mutations = {
 	},
 	/**
 	 *  Set single task in store
-	 * @param {Provided} state 
 	 * @param {Object} task 
 	 */
 	SET_TASK(state, task) {
@@ -110,7 +103,6 @@ const mutations = {
 	},
 	/**
 	 * Update task in store
-	 * @param {Provided} state 
 	 * @param {int} index Index of array to update 
 	 * @param {Object} params New task object 
 	 */
@@ -121,16 +113,14 @@ const mutations = {
 	},
 	/**
 	 * Commit media to store
-	 * @param {Provided} state 
-	 * @param {Array} media  Array of media objects
+	 * @param {Array<Object>} media  Array of media objects
 	 */
     SET_MEDIA(state, media) {
 	    state.media = media;
 	},
 	/**
 	 * Set array of task comments in store
-	 * @param {Provided} state 
-	 * @param {Array} cmts 
+	 * @param {Array<Object>} cmts 
 	 */
     SET_COMMENTS(state, cmts) {
 	    state.comments = cmts

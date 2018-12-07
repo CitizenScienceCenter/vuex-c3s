@@ -4,7 +4,8 @@
     },
     "opts": {
       "destination":"./docs/",
-      "recurse": true
+      "recurse": true,
+      "template":  "node_modules/docdash"
     },
     "source": {
         "includePattern": ".+\\.js(doc|x)?$",
@@ -13,6 +14,7 @@
     "sourceType": "script",
     "plugins": [
       "plugins/summarize",
+      "plugins/markdown",
       "./node_modules/jsdoc-export-default-interop/dist/index"
     ],
     "templates": {

@@ -22,8 +22,7 @@ const getters = {};
 const actions = {
 	/**
 	 * Get media matching search
-	 * @param {Provided} param0 
-	 * @param {Array} Terms Array with Object of search query, messaage to commit to store (or undefined) and the limit to retrieve
+	 * @param {Array<Object,string, number>} Terms Array with Object of search query, messaage to commit to store (or undefined) and the limit to retrieve
 	 */
 	getMedia({
 		state,
@@ -38,7 +37,6 @@ const actions = {
 	},
 	/**
 	 * Delete media with ID
-	 * @param {Provided} param0 
 	 * @param {String}} id 
 	 */
 	deleteMedium({
@@ -53,8 +51,7 @@ const actions = {
 	},
 	/**
 	 * Upload a file
-	 * @param {Provided} param0 
-	 * @param {FormData} medium 
+	 * @param {FormData} medium File to upload
 	 */
 	upload({
 		state,
@@ -71,8 +68,7 @@ const actions = {
 const mutations = {
 	/**
 	 * Store array of media in store. File objects ARE NOT STORED and must be requested from their path
-	 * @param {Provided} state 
-	 * @param {Array} media 
+	 * @param {Array<Object>} media 
 	 */
 	SET_MEDIA(state, media) {
 		state.media = media;

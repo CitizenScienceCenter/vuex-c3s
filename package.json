@@ -13,7 +13,8 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "minify": "uglifyjs dist/vuex-c3s.umd.js --output dist/vuex-c3s.min.js --compress --mangle",
-    "test": "jest"
+    "test": "jest",
+    "docs": "jsdoc -c jsdoc.conf.json src/"
   },
   "repository": {
     "type": "git",
@@ -49,9 +50,11 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "crypto-js": "^3.1.9-1",
+    "docdash": "^1.0.1",
     "eslint-plugin-babel": "^5.2.1",
     "eslint-plugin-html": "^5.0.0",
     "jest": "^23.6.0",
+    "jsdoc": "^3.5.5",
     "jsdoc-export-default-interop": "^0.3.1",
     "rollup": "^0.67.1",
     "rollup-plugin-babel": "4.0.3",
