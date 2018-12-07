@@ -14,7 +14,7 @@
     "build": "rollup -c rollup.config.js",
     "minify": "uglifyjs dist/vuex-c3s.umd.js --output dist/vuex-c3s.min.js --compress --mangle",
     "test": "jest",
-    "docs": "jsdoc -c jsdoc.conf.json src/"
+    "docs": "jsdoc -c jsdoc.conf.json src/ ./README.md"
   },
   "repository": {
     "type": "git",

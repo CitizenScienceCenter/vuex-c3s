@@ -4,7 +4,7 @@ node_js:
 before_script:
 - npm install -g jsdoc
 - npm install
-script: jsdoc -c jsdoc.conf.json src/
+script: npm run docs
 notifications:
   webhooks: https://chat.citizenscience.ch/hooks/xnYY4LLB2LWXqmxHd/ABijvSTDjRoNvPLin6JyLTRyBDGNQTDmihLutzRcT5bDHmWg
 deploy:
