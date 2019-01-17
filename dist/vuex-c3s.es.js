@@ -1633,7 +1633,7 @@ var actions$8 = {
                   "tables": ["comments"]
                 },
                 "where": [{
-                  "fields": "source_id",
+                  "field": "source_id",
                   "op": "e",
                   "val": id
                 }]
