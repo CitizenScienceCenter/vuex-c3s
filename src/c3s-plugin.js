@@ -57,14 +57,14 @@ const C3SPlugin = {
      * Setup function for the plugin, must provide a store and a Swagger file URL
      * @param {Provided} Vue
      * @method install
-     * @param {Object} options Expects the store and Swagger URL 
+     * @param {Object} options Expects the store and Swagger URL
      */
     install(Vue, options = {}) {
 
         Swagger({
             url: options.swaggerURL,
             requestInterceptor(req) {
-                // req.headers['content-type'] = 'application/json'
+                req.headers['content-type'] = 'application/json'
                 if (options.store.state.c3s && options.store.state.c3s.user) {
                     let u = options.store.state.c3s.user.currentUser;
                     if (u) {
