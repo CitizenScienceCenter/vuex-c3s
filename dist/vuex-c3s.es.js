@@ -201,10 +201,7 @@ var actions$1 = {
               u = {
                 'username': id,
                 'pwd': pwd,
-                'confirmed': false,
-                info: {
-                  'anonymous': true
-                }
+                'confirmed': false
               };
               response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
                 user: u
@@ -310,17 +307,19 @@ var actions$1 = {
     var _register = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee5(_ref6, user) {
-      var state, commit, rootState;
+      var state, commit, rootState, response;
       return _regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
-              return _context5.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
+              response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {
                 user: user
-              }, 'c3s/user/SET_CURRENT_USER'));
+              }, 'c3s/user/SET_CURRENT_USER');
+              commit('SET_ANON', false);
+              return _context5.abrupt("return", response);
 
-            case 2:
+            case 4:
             case "end":
               return _context5.stop();
           }
@@ -1789,14 +1788,15 @@ var C3SPlugin = {
    * Setup function for the plugin, must provide a store and a Swagger file URL
    * @param {Provided} Vue
    * @method install
-   * @param {Object} options Expects the store and Swagger URL 
+   * @param {Object} options Expects the store and Swagger URL
    */
   install: function install(Vue) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     Swagger({
       url: options.swaggerURL,
       requestInterceptor: function requestInterceptor(req) {
-        // req.headers['content-type'] = 'application/json'
+        req.headers['content-type'] = 'application/json';
+
         if (options.store.state.c3s && options.store.state.c3s.user) {
           var u = options.store.state.c3s.user.currentUser;
 
