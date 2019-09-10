@@ -383,7 +383,7 @@ var actions$1 = {
               _ref10 = _slicedToArray(_ref9, 2), id = _ref10[0], info = _ref10[1];
               return _context7.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
                 id: id,
-                user: info
+                updated_user: info
               }, 'c3s/user/SET_CURRENT_USER'));
 
             case 3:

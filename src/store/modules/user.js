@@ -140,7 +140,7 @@ const actions = {
 					 }, [id, info]) {
 		return makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
 			id: id,
-			user: info
+			updated_user: info
 		}, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
