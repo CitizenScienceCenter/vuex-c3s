@@ -2,11 +2,11 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var _defineProperty = _interopDefault(require('@babel/runtime/helpers/defineProperty'));
 var _slicedToArray = _interopDefault(require('@babel/runtime/helpers/slicedToArray'));
 var _regeneratorRuntime = _interopDefault(require('@babel/runtime/regenerator'));
 var _asyncToGenerator = _interopDefault(require('@babel/runtime/helpers/asyncToGenerator'));
 var rison = _interopDefault(require('rison-node'));
+var _defineProperty = _interopDefault(require('@babel/runtime/helpers/defineProperty'));
 var Swagger = _interopDefault(require('swagger-client'));
 
 /** @module c3s */
@@ -120,7 +120,7 @@ function _makeRequest() {
             return _context.stop();
         }
       }
-    }, _callee, this, [[0, 10]]);
+    }, _callee, null, [[0, 10]]);
   }));
   return _makeRequest.apply(this, arguments);
 }
@@ -173,12 +173,14 @@ var actions$1 = {
               return _context.stop();
           }
         }
-      }, _callee, this);
+      }, _callee);
     }));
 
-    return function login(_x, _x2) {
+    function login(_x, _x2) {
       return _login.apply(this, arguments);
-    };
+    }
+
+    return login;
   }(),
 
   /**
@@ -218,12 +220,14 @@ var actions$1 = {
               return _context2.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee2);
     }));
 
-    return function generateAnon(_x3) {
+    function generateAnon(_x3) {
       return _generateAnon.apply(this, arguments);
-    };
+    }
+
+    return generateAnon;
   }(),
 
   /**
@@ -262,12 +266,14 @@ var actions$1 = {
               return _context3.stop();
           }
         }
-      }, _callee3, this);
+      }, _callee3);
     }));
 
-    return function requestReset(_x4, _x5) {
+    function requestReset(_x4, _x5) {
       return _requestReset.apply(this, arguments);
-    };
+    }
+
+    return requestReset;
   }(),
 
   /**
@@ -294,12 +300,14 @@ var actions$1 = {
               return _context4.stop();
           }
         }
-      }, _callee4, this);
+      }, _callee4);
     }));
 
-    return function resetPwd(_x6, _x7) {
+    function resetPwd(_x6, _x7) {
       return _resetPwd.apply(this, arguments);
-    };
+    }
+
+    return resetPwd;
   }(),
 
   /**
@@ -328,12 +336,14 @@ var actions$1 = {
               return _context5.stop();
           }
         }
-      }, _callee5, this);
+      }, _callee5);
     }));
 
-    return function register(_x8, _x9) {
+    function register(_x8, _x9) {
       return _register.apply(this, arguments);
-    };
+    }
+
+    return register;
   }(),
 
   /**
@@ -360,12 +370,14 @@ var actions$1 = {
               return _context6.stop();
           }
         }
-      }, _callee6, this);
+      }, _callee6);
     }));
 
-    return function getUser(_x10, _x11) {
+    function getUser(_x10, _x11) {
       return _getUser.apply(this, arguments);
-    };
+    }
+
+    return getUser;
   }(),
 
   /**
@@ -395,12 +407,14 @@ var actions$1 = {
               return _context7.stop();
           }
         }
-      }, _callee7, this);
+      }, _callee7);
     }));
 
-    return function updateUser(_x12, _x13) {
+    function updateUser(_x12, _x13) {
       return _updateUser.apply(this, arguments);
-    };
+    }
+
+    return updateUser;
   }(),
 
   /**
@@ -433,12 +447,14 @@ var actions$1 = {
               return _context8.stop();
           }
         }
-      }, _callee8, this);
+      }, _callee8);
     }));
 
-    return function validate(_x14, _x15) {
+    function validate(_x14, _x15) {
       return _validate.apply(this, arguments);
-    };
+    }
+
+    return validate;
   }()
 };
 /**
@@ -561,12 +577,14 @@ var actions$2 = {
               return _context.stop();
           }
         }
-      }, _callee, this);
+      }, _callee);
     }));
 
-    return function getActivity(_x, _x2) {
+    function getActivity(_x, _x2) {
       return _getActivity.apply(this, arguments);
-    };
+    }
+
+    return getActivity;
   }(),
 
   /**
@@ -593,12 +611,14 @@ var actions$2 = {
               return _context2.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee2);
     }));
 
-    return function getActivityCount(_x3, _x4) {
+    function getActivityCount(_x3, _x4) {
       return _getActivityCount.apply(this, arguments);
-    };
+    }
+
+    return getActivityCount;
   }(),
   getStats: function getStats(_ref8, id) {
     var state = _ref8.state,
@@ -761,12 +781,14 @@ var actions$3 = {
               return _context.stop();
           }
         }
-      }, _callee, this);
+      }, _callee);
     }));
 
-    return function getTasks(_x, _x2) {
+    function getTasks(_x, _x2) {
       return _getTasks.apply(this, arguments);
-    };
+    }
+
+    return getTasks;
   }(),
 
   /**
@@ -792,12 +814,14 @@ var actions$3 = {
               return _context2.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee2);
     }));
 
-    return function getTaskCount(_x3, _x4) {
+    function getTaskCount(_x3, _x4) {
       return _getTaskCount.apply(this, arguments);
-    };
+    }
+
+    return getTaskCount;
   }(),
 
   /**
@@ -824,12 +848,14 @@ var actions$3 = {
               return _context3.stop();
           }
         }
-      }, _callee3, this);
+      }, _callee3);
     }));
 
-    return function getTaskMedia(_x5, _x6) {
+    function getTaskMedia(_x5, _x6) {
       return _getTaskMedia.apply(this, arguments);
-    };
+    }
+
+    return getTaskMedia;
   }(),
 
   /**
@@ -855,12 +881,14 @@ var actions$3 = {
               return _context4.stop();
           }
         }
-      }, _callee4, this);
+      }, _callee4);
     }));
 
-    return function getTask(_x7, _x8) {
+    function getTask(_x7, _x8) {
       return _getTask.apply(this, arguments);
-    };
+    }
+
+    return getTask;
   }(),
 
   /**
@@ -890,12 +918,14 @@ var actions$3 = {
               return _context5.stop();
           }
         }
-      }, _callee5, this);
+      }, _callee5);
     }));
 
-    return function createTasks(_x9, _x10) {
+    function createTasks(_x9, _x10) {
       return _createTasks.apply(this, arguments);
-    };
+    }
+
+    return createTasks;
   }(),
 
   /**
@@ -1022,12 +1052,14 @@ var actions$4 = {
               return _context.stop();
           }
         }
-      }, _callee, this);
+      }, _callee);
     }));
 
-    return function getSubmissions(_x, _x2) {
+    function getSubmissions(_x, _x2) {
       return _getSubmissions.apply(this, arguments);
-    };
+    }
+
+    return getSubmissions;
   }(),
 
   /**
@@ -1054,12 +1086,14 @@ var actions$4 = {
               return _context2.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee2);
     }));
 
-    return function getSubmissionCount(_x3, _x4) {
+    function getSubmissionCount(_x3, _x4) {
       return _getSubmissionCount.apply(this, arguments);
-    };
+    }
+
+    return getSubmissionCount;
   }(),
 
   /**
@@ -1085,12 +1119,14 @@ var actions$4 = {
               return _context3.stop();
           }
         }
-      }, _callee3, this);
+      }, _callee3);
     }));
 
-    return function createSubmission(_x5) {
+    function createSubmission(_x5) {
       return _createSubmission.apply(this, arguments);
-    };
+    }
+
+    return createSubmission;
   }(),
 
   /**
@@ -1118,12 +1154,14 @@ var actions$4 = {
               return _context4.stop();
           }
         }
-      }, _callee4, this);
+      }, _callee4);
     }));
 
-    return function updateSubmission(_x6, _x7) {
+    function updateSubmission(_x6, _x7) {
       return _updateSubmission.apply(this, arguments);
-    };
+    }
+
+    return updateSubmission;
   }()
 };
 /**
@@ -1310,7 +1348,7 @@ var actions$6 = {
         if (i === state.content.length - 1) {
           commit('CLEAR');
         }
-      }).catch(function (e) {
+      })["catch"](function (e) {
         commit('c3s/settings/SET_LOADING', false, {
           root: true
         });
@@ -1437,12 +1475,14 @@ var actions$7 = {
               return _context.stop();
           }
         }
-      }, _callee, this);
+      }, _callee);
     }));
 
-    return function getProject(_x, _x2) {
+    function getProject(_x, _x2) {
       return _getProject.apply(this, arguments);
-    };
+    }
+
+    return getProject;
   }(),
 
   /**
@@ -1469,12 +1509,14 @@ var actions$7 = {
               return _context2.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee2);
     }));
 
-    return function getProjectCount(_x3, _x4) {
+    function getProjectCount(_x3, _x4) {
       return _getProjectCount.apply(this, arguments);
-    };
+    }
+
+    return getProjectCount;
   }(),
 
   /**
@@ -1608,12 +1650,14 @@ var actions$8 = {
               return _context.stop();
           }
         }
-      }, _callee, this);
+      }, _callee);
     }));
 
-    return function getComments(_x, _x2) {
+    function getComments(_x, _x2) {
       return _getComments.apply(this, arguments);
-    };
+    }
+
+    return getComments;
   }(),
   getCommentsForID: function () {
     var _getCommentsForID = _asyncToGenerator(
@@ -1652,12 +1696,14 @@ var actions$8 = {
               return _context2.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee2);
     }));
 
-    return function getCommentsForID(_x3, _x4) {
+    function getCommentsForID(_x3, _x4) {
       return _getCommentsForID.apply(this, arguments);
-    };
+    }
+
+    return getCommentsForID;
   }(),
 
   /**
@@ -1734,7 +1780,7 @@ var settings = {
 
 
 
-var C3SStore = /*#__PURE__*/Object.freeze({
+var C3Store = /*#__PURE__*/Object.freeze({
 	api: api,
 	user: user,
 	activity: activity,
@@ -1797,7 +1843,7 @@ var C3SPlugin = {
   install: function install(Vue) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     Swagger({
-      url: options.swaggerURL,
+      url: options.apiURL,
       requestInterceptor: function requestInterceptor(req) {
         req.headers['content-type'] = 'application/json';
 
@@ -1815,14 +1861,15 @@ var C3SPlugin = {
       }
     }).then(function (client) {
       var store = options.store;
-      var swaggerURL = options.swaggerURL;
+      var apiURL = options.apiURL;
 
-      if (!store || !swaggerURL) {
+      if (!store || !apiURL) {
         console.error('C3S: Missing store and/or Swagger URL params.');
         return;
       }
 
-      console.log('Loaded from ' + options.swaggerURL);
+      console.log(options);
+      console.log('Loaded from ' + options.apiURL);
 
       for (var i in modules) {
         var m = modules[i];
@@ -1859,14 +1906,14 @@ var C3SPlugin = {
       };
 
       Vue.prototype.$c3s = {
-        store: C3SStore,
+        store: C3Store,
         loaded: isLoaded
       };
       Vue.c3s = {
-        store: C3SStore,
+        store: C3Store,
         loaded: isLoaded
       };
-    }).catch(function (err) {
+    })["catch"](function (err) {
       console.error('C3S: URL was not found or an initialisation error occurred');
       console.error(err);
     });
@@ -1875,7 +1922,7 @@ var C3SPlugin = {
 
 var index = {
   plugin: C3SPlugin,
-  store: C3SStore
+  store: C3Store
 };
 
 module.exports = index;

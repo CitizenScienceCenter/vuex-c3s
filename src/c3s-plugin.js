@@ -62,7 +62,7 @@ const C3SPlugin = {
     install(Vue, options = {}) {
 
         Swagger({
-            url: options.swaggerURL,
+            url: options.apiURL,
             requestInterceptor(req) {
                 req.headers['content-type'] = 'application/json'
                 if (options.store.state.c3s && options.store.state.c3s.user) {
@@ -77,12 +77,12 @@ const C3SPlugin = {
             }
         }).then(client => {
             const store = options.store;
-            const swaggerURL = options.swaggerURL;
-            if (!store || !swaggerURL) {
+            const apiURL = options.apiURL;
+            if (!store || !apiURL) {
                 console.error('C3S: Missing store and/or Swagger URL params.');
                 return;
             }
-            console.log('Loaded from ' + options.swaggerURL);
+            console.log('Loaded from ' + options.apiURL);
             for (let i in modules) {
                 const m = modules[i];
                 let name = m['name'];

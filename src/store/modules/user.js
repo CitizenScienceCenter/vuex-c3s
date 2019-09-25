@@ -61,7 +61,7 @@ const actions = {
             'pwd': pwd,
             'confirmed': false
 		}
-        const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: u}, 'c3s/user/SET_CURRENT_USER');
+        const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, u, 'c3s/user/SET_CURRENT_USER');
 		commit('SET_ANON', true);
         return response;
 	},
@@ -112,7 +112,7 @@ const actions = {
 					   commit,
 					   rootState
 				   }, user) {
-		const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: user}, 'c3s/user/SET_CURRENT_USER');
+		const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, user, 'c3s/user/SET_CURRENT_USER');
 		commit('SET_ANON', false);
         return response;
 	},

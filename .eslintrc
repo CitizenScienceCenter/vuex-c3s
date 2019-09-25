@@ -13,6 +13,10 @@
         "es6": true
     },
     "parser": "babel-eslint",
+    "parserOptions": {
+      "sourceType": "module",
+      "allowImportExportEverywhere": true
+    },
     "rules": {
         "semi": [2, "always"],
         "quotes": [1, "single"],

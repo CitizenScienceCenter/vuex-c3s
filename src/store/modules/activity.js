@@ -18,6 +18,7 @@ import rison from "rison-node";
 const state = {
     activities: [],
     activity: null,
+    tasks: [],
     stats: null,
     media: [],
     comments: []
@@ -64,6 +65,16 @@ const actions = {
         }
         return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {id: id}, 'c3s/activity/SET_ACTIVITY');
     },
+
+    async getActivityTasks({
+                          state,
+                          commit,
+                          dispatch,
+                          rootState
+                      }, [id]) {
+          return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_tasks, {id: id}, 'c3s/activity/SET_ACTIVITY_TASKS');
+
+      },
     /**
      * Returns a count for the number of activities matching criteria
      * @param {Object} search Search object the same as one would use in getActivities
@@ -139,6 +150,10 @@ const mutations = {
      */
     SET_COMMENTS(state, cmts) {
         state.comments = cmts
+    },
+
+    SET_ACTIVITY_TASKS(state, tasks) {
+        state.tasks = tasks
     },
     /**
      * Set media for an activity

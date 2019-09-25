@@ -14,7 +14,7 @@ const state = {
 	tasks: [],
 	task: null,
 	media: [],
-    comments: []
+  comments: []
 };
 
 /** getters
@@ -63,6 +63,10 @@ const actions = {
 	async getTask({ state, commit, rootState }, id) {
 		return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task, {id: id }, 'c3s/task/SET_TASK');
 	},
+
+  async getTaskComments({state, commit, rootState}, id) {
+    return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_comments, {id: id}, 'c3s/task/SET_TASK_COMMENTS');
+  },
 	/**
 	 * @description Create an array of tasks
 	 * @param {Array<Object>} tasks Array of tasks to be created
@@ -101,6 +105,10 @@ const mutations = {
 	SET_TASK(state, task) {
 		state.task = task;
 	},
+
+  SET_TASK_COMMENTS(state, cmts) {
+    state.comments = cmts;
+  },
 	/**
 	 * Update task in store
 	 * @param {int} index Index of array to update 
