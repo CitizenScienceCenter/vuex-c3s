@@ -1,18 +1,19 @@
-language: node_js
-node_js:
-- "10"
 before_script:
-- npm install -g jsdoc
-- npm install
-script: npm run docs
-notifications:
-  webhooks: https://chat.citizenscience.ch/hooks/xnYY4LLB2LWXqmxHd/ABijvSTDjRoNvPLin6JyLTRyBDGNQTDmihLutzRcT5bDHmWg
+  - 'npm install -g jsdoc'
+  - 'npm install'
 deploy:
-  provider: pages
-  skip_cleanup: true
   allow_empty_commit: true
   commiter-from-gh: true
-  keep_history: false
   github_token: $GH_TOKEN
+  keep_history: false
   local_dir: docs
-  
+  provider: pages
+  skip_cleanup: true
+language: node_js
+node_js:
+  - 10
+notifications:
+  webhooks: https://chat.citizenscience.ch/hooks/xnYY4LLB2LWXqmxHd/ABijvSTDjRoNvPLin6JyLTRyBDGNQTDmihLutzRcT5bDHmWg
+script:
+  - 'npm run test'
+  - 'npm run docs'
