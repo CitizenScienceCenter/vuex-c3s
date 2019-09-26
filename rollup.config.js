@@ -1,7 +1,7 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import babel from 'rollup-plugin-babel';
-import pkg from './package.json';
+import resolve from 'rollup-plugin-node-resolve'
+import commonjs from 'rollup-plugin-commonjs'
+import babel from 'rollup-plugin-babel'
+import pkg from './package.json'
 
 export default [
   // browser-friendly UMD build
@@ -21,39 +21,39 @@ export default [
     plugins: [
       babel({
         exclude: 'node_modules/**',
-		babelrc: true,
-		externalHelpers: true,
-		runtimeHelpers: true
+        babelrc: true,
+        externalHelpers: true,
+        runtimeHelpers: true
 
       }),
-      commonjs(),
+      commonjs()
 
     ],
     output: [{
-        file: 'dist/vuex-c3s.es.js',
-        format: 'es',
-        globals: {
-          'swagger-client': 'Swagger',
-          'Vuex': 'vuex'
-        }
-      },
-      {
-        file: 'dist/vuex-c3s.cjs.js',
-        format: 'cjs',
-        globals: {
-          'swagger-client': 'Swagger',
-          'Vuex': 'vuex'
-        }
-      },
-      {
-        file: 'dist/vuex-c3s.umd.js',
-        format: 'umd',
-        name: 'vuexC3S',
-        globals: {
-          'swagger-client': 'Swagger',
-          'vuex': 'Vuex'
-        }
+      file: 'dist/vuex-c3s.es.js',
+      format: 'es',
+      globals: {
+        'swagger-client': 'Swagger',
+        Vuex: 'vuex'
       }
+    },
+    {
+      file: 'dist/vuex-c3s.cjs.js',
+      format: 'cjs',
+      globals: {
+        'swagger-client': 'Swagger',
+        Vuex: 'vuex'
+      }
+    },
+    {
+      file: 'dist/vuex-c3s.umd.js',
+      format: 'umd',
+      name: 'vuexC3S',
+      globals: {
+        'swagger-client': 'Swagger',
+        vuex: 'Vuex'
+      }
+    }
     ]
   }
 
@@ -75,4 +75,4 @@ export default [
   // 		})
   // 	]
   // }
-];
+]
