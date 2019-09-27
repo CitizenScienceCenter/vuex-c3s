@@ -41,7 +41,7 @@ const actions = {
    * @function
    * @param {Array<Object, number>} Search Array containing a search object (based on JTOS) and an integer for the limit of results
    */
-  getProjects({
+  getProjects ({
     state,
     commit,
     dispatch,
@@ -58,7 +58,7 @@ const actions = {
    * DOES save project to store
    * @param {Array<string, number>} ID An array containing the ID of the project and a boolean of whether you want the tasks and media associated
    */
-  async getProject({
+  async getProject ({
     state,
     commit,
     dispatch,
@@ -82,7 +82,7 @@ const actions = {
    * DOES save project to store
    * @param {string} ID The ID of the project
    */
-  async getProjectActivities({
+  async getProjectActivities ({
     state,
     commit,
     dispatch,
@@ -97,7 +97,7 @@ const actions = {
    * Get count of projects matching search criteria
    * @param {Object} search
    */
-  async getProjectCount({
+  async getProjectCount ({
     state,
     commit,
     rootState
@@ -112,7 +112,7 @@ const actions = {
    * DOES save project to store
    * @param {Object} project
    */
-  createProject({
+  createProject ({
     state,
     commit,
     rootState
@@ -123,7 +123,7 @@ const actions = {
    * Delete a project with the provided ID
    * @param {Array<string, boolean>} PID The ID of the project and a boolean on whether to remove the project from the store
    */
-  deleteProject({
+  deleteProject ({
     state,
     commit,
     rootState
@@ -145,35 +145,35 @@ const mutations = {
    * Commit array of projects to store
    * @param {Array} ps
    */
-  SET_PROJECTS(state, ps) {
+  SET_PROJECTS (state, ps) {
     state.projects = ps
   },
   /**
    * Commit project to store
    * @param {Object} p
    */
-  SET_PROJECT(state, p) {
+  SET_PROJECT (state, p) {
     state.project = p
   },
   /**
    * Commit project stats to store
    * @param {Object} stats
    */
-  SET_STATS(state, stats) {
+  SET_STATS (state, stats) {
     state.stats = stats
   },
   /**
    * Commit comments array related to project to store
    * @param {Array} cmts
    */
-  SET_COMMENTS(state, cmts) {
+  SET_COMMENTS (state, cmts) {
     state.comments = cmts
   },
   /**
    * Commit media array related to project to store
    * @param {Array} media
    */
-  SET_MEDIA(state, media) {
+  SET_MEDIA (state, media) {
     state.media = media
   }
 }

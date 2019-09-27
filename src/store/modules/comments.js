@@ -20,7 +20,7 @@ const actions = {
    * @param search
    * @returns {Promise<void>}
    */
-  async getComments({
+  async getComments ({
     state,
     commit,
     rootState
@@ -37,7 +37,7 @@ const actions = {
    * @param rootState
    * @param cmt
    */
-  createComment({
+  createComment ({
     state,
     commit,
     rootState
@@ -48,10 +48,10 @@ const actions = {
 
 // mutations
 const mutations = {
-  SET_COMMENTS(state, comments) {
+  SET_COMMENTS (state, comments) {
     state.comments = comments
   },
-  ADD_COMMENT(state, comment) {
+  ADD_COMMENT (state, comment) {
     state.comments.push(comment)
   }
 }

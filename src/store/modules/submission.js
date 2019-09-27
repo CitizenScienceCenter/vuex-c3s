@@ -29,7 +29,7 @@ const actions = {
    * @param {Array<Object, number>} search
    * @returns {Promise<*|boolean|void>}
    */
-  async getSubmissions({
+  async getSubmissions ({
     state,
     commit,
     rootState
@@ -44,7 +44,7 @@ const actions = {
    * Retrieve the number of submissions matching a query
    * @param {Object} search
    */
-  async getSubmissionCount({
+  async getSubmissionCount ({
     state,
     commit,
     rootState
@@ -58,7 +58,7 @@ const actions = {
    * Create a submission
    * @returns {Promise<*|boolean|void>}
    */
-  async createSubmission({
+  async createSubmission ({
     state,
     commit,
     rootState,
@@ -72,15 +72,15 @@ const actions = {
    * @param {Object} submission
    * @returns {Promise<*|boolean|void>}
    */
-  async updateSubmission({
+  async updateSubmission ({
     state,
     commit,
     rootState
   }, submission) {
     return makeRequest(commit, rootState.c3s.client.apis.Submissions.update_submission, {
-        id: submission.id
-      },
-      submission, 'submission/c3s/SET_SUBMISSION')
+      id: submission.id
+    },
+    submission, 'submission/c3s/SET_SUBMISSION')
   }
 }
 
@@ -92,21 +92,21 @@ const mutations = {
    * Set media
    * @param {Array} media
    */
-  SET_MEDIA(state, media) {
+  SET_MEDIA (state, media) {
     state.media = media
   },
   /**
    * Create and set submission in store
    * @param {Object} sub
    */
-  SET_SUBMISSION(state, sub) {
+  SET_SUBMISSION (state, sub) {
     state.submission = sub
   },
   /**
    * Create and set array of submissions in store
    * @param {Array} sub
    */
-  SET_SUBMISSIONS(state, sub) {
+  SET_SUBMISSIONS (state, sub) {
     state.submissions = sub
   },
   /**
@@ -114,14 +114,14 @@ const mutations = {
    * @param {Object} responses
    * @param {number} index
    */
-  SET_SUBMISSION_RESPONSE(state, r, i) {
+  SET_SUBMISSION_RESPONSE (state, r, i) {
     state.submission.content.responses[i] = r
   },
   /**
    * Add an array of responses to submission in store
    * @param {Array<Object>} responses
    */
-  SET_SUBMISSION_RESPONSES(state, r) {
+  SET_SUBMISSION_RESPONSES (state, r) {
     state.submission.content.responses = r
   }
 }

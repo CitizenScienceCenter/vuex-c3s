@@ -41,7 +41,7 @@ const actions = {
    * Retrieve an array of activities based on a provided query object
    * @param {Array<Object, number>} search An array containing the search object and the limit for the number of results to return
    */
-  getActivities({
+  getActivities ({
     state,
     commit,
     dispatch,
@@ -58,7 +58,7 @@ const actions = {
    * @param {Array<string, boolean>} ID An array containing the ID of the activity and a boolean to determine whether or not to retrieve the media and comments also
    * @returns {Promise<*|boolean|void>}
    */
-  async getActivity({
+  async getActivity ({
     state,
     commit,
     dispatch,
@@ -70,7 +70,7 @@ const actions = {
     }, {}, 'c3s/activity/SET_ACTIVITY')
   },
 
-  async getActivityTasks({
+  async getActivityTasks ({
     state,
     commit,
     dispatch,
@@ -81,12 +81,11 @@ const actions = {
     }, {}, 'c3s/tasks/SET_TASKS')
   },
 
-
   /**
    * Returns a count for the number of activities matching criteria
    * @param {Object} search Search object the same as one would use in getActivities
    */
-  async getActivityCount({
+  async getActivityCount ({
     state,
     commit,
     rootState
@@ -96,7 +95,7 @@ const actions = {
       search_term: search || undefined
     }, {}, undefined)
   },
-  getStats({
+  getStats ({
     state,
     commit,
     rootState
@@ -110,7 +109,7 @@ const actions = {
    * @param {Object} activity
    * @returns {Promise<*|boolean|void>}
    */
-  createActivity({
+  createActivity ({
     state,
     commit,
     rootState
@@ -122,7 +121,7 @@ const actions = {
    * @param {Array<string, boolean>} ID An array containing the ID of the activity and a boolean to determine whether or not to remove from the store also
    * @returns {Promise<*|boolean|void>}
    */
-  deleteActivity({
+  deleteActivity ({
     state,
     commit,
     rootState
@@ -144,39 +143,39 @@ const mutations = {
    * Sets the activities in the store
    * @param {Array} acts
    */
-  SET_ACTIVITIES(state, acts) {
+  SET_ACTIVITIES (state, acts) {
     state.activities = acts
   },
   /**
    * Sets a single activity
    * @param {Object} act
    */
-  SET_ACTIVITY(state, act) {
+  SET_ACTIVITY (state, act) {
     state.activity = act
   },
   /**
    * Set statistics for an activity
    * @param {Object} stats
    */
-  SET_STATS(state, stats) {
+  SET_STATS (state, stats) {
     state.stats = stats
   },
   /**
    * Set comments for an activity
    * @param {Arrya} cmts
    */
-  SET_COMMENTS(state, cmts) {
+  SET_COMMENTS (state, cmts) {
     state.comments = cmts
   },
 
-  SET_ACTIVITY_TASKS(state, tasks) {
+  SET_ACTIVITY_TASKS (state, tasks) {
     state.tasks = tasks
   },
   /**
    * Set media for an activity
    * @param {Array} media
    */
-  SET_MEDIA(state, media) {
+  SET_MEDIA (state, media) {
     state.media = media
   }
 }
