@@ -51,7 +51,7 @@ const actions = {
     return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {
       search_term: search || undefined,
       limit: limit || 100
-    }, {}, 'c3s/project/SET_PROJECTS')
+    }, undefined, 'c3s/project/SET_PROJECTS')
   },
   /**
    * Get a project matching the provided ID

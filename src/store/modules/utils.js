@@ -1,9 +1,13 @@
 async function makeRequest (commit, method, query, data, commitMsg) {
   try {
     commit('c3s/settings/SET_LOADING', true, { root: true })
-    const response = await method(query, { requestBody: data })
+    let body = undefined;
+    if (data != undefined || data != null || data != {}) {
+      body = { requestBody: data};
+    }
+    const response = await method(query, body)
     if (commitMsg !== undefined) {
-      commit(commitMsg, response.body, { root: true })
+      commit(commitMsg, response.body.body, { root: true })
     }
 
     commit('c3s/settings/SET_LOADING', false, { root: true })

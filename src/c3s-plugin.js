@@ -60,9 +60,13 @@ const C3SPlugin = {
      * @param {Object} options Expects the store and Swagger URL
      */
   install (Vue, options = {}) {
-    Swagger({
-      url: options.apiURL,
+    Swagger(options.apiURL, {
+      baseDoc: options.apiURL.replace('openapi.json', ''),
       requestInterceptor (req) {
+        if (options.server && req.url.indexOf('openapi.json') === -1) {
+          // TODO handle server decision from spec
+          req.url = req.url.replace('http://localhost:9000/api/v3/', options.server)
+        }
         req.headers['content-type'] = 'application/json'
         if (options.store.state.c3s && options.store.state.c3s.user) {
           const u = options.store.state.c3s.user.currentUser

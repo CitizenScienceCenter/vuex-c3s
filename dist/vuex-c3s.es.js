@@ -73,7 +73,7 @@ function _makeRequest() {
   _makeRequest = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(commit, method, query, data, commitMsg) {
-    var response;
+    var body, response;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -82,16 +82,22 @@ function _makeRequest() {
             commit('c3s/settings/SET_LOADING', true, {
               root: true
             });
-            _context.next = 4;
-            return method(query, {
-              requestBody: data
-            });
+            body = undefined;
 
-          case 4:
+            if (data != undefined || data != null || data != {}) {
+              body = {
+                requestBody: data
+              };
+            }
+
+            _context.next = 6;
+            return method(query, body);
+
+          case 6:
             response = _context.sent;
 
             if (commitMsg !== undefined) {
-              commit(commitMsg, response.body, {
+              commit(commitMsg, response.body.body, {
                 root: true
               });
             }
@@ -101,8 +107,8 @@ function _makeRequest() {
             });
             return _context.abrupt("return", response);
 
-          case 10:
-            _context.prev = 10;
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context["catch"](0);
             commit('c3s/settings/SET_ERROR', 'Could not complete request', {
               root: true
@@ -112,12 +118,12 @@ function _makeRequest() {
             });
             return _context.abrupt("return", _context.t0);
 
-          case 15:
+          case 17:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 10]]);
+    }, _callee, null, [[0, 12]]);
   }));
   return _makeRequest.apply(this, arguments);
 }
@@ -1488,7 +1494,7 @@ var actions$7 = {
     return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {
       search_term: search || undefined,
       limit: limit || 100
-    }, {}, 'c3s/project/SET_PROJECTS');
+    }, undefined, 'c3s/project/SET_PROJECTS');
   },
 
   /**
@@ -1879,9 +1885,14 @@ var C3SPlugin = {
      */
   install: function install(Vue) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    Swagger({
-      url: options.apiURL,
+    Swagger(options.apiURL, {
+      baseDoc: options.apiURL.replace('openapi.json', ''),
       requestInterceptor: function requestInterceptor(req) {
+        if (options.server && req.url.indexOf('openapi.json') === -1) {
+          // TODO handle server decision from spec
+          req.url = req.url.replace('http://localhost:9000/api/v3/', options.server);
+        }
+
         req.headers['content-type'] = 'application/json';
 
         if (options.store.state.c3s && options.store.state.c3s.user) {
