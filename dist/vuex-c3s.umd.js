@@ -103,7 +103,7 @@
               response = _context.sent;
 
               if (commitMsg !== undefined) {
-                commit(commitMsg, response.body.body, {
+                commit(commitMsg, response.obj.data, {
                   root: true
                 });
               }
@@ -111,7 +111,7 @@
               commit('c3s/settings/SET_LOADING', false, {
                 root: true
               });
-              return _context.abrupt("return", response);
+              return _context.abrupt("return", response.obj);
 
             case 12:
               _context.prev = 12;
