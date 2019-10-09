@@ -9,8 +9,9 @@ A small Vue plugin that integrates into your existing store, providing access to
 ```javascript
 import c3s from 'vuex-c3s'
 
-const swaggerURL = "https://swagger.petstore.io/swagger.json"
-Vue.use(c3s.plugin, {store, swaggerURL})
+const apiURL = "https://api.petstore.io/openapi.json"
+const serverURL = "https://api.petstore.com/api"
+Vue.use(c3s.plugin, {store, apiURL, serverURL})
 
 ***
 
