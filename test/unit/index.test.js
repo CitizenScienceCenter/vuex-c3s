@@ -8,16 +8,20 @@ import * as ActivityTests from './activity'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({})
-const swaggerURL = 'http://localhost:9000/api/v3/openapi.json'
+const apiURL = 'https://api-staging.citizenscience.ch/api/v3/openapi.json'
+const server = 'http://localhost:9000/v3/'
 const user = null
 beforeAll(function (done) {
-  utils.createStore(store, swaggerURL, config.modules, (c) => {
-    done()
+  utils.createStore(store, {'apiURL': apiURL, 'server': server}, config.modules, (c) => {
+    setTimeout(() => {
+      done()
+    }, 2000);
   })
 })
 
 describe('plugin loaded check', () => {
   it('has a client ready and loaded as an object', () => {
+    console.dir(store.state)
     expect(store.state.c3s.hasOwnProperty('client')).toBe(true)
   })
 })

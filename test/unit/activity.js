@@ -22,7 +22,9 @@ export const createActivityTest = (store) => {
         name: 'activity project',
         description: 'activity project'
       }).then(p => {
-        expect(p.status).toBe(401)
+        project = p
+        expect(p.status).toBe(201)
+        expect(p.body.data.hasOwnProperty('id')).toBeTruthy()
         done()
       })
     })
@@ -31,10 +33,10 @@ export const createActivityTest = (store) => {
         name: 'Test Activity',
         description: 'Test Activity',
         platform: 'Both',
-        part_of: 'dhjkdfhkjdfh'
+        part_of: project['body']['data']['id']
       }
       store.dispatch('c3s/activity/createActivity', act_dict).then(a => {
-        expect(a.status).toBe(401)
+        expect(a.status).toBe(201)
         done()
       })
     })
