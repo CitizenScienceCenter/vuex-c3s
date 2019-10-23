@@ -21,7 +21,7 @@ beforeAll(function (done) {
 
 describe('plugin loaded check', () => {
   it('has a client ready and loaded as an object', () => {
-    console.dir(store.state)
+    console.dir(store.state.c3s.client.apis.Activities)
     expect(store.state.c3s.hasOwnProperty('client')).toBe(true)
   })
 })

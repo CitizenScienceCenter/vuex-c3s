@@ -1,4 +1,4 @@
-async function makeRequest (commit, method, query, data, commitMsg) {
+export async function makeRequest (commit, method, query, data, commitMsg) {
   try {
     commit('c3s/settings/SET_LOADING', true, { root: true })
     let body = undefined;
@@ -18,4 +18,10 @@ async function makeRequest (commit, method, query, data, commitMsg) {
   }
 }
 
-export default makeRequest
+export function getNested(obj, path){
+  for (var i=0, path=path.split('.'), len=path.length; i<len; i++){
+      obj = obj[path[i]];
+  };
+  return obj;
+};
+

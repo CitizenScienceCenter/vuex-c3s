@@ -2,7 +2,7 @@
  * @module c3s/user
  */
 
-import makeRequest from './utils'
+import {makeRequest} from './utils'
 
 var SHA256 = require('crypto-js/sha256')
 

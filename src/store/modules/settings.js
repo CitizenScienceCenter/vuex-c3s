@@ -1,4 +1,3 @@
-import makeRequest from './utils'
 // initial state
 // shape: [{ id, quantity }]
 const state = {

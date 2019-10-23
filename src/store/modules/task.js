@@ -1,4 +1,4 @@
-import makeRequest from './utils'
+import {makeRequest} from './utils'
 import rison from 'rison-node'
 
 /** @module c3s/task */

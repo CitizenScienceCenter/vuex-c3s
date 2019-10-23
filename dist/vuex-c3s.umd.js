@@ -134,6 +134,13 @@
     return _makeRequest.apply(this, arguments);
   }
 
+  function getNested(obj, path) {
+    for (var i = 0, path = path.split('.'), len = path.length; i < len; i++) {
+      obj = obj[path[i]];
+    }
+    return obj;
+  }
+
   var SHA256 = require('crypto-js/sha256');
   /**
    * @constant state
@@ -523,6 +530,7 @@
     media: [],
     comments: []
   };
+  var path = 'c3s.client.apis.Activities';
   /**
    * @type Object
    * @constant
@@ -552,7 +560,8 @@
           limit = _ref3[1];
 
       search = rison.encode(search);
-      return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {
+      var method = '.get_activities';
+      return makeRequest(commit, getNested(rootState, path + method), {
         search_term: search || undefined,
         limit: limit || 100
       }, {}, 'c3s/activity/SET_ACTIVITIES');
@@ -567,7 +576,7 @@
       var _getActivity = _asyncToGenerator(
       /*#__PURE__*/
       _regeneratorRuntime.mark(function _callee(_ref4, _ref5) {
-        var state, commit, dispatch, rootState, _ref6, id, associated;
+        var state, commit, dispatch, rootState, _ref6, id, associated, method;
 
         return _regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -576,11 +585,12 @@
                 state = _ref4.state, commit = _ref4.commit, dispatch = _ref4.dispatch, rootState = _ref4.rootState;
                 _ref6 = _slicedToArray(_ref5, 2), id = _ref6[0], associated = _ref6[1];
 
-                return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {
-                  id: id
+                method = '.get_activity';
+                return _context.abrupt("return", makeRequest(commit, getNested(rootState, path + method), {
+                  aid: id
                 }, {}, 'c3s/activity/SET_ACTIVITY'));
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -598,7 +608,7 @@
       var _getActivityTasks = _asyncToGenerator(
       /*#__PURE__*/
       _regeneratorRuntime.mark(function _callee2(_ref7, _ref8) {
-        var state, commit, dispatch, rootState, _ref9, id;
+        var state, commit, dispatch, rootState, _ref9, id, method;
 
         return _regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -606,11 +616,12 @@
               case 0:
                 state = _ref7.state, commit = _ref7.commit, dispatch = _ref7.dispatch, rootState = _ref7.rootState;
                 _ref9 = _slicedToArray(_ref8, 1), id = _ref9[0];
-                return _context2.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_tasks, {
-                  id: id
-                }, {}, 'c3s/tasks/SET_TASKS'));
+                method = '.get_activity_tasks';
+                return _context2.abrupt("return", makeRequest(commit, getNested(rootState, path + method), {
+                  aid: id
+                }, {}, 'c3s/activity/SET_ACTIVITY_TASKS'));
 
-              case 3:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -633,18 +644,19 @@
       var _getActivityCount = _asyncToGenerator(
       /*#__PURE__*/
       _regeneratorRuntime.mark(function _callee3(_ref10, search) {
-        var state, commit, rootState;
+        var state, commit, rootState, method;
         return _regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 state = _ref10.state, commit = _ref10.commit, rootState = _ref10.rootState;
                 search = rison.encode(search);
-                return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_count, {
+                method = '.get_activity.count';
+                return _context3.abrupt("return", makeRequest(commit, getNested(rootState, path + method), {
                   search_term: search || undefined
                 }, {}, undefined));
 
-              case 3:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -658,14 +670,35 @@
 
       return getActivityCount;
     }(),
-    getStats: function getStats(_ref11, id) {
-      var state = _ref11.state,
-          commit = _ref11.commit,
-          rootState = _ref11.rootState;
-      return makeRequest(commit, rootState.c3s.client.apis.Activities.activity_stats, {
-        id: id
-      }, {}, 'c3s/activity/SET_STATS');
-    },
+    getStats: function () {
+      var _getStats = _asyncToGenerator(
+      /*#__PURE__*/
+      _regeneratorRuntime.mark(function _callee4(_ref11, id) {
+        var state, commit, rootState, method;
+        return _regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                state = _ref11.state, commit = _ref11.commit, rootState = _ref11.rootState;
+                method = '.activity_stats';
+                return _context4.abrupt("return", makeRequest(commit, getNested(rootState, path + method), {
+                  aid: id
+                }, {}, 'c3s/activity/SET_STATS'));
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function getStats(_x7, _x8) {
+        return _getStats.apply(this, arguments);
+      }
+
+      return getStats;
+    }(),
 
     /**
      * Create an activity
@@ -676,7 +709,28 @@
       var state = _ref12.state,
           commit = _ref12.commit,
           rootState = _ref12.rootState;
-      return makeRequest(commit, rootState.c3s.client.apis.Activities.create_activity, undefined, activity, 'c3s/activity/SET_ACTIVITY');
+      var method = '.create_activity';
+      return makeRequest(commit, getNested(rootState, path + method), undefined, activity, 'c3s/activity/SET_ACTIVITY');
+    },
+
+    /**
+     * Update an activity 
+     * @param {Array<string, boolean>} Array containing the ID and object of the activity to be modified 
+     * @returns {Promise<*|boolean|void>} 
+     */
+    updateActivity: function updateActivity(_ref13, _ref14) {
+      var state = _ref13.state,
+          commit = _ref13.commit,
+          rootState = _ref13.rootState;
+
+      var _ref15 = _slicedToArray(_ref14, 2),
+          id = _ref15[0],
+          activity = _ref15[1];
+
+      var method = '.update_activity';
+      return makeRequest(commit, getNested(rootState, path + method), {
+        aid: id
+      }, activity, 'c3s/activity/SET_ACTIVITY');
     },
 
     /**
@@ -684,18 +738,19 @@
      * @param {Array<string, boolean>} ID An array containing the ID of the activity and a boolean to determine whether or not to remove from the store also
      * @returns {Promise<*|boolean|void>}
      */
-    deleteActivity: function deleteActivity(_ref13, _ref14) {
-      var state = _ref13.state,
-          commit = _ref13.commit,
-          rootState = _ref13.rootState;
+    deleteActivity: function deleteActivity(_ref16, _ref17) {
+      var state = _ref16.state,
+          commit = _ref16.commit,
+          rootState = _ref16.rootState;
 
-      var _ref15 = _slicedToArray(_ref14, 2),
-          pid = _ref15[0],
-          localRemove = _ref15[1];
+      var _ref18 = _slicedToArray(_ref17, 2),
+          id = _ref18[0],
+          localRemove = _ref18[1];
 
+      var method = '.delete_activity';
       if (localRemove) commit('c3s/activity/SET_ACTIVITY', null);
-      return makeRequest(commit, rootState.c3s.client.apis.Activities.delete_activity, {
-        id: pid
+      return makeRequest(commit, getNested(rootState, path + method), {
+        aid: id
       }, {}, undefined);
     }
   };
@@ -1788,8 +1843,8 @@
     mutations: mutations$8
   };
 
+  // initial state
   // shape: [{ id, quantity }]
-
   var state$9 = {
     loading: false,
     error: null,

@@ -1,4 +1,4 @@
-import makeRequest from './utils'
+import { getNested, makeRequest } from './utils'
 import rison from 'rison-node'
 // initial state
 // shape: [{ id, quantity }]

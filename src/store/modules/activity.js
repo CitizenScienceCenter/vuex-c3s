@@ -1,12 +1,24 @@
 /**
  * The activity submodule of the store to deal
  * with retrieving, updating and deleting activities
+ * Actions:
+ * create_activity ✔️
+ * update_activity ✔️ 
+ * delete_activity ✔️
+ * get_activities ✔️
+ * get_activity ✔️
+ * get_activity_count ✔️
+ * get_activity_submissions 
+ * get_activity_tasks ✔️
+ * get_activity_user_submissions
+ * get_project_activities
+ * get_activity_stats ✔️
  * @file store/modules/activity.js
  * @module c3s/activity
  */
 
-import makeRequest from './utils'
 import rison from 'rison-node'
+import { getNested, makeRequest } from './utils'
 /**
  * @constant
  * @property {Array} [activities=[]]
@@ -23,6 +35,8 @@ const state = {
   media: [],
   comments: []
 }
+
+const path = 'c3s.client.apis.Activities'
 
 /**
  * @type Object
@@ -48,7 +62,8 @@ const actions = {
     rootState
   }, [search, limit]) {
     search = rison.encode(search)
-    return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activities, {
+    const method = '.get_activities'
+    return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined,
       limit: limit || 100
     }, {}, 'c3s/activity/SET_ACTIVITIES')
@@ -65,8 +80,9 @@ const actions = {
     rootState
   }, [id, associated]) {
     if (associated) {}
-    return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity, {
-      id: id
+    const method = '.get_activity'
+    return makeRequest(commit, getNested(rootState, path + method), {
+      aid: id
     }, {}, 'c3s/activity/SET_ACTIVITY')
   },
 
@@ -76,9 +92,10 @@ const actions = {
     dispatch,
     rootState
   }, [id]) {
-    return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_tasks, {
-      id: id
-    }, {}, 'c3s/tasks/SET_TASKS')
+    const method = '.get_activity_tasks'
+    return makeRequest(commit, getNested(rootState, path + method), {
+      aid: id
+    }, {}, 'c3s/activity/SET_ACTIVITY_TASKS')
   },
 
   /**
@@ -91,17 +108,20 @@ const actions = {
     rootState
   }, search) {
     search = rison.encode(search)
-    return makeRequest(commit, rootState.c3s.client.apis.Activities.get_activity_count, {
+    const method = '.get_activity.count'
+    return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined
     }, {}, undefined)
   },
-  getStats ({
+
+  async getStats ({
     state,
     commit,
     rootState
   }, id) {
-    return makeRequest(commit, rootState.c3s.client.apis.Activities.activity_stats, {
-      id: id
+    const method = '.activity_stats'
+    return makeRequest(commit, getNested(rootState, path + method), {
+      aid: id
     }, {}, 'c3s/activity/SET_STATS')
   },
   /**
@@ -114,7 +134,22 @@ const actions = {
     commit,
     rootState
   }, activity) {
-    return makeRequest(commit, rootState.c3s.client.apis.Activities.create_activity, undefined, activity, 'c3s/activity/SET_ACTIVITY')
+    const method = '.create_activity'
+    return makeRequest(commit, getNested(rootState, path + method), undefined, activity, 'c3s/activity/SET_ACTIVITY')
+  },
+
+  /**
+   * Update an activity 
+   * @param {Array<string, boolean>} Array containing the ID and object of the activity to be modified 
+   * @returns {Promise<*|boolean|void>} 
+   */
+  updateActivity({
+    state,
+    commit,
+    rootState
+  }, [id, activity]) {
+    const method = '.update_activity'
+    return makeRequest(commit, getNested(rootState, path + method), {aid: id}, activity, 'c3s/activity/SET_ACTIVITY')
   },
   /**
    * Delete an activity matching the supplied ID
@@ -125,10 +160,11 @@ const actions = {
     state,
     commit,
     rootState
-  }, [pid, localRemove]) {
+  }, [id, localRemove]) {
+    const method = '.delete_activity'
     if (localRemove) commit('c3s/activity/SET_ACTIVITY', null)
-    return makeRequest(commit, rootState.c3s.client.apis.Activities.delete_activity, {
-      id: pid
+    return makeRequest(commit, getNested(rootState, path + method), {
+      aid: id
     }, {}, undefined)
   }
 }
