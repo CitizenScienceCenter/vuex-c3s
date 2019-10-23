@@ -12,7 +12,7 @@
  * get_activity_tasks ✔️
  * get_activity_user_submissions
  * get_project_activities
- * get_activity_stats ✔️
+ * get_stats ✔️
  * @file store/modules/activity.js
  * @module c3s/activity
  */
@@ -119,7 +119,7 @@ const actions = {
     commit,
     rootState
   }, id) {
-    const method = '.activity_stats'
+    const method = '.get_stats'
     return makeRequest(commit, getNested(rootState, path + method), {
       aid: id
     }, {}, 'c3s/activity/SET_STATS')

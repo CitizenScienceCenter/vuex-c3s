@@ -14,8 +14,11 @@ const state = {
   tasks: [],
   task: null,
   media: [],
-  comments: []
+  comments: [],
+  stats: {}
 }
+
+const path = 'c3s.client.apis.Tasks'
 
 /** getters
  * @namespace getters
@@ -41,8 +44,9 @@ const actions = {
     commit,
     rootState
   }, [search, limit]) {
+    const method = '.get_tasks'
     search = rison.encode(search)
-    return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_tasks, {
+    return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined,
       limit: limit || 100
     }, {}, 'c3s/task/SET_TASKS')
@@ -98,6 +102,19 @@ const actions = {
       id: id
     }, {}, 'c3s/task/SET_TASK_COMMENTS')
   },
+
+  async getTaskStats ({
+    state,
+    commit,
+    rootState
+  }, id) {
+    const method = '.get_stats'
+    return makeRequest(commit, getNested(rootState, path + method), {
+      id: id
+    }, {}, 'c3s/task/SET_TASK_STATS')
+  },
+
+
   /**
    * @description Create an array of tasks
    * @param {Array<Object>} tasks Array of tasks to be created
@@ -168,6 +185,10 @@ const mutations = {
    */
   SET_MEDIA (state, media) {
     state.media = media
+  },
+
+  SET_STATS(state, stats) {
+    state.stats = stats
   },
   /**
    * Set array of task comments in store

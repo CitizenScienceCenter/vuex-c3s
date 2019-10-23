@@ -1,6 +1,6 @@
 /** @module c3s/project */
 
-import {makeRequest} from './utils'
+import {makeRequest, getNested} from './utils'
 import rison from 'rison-node'
 
 /**
@@ -23,6 +23,8 @@ const state = {
   media: [],
   comments: []
 }
+
+const path = 'c3s.client.apis.Projects';
 
 /**
  * @constant getters
@@ -48,7 +50,8 @@ const actions = {
     rootState
   }, [search, limit]) {
     search = rison.encode(search)
-    return makeRequest(commit, rootState.c3s.client.apis.Projects.get_projects, {
+    const method = '.get_projects';
+    return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined,
       limit: limit || 100
     }, undefined, 'c3s/project/SET_PROJECTS')
@@ -64,6 +67,7 @@ const actions = {
     dispatch,
     rootState
   }, [id, associated]) {
+    const method = '.get_project';
     if (associated) {
       dispatch('task/getMedia', id, {
         root: true
@@ -73,7 +77,7 @@ const actions = {
       })
     }
     dispatch('getStats', id)
-    return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project, {
+    return makeRequest(commit, getNested(rootState, path + method), {
       id: id
     }, {}, 'c3s/project/SET_PROJECT')
   },
@@ -89,7 +93,8 @@ const actions = {
     rootState
   }, id) {
     // dispatch('getStats', id);
-    return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project_activities, {
+    const method = '.get_project_activities'
+    return makeRequest(commit, getNested(rootState, path + method), {
       id: id
     }, {}, 'c3s/activity/SET_ACTIVITIES')
   },
@@ -117,7 +122,8 @@ const actions = {
     commit,
     rootState
   }, project) {
-    return makeRequest(commit, rootState.c3s.client.apis.Projects.create_project, {}, project, 'c3s/project/SET_PROJECT')
+    const method = '.create_project';
+    return makeRequest(commit, getNested(rootState, path + method), {}, project, 'c3s/project/SET_PROJECT')
   },
   /**
    * Delete a project with the provided ID
@@ -128,8 +134,9 @@ const actions = {
     commit,
     rootState
   }, [pid, localRemove]) {
+    const method = '.delete_project';
     if (localRemove) commit('c3s/project/SET_PROJECT', null)
-    return makeRequest(commit, rootState.c3s.client.apis.Projects.delete_project, {
+    return makeRequest(commit, getNested(rootState, path + method), {
       id: pid
     }, {}, undefined)
   }

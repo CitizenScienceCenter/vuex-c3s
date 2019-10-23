@@ -2,7 +2,7 @@
  * @module c3s/user
  */
 
-import {makeRequest} from './utils'
+import {makeRequest, getNested} from './utils'
 
 var SHA256 = require('crypto-js/sha256')
 
@@ -17,6 +17,8 @@ const state = {
   currentUser: null,
   isAnon: false
 }
+
+const path = 'c3s.client.apis.Users';
 
 /**
  * @constant getters
@@ -40,7 +42,8 @@ const actions = {
     dispatch,
     rootState
   }, user) {
-    return makeRequest(commit, rootState.c3s.client.apis.Users.login, {}, user, 'c3s/user/SET_CURRENT_USER')
+    const method = '.login'
+    return makeRequest(commit, getNested(rootState, path + method), {}, user, 'c3s/user/SET_CURRENT_USER')
   },
   /**
    * Create anonymouse user and register with backend
@@ -52,6 +55,7 @@ const actions = {
     dispatch,
     rootState
   }) {
+    const method = '.create_user'
     commit('c3s/settings/SET_LOADING', true, {
       root: true
     })
@@ -64,7 +68,7 @@ const actions = {
       anonymous: true,
       info: {}
     }
-    const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, undefined, u, 'c3s/user/SET_CURRENT_USER')
+    const response = makeRequest(commit, getNested(rootState, path + method), undefined, u, 'c3s/user/SET_CURRENT_USER')
     commit('SET_ANON', true)
     return response
   },
@@ -91,7 +95,8 @@ const actions = {
     dispatch,
     rootState
   }, email) {
-    return makeRequest(commit, rootState.c3s.client.apis.Users.reset, {}, {
+    const method = '.reset'
+    return makeRequest(commit, getNested(rootState, path + method), {}, {
       email: email
     }, undefined)
   },
@@ -105,7 +110,8 @@ const actions = {
     commit,
     rootState
   }, reset) {
-    return makeRequest(commit, rootState.c3s.client.apis.Users.verify_reset, {}, {
+    const method = '.verify_rest'
+    return makeRequest(commit, getNested(rootState, path + method), {}, {
       reset: reset
     }, undefined)
   },
@@ -119,7 +125,8 @@ const actions = {
     commit,
     rootState
   }, user) {
-    const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {}, user, 'c3s/user/SET_CURRENT_USER')
+    const method = '.create_user'
+    const response = makeRequest(commit, getNested(rootState, path + method), {}, user, 'c3s/user/SET_CURRENT_USER')
     commit('SET_ANON', false)
     return response
   },
@@ -147,7 +154,8 @@ const actions = {
     commit,
     rootState
   }, [id, info]) {
-    return makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
+    const method = '.update_user'
+    return makeRequest(commit, getNested(rootState, path + method), {
       id: id
     }, {
       requestBody: info
@@ -163,9 +171,10 @@ const actions = {
     commit,
     rootState
   }, id) {
+    const method = '.validate'
     if (state.currentUser
       .api_key !== undefined) {
-      return makeRequest(commit, rootState.c3s.client.apis.Users.validate, {
+      return makeRequest(commit, getNested(rootState, path + method), {
         key: state.currentUser.api_key
       }, {}, 'c3s/user/SET_CURRENT_USER')
     }

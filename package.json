@@ -40,9 +40,10 @@
   },
   "homepage": "https://github.com/citizensciencecenter/vuex-c3s#readme",
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "minio": "^7.0.12",
     "rison-node": "^2.1.0",
     "swagger-client": "^3.9.4",
-    "crypto-js": "^3.1.9-1",
     "vue": "^2.6.10",
     "vue-jest": "^3.0.5",
     "vuex": "^3.1.1"
