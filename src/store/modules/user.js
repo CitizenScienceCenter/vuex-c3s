@@ -31,6 +31,7 @@ const getters = {}
  * @namespace actionss
  */
 const actions = {
+
   /**
    * Login user
    * @param {Object} user Username/email and password of user

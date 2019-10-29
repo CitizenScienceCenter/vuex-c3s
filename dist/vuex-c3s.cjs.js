@@ -7,6 +7,7 @@ var _regeneratorRuntime = _interopDefault(require('@babel/runtime/regenerator'))
 var _asyncToGenerator = _interopDefault(require('@babel/runtime/helpers/asyncToGenerator'));
 var rison = _interopDefault(require('rison-node'));
 var _defineProperty = _interopDefault(require('@babel/runtime/helpers/defineProperty'));
+require('vuex');
 var Swagger = _interopDefault(require('swagger-client'));
 
 /** @module c3s */
@@ -1257,22 +1258,19 @@ var actions$4 = {
 
     return getSubmissionCount;
   }(),
-
-  /**
-   * Create a submission
-   * @returns {Promise<*|boolean|void>}
-   */
-  createSubmission: function () {
-    var _createSubmission = _asyncToGenerator(
+  getUserSubmissions: function () {
+    var _getUserSubmissions = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee3(_ref5) {
-      var state, commit, rootState, dispatch;
+      var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState, dispatch = _ref5.dispatch;
-              return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, {}, state.submission, 'c3s/submission/SET_SUBMISSION'));
+              state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+              return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.get_submissions, {
+                id: rootState.c3s.client.apis.Users.current_user.id
+              }, {}, 'c3s/submission/SET_SUBMISSIONS'));
 
             case 2:
             case "end":
@@ -1282,7 +1280,38 @@ var actions$4 = {
       }, _callee3);
     }));
 
-    function createSubmission(_x5) {
+    function getUserSubmissions(_x5) {
+      return _getUserSubmissions.apply(this, arguments);
+    }
+
+    return getUserSubmissions;
+  }(),
+
+  /**
+   * Create a submission
+   * @returns {Promise<*|boolean|void>}
+   */
+  createSubmission: function () {
+    var _createSubmission = _asyncToGenerator(
+    /*#__PURE__*/
+    _regeneratorRuntime.mark(function _callee4(_ref6) {
+      var state, commit, rootState, dispatch;
+      return _regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState, dispatch = _ref6.dispatch;
+              return _context4.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, {}, state.submission, 'c3s/submission/SET_SUBMISSION'));
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    function createSubmission(_x6) {
       return _createSubmission.apply(this, arguments);
     }
 
@@ -1297,26 +1326,26 @@ var actions$4 = {
   updateSubmission: function () {
     var _updateSubmission = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee4(_ref6, submission) {
+    _regeneratorRuntime.mark(function _callee5(_ref7, submission) {
       var state, commit, rootState;
-      return _regeneratorRuntime.wrap(function _callee4$(_context4) {
+      return _regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
-              return _context4.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.update_submission, {
+              state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
+              return _context5.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.update_submission, {
                 id: submission.id
               }, submission, 'submission/c3s/SET_SUBMISSION'));
 
             case 2:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     }));
 
-    function updateSubmission(_x6, _x7) {
+    function updateSubmission(_x7, _x8) {
       return _updateSubmission.apply(this, arguments);
     }
 
