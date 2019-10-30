@@ -94,14 +94,17 @@ function _makeRequest() {
               };
             }
 
-            _context.next = 6;
+            console.log(method);
+            console.log(query, body);
+            _context.next = 8;
             return method(query, body);
 
-          case 6:
+          case 8:
             response = _context.sent;
+            console.dir(response);
 
             if (commitMsg !== undefined) {
-              commit(commitMsg, response.body.data, {
+              commit(commitMsg, response.body, {
                 root: true
               });
             }
@@ -111,8 +114,8 @@ function _makeRequest() {
             });
             return _context.abrupt("return", response);
 
-          case 12:
-            _context.prev = 12;
+          case 15:
+            _context.prev = 15;
             _context.t0 = _context["catch"](0);
             commit('c3s/settings/SET_ERROR', 'Could not complete request', {
               root: true
@@ -122,12 +125,12 @@ function _makeRequest() {
             });
             return _context.abrupt("return", _context.t0);
 
-          case 17:
+          case 20:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 12]]);
+    }, _callee, null, [[0, 15]]);
   }));
   return _makeRequest.apply(this, arguments);
 }
