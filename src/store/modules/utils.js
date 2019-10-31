@@ -2,9 +2,11 @@ export async function makeRequest (commit, method, query, data, commitMsg) {
   try {
     commit('c3s/settings/SET_LOADING', true, { root: true })
     let body = undefined;
-    if (data != undefined || data != null || data != {}) {
+    if (data !== undefined) {
       body = { requestBody: data};
     }
+    console.log(data)
+    console.log(body)
     const response = await method(query, body)
     if (commitMsg !== undefined) {
       console.log(response.body)

@@ -90,16 +90,18 @@
               });
               body = undefined;
 
-              if (data != undefined || data != null || data != {}) {
+              if (data !== undefined) {
                 body = {
                   requestBody: data
                 };
               }
 
-              _context.next = 6;
+              console.log(data);
+              console.log(body);
+              _context.next = 8;
               return method(query, body);
 
-            case 6:
+            case 8:
               response = _context.sent;
 
               if (commitMsg !== undefined) {
@@ -114,8 +116,8 @@
               });
               return _context.abrupt("return", response);
 
-            case 12:
-              _context.prev = 12;
+            case 14:
+              _context.prev = 14;
               _context.t0 = _context["catch"](0);
               commit('c3s/settings/SET_ERROR', 'Could not complete request', {
                 root: true
@@ -125,12 +127,12 @@
               });
               return _context.abrupt("return", _context.t0);
 
-            case 17:
+            case 19:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 12]]);
+      }, _callee, null, [[0, 14]]);
     }));
     return _makeRequest.apply(this, arguments);
   }
@@ -201,6 +203,65 @@
 
       return login;
     }(),
+    checkUsername: function () {
+      var _checkUsername = _asyncToGenerator(
+      /*#__PURE__*/
+      _regeneratorRuntime.mark(function _callee2(_ref2, user) {
+        var state, commit, dispatch, rootState, method;
+        return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                state = _ref2.state, commit = _ref2.commit, dispatch = _ref2.dispatch, rootState = _ref2.rootState;
+                method = '.check_user';
+                return _context2.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {
+                  username: user
+                }, undefined, undefined));
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function checkUsername(_x3, _x4) {
+        return _checkUsername.apply(this, arguments);
+      }
+
+      return checkUsername;
+    }(),
+    checkUseremail: function () {
+      var _checkUseremail = _asyncToGenerator(
+      /*#__PURE__*/
+      _regeneratorRuntime.mark(function _callee3(_ref3, user) {
+        var state, commit, dispatch, rootState, method;
+        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                state = _ref3.state, commit = _ref3.commit, dispatch = _ref3.dispatch, rootState = _ref3.rootState;
+                method = '.check_user';
+                console.log(user);
+                return _context3.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {
+                  email: user
+                }, undefined, undefined));
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function checkUseremail(_x5, _x6) {
+        return _checkUseremail.apply(this, arguments);
+      }
+
+      return checkUseremail;
+    }(),
 
     /**
      * Create anonymouse user and register with backend
@@ -209,13 +270,13 @@
     generateAnon: function () {
       var _generateAnon = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee2(_ref2) {
+      _regeneratorRuntime.mark(function _callee4(_ref4) {
         var state, commit, dispatch, rootState, method, now, id, pwd, u, response;
-        return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+        return _regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                state = _ref2.state, commit = _ref2.commit, dispatch = _ref2.dispatch, rootState = _ref2.rootState;
+                state = _ref4.state, commit = _ref4.commit, dispatch = _ref4.dispatch, rootState = _ref4.rootState;
                 method = '.create_user';
                 commit('c3s/settings/SET_LOADING', true, {
                   root: true
@@ -232,17 +293,17 @@
                 };
                 response = makeRequest(commit, getNested$1(rootState, path + method), undefined, u, 'c3s/user/SET_CURRENT_USER');
                 commit('SET_ANON', true);
-                return _context2.abrupt("return", response);
+                return _context4.abrupt("return", response);
 
               case 10:
               case "end":
-                return _context2.stop();
+                return _context4.stop();
             }
           }
-        }, _callee2);
+        }, _callee4);
       }));
 
-      function generateAnon(_x3) {
+      function generateAnon(_x7) {
         return _generateAnon.apply(this, arguments);
       }
 
@@ -252,9 +313,9 @@
     /**
      * Logout user and remove from local store
      */
-    logout: function logout(_ref3) {
-      var state = _ref3.state,
-          commit = _ref3.commit;
+    logout: function logout(_ref5) {
+      var state = _ref5.state,
+          commit = _ref5.commit;
       commit('c3s/user/SET_CURRENT_USER', null, null, {
         root: true
       });
@@ -269,27 +330,27 @@
     requestReset: function () {
       var _requestReset = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee3(_ref4, email) {
+      _regeneratorRuntime.mark(function _callee5(_ref6, email) {
         var state, commit, dispatch, rootState, method;
-        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+        return _regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                state = _ref4.state, commit = _ref4.commit, dispatch = _ref4.dispatch, rootState = _ref4.rootState;
+                state = _ref6.state, commit = _ref6.commit, dispatch = _ref6.dispatch, rootState = _ref6.rootState;
                 method = '.reset';
-                return _context3.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {}, {
+                return _context5.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {}, {
                   email: email
                 }, undefined));
 
               case 3:
               case "end":
-                return _context3.stop();
+                return _context5.stop();
             }
           }
-        }, _callee3);
+        }, _callee5);
       }));
 
-      function requestReset(_x4, _x5) {
+      function requestReset(_x8, _x9) {
         return _requestReset.apply(this, arguments);
       }
 
@@ -304,27 +365,27 @@
     resetPwd: function () {
       var _resetPwd = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee4(_ref5, reset) {
+      _regeneratorRuntime.mark(function _callee6(_ref7, reset) {
         var state, commit, rootState, method;
-        return _regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return _regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
+                state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
                 method = '.verify_rest';
-                return _context4.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {}, {
+                return _context6.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {}, {
                   reset: reset
                 }, undefined));
 
               case 3:
               case "end":
-                return _context4.stop();
+                return _context6.stop();
             }
           }
-        }, _callee4);
+        }, _callee6);
       }));
 
-      function resetPwd(_x6, _x7) {
+      function resetPwd(_x10, _x11) {
         return _resetPwd.apply(this, arguments);
       }
 
@@ -339,27 +400,27 @@
     register: function () {
       var _register = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee5(_ref6, user) {
+      _regeneratorRuntime.mark(function _callee7(_ref8, user) {
         var state, commit, rootState, method, response;
-        return _regeneratorRuntime.wrap(function _callee5$(_context5) {
+        return _regeneratorRuntime.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
-                state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
+                state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
                 method = '.create_user';
                 response = makeRequest(commit, getNested$1(rootState, path + method), {}, user, 'c3s/user/SET_CURRENT_USER');
                 commit('SET_ANON', false);
-                return _context5.abrupt("return", response);
+                return _context7.abrupt("return", response);
 
               case 5:
               case "end":
-                return _context5.stop();
+                return _context7.stop();
             }
           }
-        }, _callee5);
+        }, _callee7);
       }));
 
-      function register(_x8, _x9) {
+      function register(_x12, _x13) {
         return _register.apply(this, arguments);
       }
 
@@ -374,26 +435,26 @@
     getUser: function () {
       var _getUser = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee6(_ref7, id) {
+      _regeneratorRuntime.mark(function _callee8(_ref9, id) {
         var state, commit, rootState;
-        return _regeneratorRuntime.wrap(function _callee6$(_context6) {
+        return _regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
-                state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
-                return _context6.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.get_one, {
+                state = _ref9.state, commit = _ref9.commit, rootState = _ref9.rootState;
+                return _context8.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.get_one, {
                   id: id
                 }, {}, 'c3s/user/SET_USER'));
 
               case 2:
               case "end":
-                return _context6.stop();
+                return _context8.stop();
             }
           }
-        }, _callee6);
+        }, _callee8);
       }));
 
-      function getUser(_x10, _x11) {
+      function getUser(_x14, _x15) {
         return _getUser.apply(this, arguments);
       }
 
@@ -408,17 +469,17 @@
     updateUser: function () {
       var _updateUser = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee7(_ref8, _ref9) {
-        var state, commit, rootState, _ref10, id, info, method;
+      _regeneratorRuntime.mark(function _callee9(_ref10, _ref11) {
+        var state, commit, rootState, _ref12, id, info, method;
 
-        return _regeneratorRuntime.wrap(function _callee7$(_context7) {
+        return _regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
-                state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
-                _ref10 = _slicedToArray(_ref9, 2), id = _ref10[0], info = _ref10[1];
+                state = _ref10.state, commit = _ref10.commit, rootState = _ref10.rootState;
+                _ref12 = _slicedToArray(_ref11, 2), id = _ref12[0], info = _ref12[1];
                 method = '.update_user';
-                return _context7.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {
+                return _context9.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {
                   id: id
                 }, {
                   requestBody: info
@@ -426,13 +487,13 @@
 
               case 4:
               case "end":
-                return _context7.stop();
+                return _context9.stop();
             }
           }
-        }, _callee7);
+        }, _callee9);
       }));
 
-      function updateUser(_x12, _x13) {
+      function updateUser(_x16, _x17) {
         return _updateUser.apply(this, arguments);
       }
 
@@ -447,33 +508,33 @@
     validate: function () {
       var _validate = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee8(_ref11, id) {
+      _regeneratorRuntime.mark(function _callee10(_ref13, id) {
         var state, commit, rootState, method;
-        return _regeneratorRuntime.wrap(function _callee8$(_context8) {
+        return _regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
-                state = _ref11.state, commit = _ref11.commit, rootState = _ref11.rootState;
+                state = _ref13.state, commit = _ref13.commit, rootState = _ref13.rootState;
                 method = '.validate';
 
                 if (!(state.currentUser.api_key !== undefined)) {
-                  _context8.next = 4;
+                  _context10.next = 4;
                   break;
                 }
 
-                return _context8.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {
+                return _context10.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {
                   key: state.currentUser.api_key
                 }, {}, 'c3s/user/SET_CURRENT_USER'));
 
               case 4:
               case "end":
-                return _context8.stop();
+                return _context10.stop();
             }
           }
-        }, _callee8);
+        }, _callee10);
       }));
 
-      function validate(_x14, _x15) {
+      function validate(_x18, _x19) {
         return _validate.apply(this, arguments);
       }
 
@@ -1662,7 +1723,7 @@
 
                 dispatch('getStats', id);
                 return _context.abrupt("return", makeRequest(commit, getNested$1(rootState, path$3 + method), {
-                  id: id
+                  pid: id
                 }, {}, 'c3s/project/SET_PROJECT'));
 
               case 6:
@@ -1695,13 +1756,14 @@
             switch (_context2.prev = _context2.next) {
               case 0:
                 state = _ref7.state, commit = _ref7.commit, dispatch = _ref7.dispatch, rootState = _ref7.rootState;
-                // dispatch('getStats', id);
+                console.log(id); // dispatch('getStats', id);
+
                 method = '.get_project_activities';
                 return _context2.abrupt("return", makeRequest(commit, getNested$1(rootState, path$3 + method), {
-                  id: id
-                }, {}, 'c3s/activity/SET_ACTIVITIES'));
+                  pid: id
+                }, undefined, 'c3s/activity/SET_ACTIVITIES'));
 
-              case 3:
+              case 4:
               case "end":
                 return _context2.stop();
             }
