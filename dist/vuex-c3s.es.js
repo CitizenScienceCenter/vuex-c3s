@@ -98,7 +98,8 @@ function _makeRequest() {
             response = _context.sent;
 
             if (commitMsg !== undefined) {
-              commit(commitMsg, response.body.data, {
+              console.log(response.body);
+              commit(commitMsg, response.body, {
                 root: true
               });
             }
