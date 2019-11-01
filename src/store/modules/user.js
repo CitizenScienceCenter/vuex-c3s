@@ -31,6 +31,7 @@ const getters = {}
  * @namespace actionss
  */
 const actions = {
+
   /**
    * Login user
    * @param {Object} user Username/email and password of user
@@ -44,6 +45,27 @@ const actions = {
   }, user) {
     const method = '.login'
     return makeRequest(commit, getNested(rootState, path + method), {}, user, 'c3s/user/SET_CURRENT_USER')
+  },
+
+  async checkUsername ({
+    state,
+    commit,
+    dispatch,
+    rootState
+  }, user) {
+    const method = '.check_user'
+    return makeRequest(commit, getNested(rootState, path + method), {username: user}, undefined, undefined)
+  },
+
+  async checkUseremail ({
+    state,
+    commit,
+    dispatch,
+    rootState
+  }, user) {
+    const method = '.check_user'
+    console.log(user)
+    return makeRequest(commit, getNested(rootState, path + method), {email: user}, undefined, undefined)
   },
   /**
    * Create anonymouse user and register with backend

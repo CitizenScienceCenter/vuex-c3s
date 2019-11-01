@@ -2,6 +2,7 @@
 
 import {makeRequest} from './utils'
 import rison from 'rison-node'
+import { Store } from 'vuex'
 
 /**
  * @constant state
@@ -53,6 +54,16 @@ const actions = {
     return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submission_count, {
       search_term: search || undefined
     }, {}, undefined)
+  },
+
+  async getUserSubmissions ({
+    state,
+    commit,
+    rootState
+  }) {
+    return makeRequest(commit, rootState.c3s.client.apis.Users.get_submissions, {
+      id: rootState.c3s.client.apis.Users.current_user.id
+    }, {}, 'c3s/submission/SET_SUBMISSIONS')
   },
   /**
    * Create a submission

@@ -78,7 +78,7 @@ const actions = {
     }
     dispatch('getStats', id)
     return makeRequest(commit, getNested(rootState, path + method), {
-      id: id
+      pid: id
     }, {}, 'c3s/project/SET_PROJECT')
   },
   /**
@@ -92,11 +92,12 @@ const actions = {
     dispatch,
     rootState
   }, id) {
+    console.log(id)
     // dispatch('getStats', id);
     const method = '.get_project_activities'
     return makeRequest(commit, getNested(rootState, path + method), {
-      id: id
-    }, {}, 'c3s/activity/SET_ACTIVITIES')
+      pid: id
+    }, undefined, 'c3s/activity/SET_ACTIVITIES')
   },
   /**
    * Get count of projects matching search criteria
