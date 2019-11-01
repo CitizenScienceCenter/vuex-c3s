@@ -8,7 +8,7 @@ import * as ActivityTests from './activity'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({})
-const apiURL = 'https://api-staging.citizenscience.ch/api/v3/openapi.json'
+const apiURL = 'https://api-staging.citizenscience.ch/v3/openapi.json'
 const server = 'http://localhost:9000/v3/'
 const user = null
 beforeAll(function (done) {

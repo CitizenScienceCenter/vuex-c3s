@@ -61,7 +61,6 @@ const C3SPlugin = {
      */
   install (Vue, options = {}) {
     Swagger(options.apiURL, {
-      baseDoc: options.apiURL.replace('openapi.json', ''),
       requestInterceptor (req) {
         if (options.server && req.url.indexOf('openapi.json') === -1) {
           // TODO handle server decision from spec

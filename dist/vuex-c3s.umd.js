@@ -2087,7 +2087,6 @@
     install: function install(Vue) {
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       Swagger(options.apiURL, {
-        baseDoc: options.apiURL.replace('openapi.json', ''),
         requestInterceptor: function requestInterceptor(req) {
           if (options.server && req.url.indexOf('openapi.json') === -1) {
             // TODO handle server decision from spec
