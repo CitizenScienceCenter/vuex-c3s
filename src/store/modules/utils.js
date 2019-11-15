@@ -8,8 +8,8 @@ export async function makeRequest (commit, method, query, data, commitMsg) {
     const response = await method(query, body)
     console.dir(response)
     if (commitMsg !== undefined) {
-      console.log(response.body)
-      commit(commitMsg, response.body, { root: true })
+      console.log(method, response.body)
+      commit(commitMsg, response.body.data, { root: true })
     }
     commit('c3s/settings/SET_LOADING', false, { root: true })
     return response

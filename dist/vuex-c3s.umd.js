@@ -104,8 +104,8 @@
               console.dir(response);
 
               if (commitMsg !== undefined) {
-                console.log(response.body);
-                commit(commitMsg, response.body, {
+                console.log(method, response.body);
+                commit(commitMsg, response.body.data, {
                   root: true
                 });
               }
