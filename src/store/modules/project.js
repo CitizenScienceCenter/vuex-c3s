@@ -1,47 +1,57 @@
-/** @module c3s/project */
-
-import {makeRequest, getNested} from './utils'
-import rison from 'rison-node'
-
 /**
- * @constant state
- * @type Object
- * @description State structure
- * @alias module:c3s/project
- * @property {Array} [projects = []]
- * @property {Object} [project = null]
- * @property {Array} [activities = []]
- * @property {Object} [stats = null]
- * @property {Array} [media = []]
- * @property {Array} [comments = []]
+ * The project submodule of the store to deal
+ * with retrieving, updating and deleting projects
+ * Actions:
+ * create_project ✔️
+ * update_project ✔️ 
+ * delete_project ✔️
+ * get_projects ✔️
+ * get_project ✔️
+ * get_project_submissions 
+ * get_project_tasks ✔️
+ * get_project_user_submissions
+ * get_stats ✔️
+ * @file store/modules/project.js
+ * @module c3s/project
+ */
+
+import rison from 'rison-node'
+import { getNested, makeRequest } from './utils'
+/**
+ * @constant
+ * @property {Array} [projects=[]]
+ * @property {Object} [project=null]
+ * @property {Object} [stats=null]
+ * @property {Array} [media=[]]
+ * @property {Array} [comments=[]]
  */
 const state = {
   projects: [],
   project: null,
-  activities: [],
+  tasks: [],
   stats: null,
   media: [],
   comments: []
 }
 
-const path = 'c3s.client.apis.Projects';
+const path = 'c3s.client.apis.Projects'
 
 /**
- * @constant getters
- * @namespace getters
+ * @type Object
+ * @constant
  */
 const getters = {}
 
 /**
- * @constant
- * @namespace actions
- */
+ *  actions
+  * @constant
+	@type {object}
+    @namespace actions
+*/
 const actions = {
   /**
-   * Get projects matching a search object
-   * Retrieve projects matching query and save into the `projects` array
-   * @function
-   * @param {Array<Object, number>} Search Array containing a search object (based on JTOS) and an integer for the limit of results
+   * Retrieve an array of projects based on a provided query object
+   * @param {Array<Object, number>} search An array containing the search object and the limit for the number of results to return
    */
   getProjects ({
     state,
@@ -49,136 +59,139 @@ const actions = {
     dispatch,
     rootState
   }, [search, limit]) {
-    search = rison.encode(search)
-    const method = '.get_projects';
+    if(search !== undefined) {
+      search = rison.encode(search)
+    }
+    const method = '.get_projects'
     return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined,
       limit: limit || 100
     }, undefined, 'c3s/project/SET_PROJECTS')
   },
   /**
-   * Get a project matching the provided ID
-   * DOES save project to store
-   * @param {Array<string, number>} ID An array containing the ID of the project and a boolean of whether you want the tasks and media associated
+   * Retrieve a single project based on the ID
+   * @param {Array<string, boolean>} ID An array containing the ID of the project and a boolean to determine whether or not to retrieve the media and comments also
+   * @returns {Promise<*|boolean|void>}
    */
   async getProject ({
     state,
     commit,
     dispatch,
     rootState
-  }, [id, associated]) {
-    const method = '.get_project';
-    if (associated) {
-      dispatch('task/getMedia', id, {
-        root: true
-      })
-      dispatch('task/getTasks', [id, 1, 0], {
-        root: true
-      })
-    }
-    dispatch('getStats', id)
+  }, id) {
+    const method = '.get_project'
     return makeRequest(commit, getNested(rootState, path + method), {
       pid: id
-    }, {}, 'c3s/project/SET_PROJECT')
+    }, undefined, 'c3s/project/SET_PROJECT')
   },
-  /**
-   * Get the activities of a project matching the provided ID
-   * DOES save project to store
-   * @param {string} ID The ID of the project
-   */
-  async getProjectActivities ({
+
+  async getProjectTasks ({
     state,
     commit,
     dispatch,
     rootState
-  }, id) {
-    console.log(id)
-    // dispatch('getStats', id);
-    const method = '.get_project_activities'
+  }, [id]) {
+    const method = '.get_project_tasks'
     return makeRequest(commit, getNested(rootState, path + method), {
       pid: id
-    }, undefined, 'c3s/activity/SET_ACTIVITIES')
+    }, undefined, 'c3s/project/SET_PROJECT_TASKS')
   },
-  /**
-   * Get count of projects matching search criteria
-   * @param {Object} search
-   */
-  async getProjectCount ({
+
+  async getStats ({
     state,
     commit,
     rootState
-  }, search) {
-    search = rison.encode(search)
-    return makeRequest(commit, rootState.c3s.client.apis.Projects.get_project_count, {
-      search_term: search || undefined
-    }, {}, undefined)
+  }, id) {
+    const method = '.get_stats'
+    return makeRequest(commit, getNested(rootState, path + method), {
+      pid: id
+    }, undefined, 'c3s/project/SET_STATS')
   },
   /**
-   * Create a project with a provided object.
-   * DOES save project to store
+   * Create a project
    * @param {Object} project
+   * @returns {Promise<*|boolean|void>}
    */
   createProject ({
     state,
     commit,
     rootState
   }, project) {
-    const method = '.create_project';
-    return makeRequest(commit, getNested(rootState, path + method), {}, project, 'c3s/project/SET_PROJECT')
+    const method = '.create_project'
+    return makeRequest(commit, getNested(rootState, path + method), undefined, project, 'c3s/project/SET_PROJECT')
+  },
+
+  /**
+   * Update a project
+   * @param {Array<string, boolean>} Array containing the ID and object of the project to be modified 
+   * @returns {Promise<*|boolean|void>} 
+   */
+  updateProject({
+    state,
+    commit,
+    rootState
+  }, [id, project]) {
+    const method = '.update_project'
+    return makeRequest(commit, getNested(rootState, path + method), {pid: id}, project, 'c3s/project/SET_PROJECT')
   },
   /**
-   * Delete a project with the provided ID
-   * @param {Array<string, boolean>} PID The ID of the project and a boolean on whether to remove the project from the store
+   * Delete a project matching the supplied ID
+   * @param {Array<string, boolean>} ID An array containing the ID of the project and a boolean to determine whether or not to remove from the store also
+   * @returns {Promise<*|boolean|void>}
    */
   deleteProject ({
     state,
     commit,
     rootState
-  }, [pid, localRemove]) {
-    const method = '.delete_project';
+  }, [id, localRemove]) {
+    const method = '.delete_project'
     if (localRemove) commit('c3s/project/SET_PROJECT', null)
     return makeRequest(commit, getNested(rootState, path + method), {
-      id: pid
-    }, {}, undefined)
+      pid: id
+    }, undefined, undefined)
   }
 }
 
 /**
- * @constant
- * @alias module:c3s/project
+ * @constant mutations All mutations one can commit to the project submodule
+ * @type {object}
  * @namespace mutations
  */
 const mutations = {
   /**
-   * Commit array of projects to store
-   * @param {Array} ps
+   * Sets the projects in the store
+   * @param {Array} acts
    */
-  SET_PROJECTS (state, ps) {
-    state.projects = ps
+  SET_PROJECTS (state, acts) {
+    state.projects = acts
   },
   /**
-   * Commit project to store
-   * @param {Object} p
+   * Sets a single project
+   * @param {Object} act
    */
-  SET_PROJECT (state, p) {
-    state.project = p
+  SET_PROJECT (state, act) {
+    state.project = act
   },
   /**
-   * Commit project stats to store
+   * Set statistics for a project
    * @param {Object} stats
    */
   SET_STATS (state, stats) {
     state.stats = stats
   },
   /**
-   * Commit comments array related to project to store
-   * @param {Array} cmts
+   * Set comments for a project
+   * @param {Arrya} cmts
    */
   SET_COMMENTS (state, cmts) {
     state.comments = cmts
   },
+
+  SET_PROJECT_TASKS (state, tasks) {
+    state.tasks = tasks
+  },
   /**
-   * Commit media array related to project to store
+   * Set media for a project
    * @param {Array} media
    */
   SET_MEDIA (state, media) {
@@ -187,7 +200,7 @@ const mutations = {
 }
 
 /**
- * Project store submodule. Path: c3s.project
+ * A module for linking projects to the API
  * @name Project
  */
 export default {

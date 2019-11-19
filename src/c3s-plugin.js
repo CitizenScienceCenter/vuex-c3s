@@ -23,8 +23,8 @@ const modules = [
     module: C3SStore.user
   },
   {
-    name: ['c3s', 'activity'],
-    module: C3SStore.activity
+    name: ['c3s', 'member'],
+    module: C3SStore.member
   },
   {
     name: ['c3s', 'task'],
@@ -100,11 +100,6 @@ const C3SPlugin = {
         }
 
         store.registerModule(name, m.module, { preserveState: preserve })
-        // if (store.state.hasOwnProperty(m['name']) === false) {
-        // 	console.error('C3S: C3S vuex module is not correctly initialized. Please check the module name:', m['name']);
-        // 	return;
-        // }
-        // TODO check why store reports this as false when it is created
       }
       store.commit('c3s/SET_API', client)
       var isLoaded = function () {

@@ -1,7 +1,9 @@
 /**
  * @module c3s/media
  */
-import {makeRequest} from './utils'
+import {
+  makeRequest
+} from './utils'
 import rison from 'rison-node'
 /**
  *
@@ -20,10 +22,10 @@ const getters = {}
  */
 const actions = {
   /**
-	 * Get media matching search
-	 * @param {Array<Object,string, number>} Terms Array with Object of search query, messaage to commit to store (or undefined) and the limit to retrieve
-	 */
-  getMedia ({
+   * Get media matching search
+   * @param {Array<Object,string, number>} Terms Array with Object of search query, messaage to commit to store (or undefined) and the limit to retrieve
+   */
+  getMedia({
     state,
     commit,
     rootState
@@ -32,33 +34,48 @@ const actions = {
     return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
       search_term: search || undefined,
       limit: limit || 100
-    }, commitMsg)
+    }, undefined, commitMsg)
   },
   /**
-	 * Delete media with ID
-	 * @param {String}} id
-	 */
-  deleteMedium ({
+   * Delete media with ID
+   * @param {String}} id
+   */
+  deleteMedium({
     state,
     commit,
     dispatch,
     rootState
   }, id) {
     return makeRequest(commit, rootState.c3s.client.apis.Media.delete_medium, {
-      id: id
-    }, undefined)
+      mid: id
+    }, undefined, undefined)
   },
   /**
-	 * Upload a file
-	 * @param {FormData} medium File to upload
-	 */
-  upload ({
+   * Upload a file
+   * @param {FormData} medium File to upload
+   */
+  upload({
     state,
     commit,
     rootState
-  }, medium) {
-    return makeRequest(commit, rootState.c3s.client.apis.Media.upload, medium, undefined)
+  }, [url, file]) {
+    return window.fetch(url, {
+      method: 'PUT',
+      body: file
+    })
+  },
+
+  getPresigned({
+    state,
+    commit,
+    rootState
+  }, [source_id, filename]) {
+    return makeRequest(commmit, rootState.c3s.client.apis.Media.get_pre_signed_url, {
+      source_id: source_id,
+      filename: filename
+    }, undefined, undefined)
   }
+
 }
 
 /**
@@ -66,10 +83,10 @@ const actions = {
  */
 const mutations = {
   /**
-	 * Store array of media in store. File objects ARE NOT STORED and must be requested from their path
-	 * @param {Array<Object>} media
-	 */
-  SET_MEDIA (state, media) {
+   * Store array of media in store. File objects ARE NOT STORED and must be requested from their path
+   * @param {Array<Object>} media
+   */
+  SET_MEDIA(state, media) {
     state.media = media
   }
 }

@@ -39,7 +39,7 @@ const actions = {
     return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {
       search_term: search || undefined,
       limit: limit || 100
-    }, {}, 'c3s/submission/SET_SUBMISSIONS')
+    }, undefined, 'c3s/submission/SET_SUBMISSIONS')
   },
   /**
    * Retrieve the number of submissions matching a query
@@ -53,7 +53,7 @@ const actions = {
     search = rison.encode(search)
     return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submission_count, {
       search_term: search || undefined
-    }, {}, undefined)
+    }, undefined, undefined)
   },
 
   async getUserSubmissions ({
@@ -62,8 +62,8 @@ const actions = {
     rootState
   }) {
     return makeRequest(commit, rootState.c3s.client.apis.Users.get_submissions, {
-      id: rootState.c3s.client.apis.Users.current_user.id
-    }, {}, 'c3s/submission/SET_SUBMISSIONS')
+      uid: rootState.c3s.client.apis.Users.current_user.id
+    }, undefined, 'c3s/submission/SET_SUBMISSIONS')
   },
   /**
    * Create a submission
@@ -76,7 +76,7 @@ const actions = {
     dispatch
   }) {
     // TODO handle uploading at same time
-    return makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, {}, state.submission, 'c3s/submission/SET_SUBMISSION')
+    return makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, undefined, state.submission, 'c3s/submission/SET_SUBMISSION')
   },
   /**
    * Update a submission based on the ID
@@ -89,7 +89,7 @@ const actions = {
     rootState
   }, submission) {
     return makeRequest(commit, rootState.c3s.client.apis.Submissions.update_submission, {
-      id: submission.id
+      sid: submission.id
     },
     submission, 'submission/c3s/SET_SUBMISSION')
   }

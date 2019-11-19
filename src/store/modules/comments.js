@@ -28,7 +28,7 @@ const actions = {
     search = rison.encode(search)
     return makeRequest(commit, rootState.c3s.client.apis.Comments.get_all, {
       search_term: search || undefined
-    }, {}, 'c3s/comments/SET_COMMENTS')
+    }, undefined, 'c3s/comments/SET_COMMENTS')
   },
   /**
    * Create a comment
@@ -42,7 +42,7 @@ const actions = {
     commit,
     rootState
   }, cmt) {
-    return makeRequest(commit, rootState.c3s.client.apis.Comments.create_comment, {}, cmt, 'c3s/comments/ADD_COMMENT')
+    return makeRequest(commit, rootState.c3s.client.apis.Comments.create_comment, undefined, cmt, 'c3s/comments/ADD_COMMENT')
   }
 }
 

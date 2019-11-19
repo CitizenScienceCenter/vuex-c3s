@@ -49,7 +49,7 @@ const actions = {
     return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined,
       limit: limit || 100
-    }, {}, 'c3s/task/SET_TASKS')
+    }, undefined, 'c3s/task/SET_TASKS')
   },
 
   /**
@@ -63,7 +63,7 @@ const actions = {
     search = rison.encode(search)
     return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_count, {
       search_term: search || undefined
-    }, {}, undefined)
+    }, undefined, undefined)
   },
   /**
    * Get Task Media
@@ -77,7 +77,7 @@ const actions = {
     search = rison.encode(search)
     return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
       search_term: search || undefined
-    }, {}, 'c3s/task/SET_MEDIA')
+    }, undefined, 'c3s/task/SET_MEDIA')
   },
   /**
    * Retrieve a task matching an ID
@@ -89,8 +89,8 @@ const actions = {
     rootState
   }, id) {
     return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task, {
-      id: id
-    }, {}, 'c3s/task/SET_TASK')
+      tid: id
+    }, undefined, 'c3s/task/SET_TASK')
   },
 
   async getTaskComments ({
@@ -99,8 +99,8 @@ const actions = {
     rootState
   }, id) {
     return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_comments, {
-      id: id
-    }, {}, 'c3s/task/SET_TASK_COMMENTS')
+      tid: id
+    }, undefined, 'c3s/task/SET_TASK_COMMENTS')
   },
 
   async getTaskStats ({
@@ -110,8 +110,8 @@ const actions = {
   }, id) {
     const method = '.get_stats'
     return makeRequest(commit, getNested(rootState, path + method), {
-      id: id
-    }, {}, 'c3s/task/SET_TASK_STATS')
+      tid: id
+    }, undefined, 'c3s/task/SET_TASK_STATS')
   },
 
 
@@ -142,9 +142,21 @@ const actions = {
     rootState
   }, tasks) {
     dispatch('SET_TASKS', null)
-    return makeRequest(commit, rootState.c3s.client.apis.Tasks.delete_tasks, {}, tasks, 'c3s/task/SET_TASKS')
-  }
+    return makeRequest(commit, rootState.c3s.client.apis.Tasks.delete_tasks, undefined, tasks, 'c3s/task/SET_TASKS')
+  },
 
+  /**
+   * Deletes a single task
+   * @param {int} id Task ID to delete
+   */
+  deleteTask ({
+    state,
+    commit,
+    dispatch,
+    rootState
+  }, id) {
+    return makeRequest(commit, rootState.c3s.client.apis.Tasks.delete_tasks, {tid: id}, tasks, 'c3s/task/SET_TASKS')
+  }
 }
 
 /** mutations

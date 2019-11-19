@@ -44,7 +44,7 @@ const actions = {
     rootState
   }, user) {
     const method = '.login'
-    return makeRequest(commit, getNested(rootState, path + method), {}, user, 'c3s/user/SET_CURRENT_USER')
+    return makeRequest(commit, getNested(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER')
   },
 
   async checkUsername ({
@@ -64,7 +64,6 @@ const actions = {
     rootState
   }, user) {
     const method = '.check_user'
-    console.log(user)
     return makeRequest(commit, getNested(rootState, path + method), {email: user}, undefined, undefined)
   },
   /**
@@ -118,7 +117,7 @@ const actions = {
     rootState
   }, email) {
     const method = '.reset'
-    return makeRequest(commit, getNested(rootState, path + method), {}, {
+    return makeRequest(commit, getNested(rootState, path + method), undefined, {
       email: email
     }, undefined)
   },
@@ -133,7 +132,7 @@ const actions = {
     rootState
   }, reset) {
     const method = '.verify_rest'
-    return makeRequest(commit, getNested(rootState, path + method), {}, {
+    return makeRequest(commit, getNested(rootState, path + method), undefined, {
       reset: reset
     }, undefined)
   },
@@ -148,12 +147,12 @@ const actions = {
     rootState
   }, user) {
     const method = '.create_user'
-    const response = makeRequest(commit, getNested(rootState, path + method), {}, user, 'c3s/user/SET_CURRENT_USER')
+    const response = makeRequest(commit, getNested(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER')
     commit('SET_ANON', false)
     return response
   },
   /**
-   * Retrieve a user based on ID
+   * Retrieve user information for currently logged in
    * @param {String} id
    * @returns {Promise<*|boolean|void>}
    */
@@ -161,25 +160,21 @@ const actions = {
     state,
     commit,
     rootState
-  }, id) {
-    return makeRequest(commit, rootState.c3s.client.apis.Users.get_one, {
-      id: id
-    }, {}, 'c3s/user/SET_USER')
+  }) {
+    return makeRequest(commit, rootState.c3s.client.apis.Users.get_one, undefined, undefined, 'c3s/user/SET_USER')
   },
   /**
    * Update user based on ID
-   * @param {Array} (id, info)
+   * @param user object
    * @returns {Promise<*|boolean|void>}
    */
   async updateUser ({
     state,
     commit,
     rootState
-  }, [id, info]) {
+  }, info) {
     const method = '.update_user'
-    return makeRequest(commit, getNested(rootState, path + method), {
-      id: id
-    }, {
+    return makeRequest(commit, getNested(rootState, path + method), undefined, {
       requestBody: info
     }, 'c3s/user/SET_CURRENT_USER')
   },
@@ -198,7 +193,7 @@ const actions = {
       .api_key !== undefined) {
       return makeRequest(commit, getNested(rootState, path + method), {
         key: state.currentUser.api_key
-      }, {}, 'c3s/user/SET_CURRENT_USER')
+      }, undefined, 'c3s/user/SET_CURRENT_USER')
     }
   }
 }
