@@ -1286,7 +1286,7 @@ var actions$5 = {
         source_id = _ref10[0],
         filename = _ref10[1];
 
-    return makeRequest(commmit, rootState.c3s.client.apis.Media.get_pre_signed_url, {
+    return makeRequest(commit, rootState.c3s.client.apis.Media.get_pre_signed_url, {
       source_id: source_id,
       filename: filename
     }, undefined, undefined);

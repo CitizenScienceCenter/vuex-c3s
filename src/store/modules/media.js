@@ -54,7 +54,7 @@ const actions = {
    * Upload a file
    * @param {FormData} medium File to upload
    */
-  upload({
+  upload ({
     state,
     commit,
     rootState
@@ -65,12 +65,12 @@ const actions = {
     })
   },
 
-  getPresigned({
+  getPresigned ({
     state,
     commit,
     rootState
   }, [source_id, filename]) {
-    return makeRequest(commmit, rootState.c3s.client.apis.Media.get_pre_signed_url, {
+    return makeRequest(commit, rootState.c3s.client.apis.Media.get_pre_signed_url, {
       source_id: source_id,
       filename: filename
     }, undefined, undefined)
