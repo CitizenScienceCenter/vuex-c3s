@@ -90,7 +90,7 @@ const actions = {
     commit,
     dispatch,
     rootState
-  }, [id]) {
+  }, id) {
     const method = '.get_project_tasks'
     return makeRequest(commit, getNested(rootState, path + method), {
       pid: id
@@ -123,8 +123,8 @@ const actions = {
 
   /**
    * Update a project
-   * @param {Array<string, boolean>} Array containing the ID and object of the project to be modified 
-   * @returns {Promise<*|boolean|void>} 
+   * @param {Array<string, boolean>} Array containing the ID and object of the project to be modified
+   * @returns {Promise<*|boolean|void>}
    */
   updateProject({
     state,

@@ -100,7 +100,6 @@ function _makeRequest() {
 
           case 6:
             response = _context.sent;
-            console.dir(response);
 
             if (commitMsg !== undefined) {
               commit(commitMsg, response.body.data, {
@@ -113,8 +112,8 @@ function _makeRequest() {
             });
             return _context.abrupt("return", response);
 
-          case 13:
-            _context.prev = 13;
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context["catch"](0);
             commit('c3s/settings/SET_ERROR', 'Could not complete request', {
               root: true
@@ -124,12 +123,12 @@ function _makeRequest() {
             });
             return _context.abrupt("return", _context.t0);
 
-          case 18:
+          case 17:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 13]]);
+    }, _callee, null, [[0, 12]]);
   }));
   return _makeRequest.apply(this, arguments);
 }
@@ -312,9 +311,7 @@ var actions$1 = {
   logout: function logout(_ref5) {
     var state = _ref5.state,
         commit = _ref5.commit;
-    commit('c3s/user/SET_CURRENT_USER', null, null, {
-      root: true
-    });
+    commit('SET_CURRENT_USER', null);
     commit('SET_ANON', false);
   },
 
@@ -1281,19 +1278,62 @@ var actions$5 = {
       body: file
     });
   },
-  getPresigned: function getPresigned(_ref8, _ref9) {
+  createMedium: function createMedium(_ref8, medium) {
     var state = _ref8.state,
         commit = _ref8.commit,
         rootState = _ref8.rootState;
+    return makeRequest(commit, rootState.c3s.client.apis.Media.create_medium, undefined, medium, undefined);
+  },
+  getPresigned: function getPresigned(_ref9, _ref10) {
+    var state = _ref9.state,
+        commit = _ref9.commit,
+        rootState = _ref9.rootState;
 
-    var _ref10 = _slicedToArray(_ref9, 2),
-        source_id = _ref10[0],
-        filename = _ref10[1];
+    var _ref11 = _slicedToArray(_ref10, 2),
+        sourceID = _ref11[0],
+        filename = _ref11[1];
 
     return makeRequest(commit, rootState.c3s.client.apis.Media.get_pre_signed_url, {
-      source_id: source_id,
+      source_id: sourceID,
       filename: filename
     }, undefined, undefined);
+  },
+  uploadMedia: function uploadMedia(_ref12, _ref13) {
+    var state = _ref12.state,
+        commit = _ref12.commit,
+        dispatch = _ref12.dispatch,
+        rootState = _ref12.rootState;
+
+    var _ref14 = _slicedToArray(_ref13, 4),
+        sourceID = _ref14[0],
+        filename = _ref14[1],
+        file = _ref14[2],
+        linkKey = _ref14[3];
+
+    return dispatch('getPresigned', [sourceID, 'builder/' + filename]).then(function (resp) {
+      if (resp) {
+        var url = resp.body.data;
+        return dispatch('upload', [url, file]).then(function (res) {
+          if (res) {
+            var medium = {
+              source_id: sourceID,
+              name: filename,
+              path: res.url
+            };
+
+            if (linkKey) {
+              medium[linkKey] = sourceID;
+            }
+
+            return dispatch('createMedium', medium).then(function (medium) {
+              return medium;
+            })["catch"](function (err) {
+              console.error(err);
+            });
+          }
+        });
+      }
+    });
   }
 };
 /**
@@ -1489,21 +1529,19 @@ var actions$7 = {
   getProjectTasks: function () {
     var _getProjectTasks = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee2(_ref5, _ref6) {
-      var state, commit, dispatch, rootState, _ref7, id, method;
-
+    _regeneratorRuntime.mark(function _callee2(_ref5, id) {
+      var state, commit, dispatch, rootState, method;
       return _regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               state = _ref5.state, commit = _ref5.commit, dispatch = _ref5.dispatch, rootState = _ref5.rootState;
-              _ref7 = _slicedToArray(_ref6, 1), id = _ref7[0];
               method = '.get_project_tasks';
               return _context2.abrupt("return", makeRequest(commit, getNested$1(rootState, path$2 + method), {
                 pid: id
               }, undefined, 'c3s/project/SET_PROJECT_TASKS'));
 
-            case 4:
+            case 3:
             case "end":
               return _context2.stop();
           }
@@ -1520,13 +1558,13 @@ var actions$7 = {
   getStats: function () {
     var _getStats = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee3(_ref8, id) {
+    _regeneratorRuntime.mark(function _callee3(_ref6, id) {
       var state, commit, rootState, method;
       return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
+              state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
               method = '.get_stats';
               return _context3.abrupt("return", makeRequest(commit, getNested$1(rootState, path$2 + method), {
                 pid: id
@@ -1552,27 +1590,27 @@ var actions$7 = {
    * @param {Object} project
    * @returns {Promise<*|boolean|void>}
    */
-  createProject: function createProject(_ref9, project) {
-    var state = _ref9.state,
-        commit = _ref9.commit,
-        rootState = _ref9.rootState;
+  createProject: function createProject(_ref7, project) {
+    var state = _ref7.state,
+        commit = _ref7.commit,
+        rootState = _ref7.rootState;
     var method = '.create_project';
     return makeRequest(commit, getNested$1(rootState, path$2 + method), undefined, project, 'c3s/project/SET_PROJECT');
   },
 
   /**
    * Update a project
-   * @param {Array<string, boolean>} Array containing the ID and object of the project to be modified 
-   * @returns {Promise<*|boolean|void>} 
+   * @param {Array<string, boolean>} Array containing the ID and object of the project to be modified
+   * @returns {Promise<*|boolean|void>}
    */
-  updateProject: function updateProject(_ref10, _ref11) {
-    var state = _ref10.state,
-        commit = _ref10.commit,
-        rootState = _ref10.rootState;
+  updateProject: function updateProject(_ref8, _ref9) {
+    var state = _ref8.state,
+        commit = _ref8.commit,
+        rootState = _ref8.rootState;
 
-    var _ref12 = _slicedToArray(_ref11, 2),
-        id = _ref12[0],
-        project = _ref12[1];
+    var _ref10 = _slicedToArray(_ref9, 2),
+        id = _ref10[0],
+        project = _ref10[1];
 
     var method = '.update_project';
     return makeRequest(commit, getNested$1(rootState, path$2 + method), {
@@ -1585,14 +1623,14 @@ var actions$7 = {
    * @param {Array<string, boolean>} ID An array containing the ID of the project and a boolean to determine whether or not to remove from the store also
    * @returns {Promise<*|boolean|void>}
    */
-  deleteProject: function deleteProject(_ref13, _ref14) {
-    var state = _ref13.state,
-        commit = _ref13.commit,
-        rootState = _ref13.rootState;
+  deleteProject: function deleteProject(_ref11, _ref12) {
+    var state = _ref11.state,
+        commit = _ref11.commit,
+        rootState = _ref11.rootState;
 
-    var _ref15 = _slicedToArray(_ref14, 2),
-        id = _ref15[0],
-        localRemove = _ref15[1];
+    var _ref13 = _slicedToArray(_ref12, 2),
+        id = _ref13[0],
+        localRemove = _ref13[1];
 
     var method = '.delete_project';
     if (localRemove) commit('c3s/project/SET_PROJECT', null);

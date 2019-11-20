@@ -6,7 +6,6 @@ export async function makeRequest (commit, method, query, data, commitMsg) {
       body = { requestBody: data};
     }
     const response = await method(query, body)
-    console.dir(response)
     if (commitMsg !== undefined) {
       commit(commitMsg, response.body.data, { root: true })
     }

@@ -100,9 +100,7 @@ const actions = {
     state,
     commit
   }) {
-    commit('c3s/user/SET_CURRENT_USER', null, null, {
-      root: true
-    })
+    commit('SET_CURRENT_USER', null)
     commit('SET_ANON', false)
   },
   /**

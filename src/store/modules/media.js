@@ -25,7 +25,7 @@ const actions = {
    * Get media matching search
    * @param {Array<Object,string, number>} Terms Array with Object of search query, messaage to commit to store (or undefined) and the limit to retrieve
    */
-  getMedia({
+  getMedia ({
     state,
     commit,
     rootState
@@ -40,7 +40,7 @@ const actions = {
    * Delete media with ID
    * @param {String}} id
    */
-  deleteMedium({
+  deleteMedium ({
     state,
     commit,
     dispatch,
@@ -65,15 +65,53 @@ const actions = {
     })
   },
 
+  createMedium ({
+    state,
+    commit,
+    rootState
+  }, medium) {
+    return makeRequest(commit, rootState.c3s.client.apis.Media.create_medium, undefined, medium, undefined)
+  },
+
   getPresigned ({
     state,
     commit,
     rootState
-  }, [source_id, filename]) {
+  }, [sourceID, filename]) {
     return makeRequest(commit, rootState.c3s.client.apis.Media.get_pre_signed_url, {
-      source_id: source_id,
+      source_id: sourceID,
       filename: filename
     }, undefined, undefined)
+  },
+
+  uploadMedia ({
+    state,
+    commit,
+    dispatch,
+    rootState
+  }, [sourceID, filename, file, linkKey]) {
+    return dispatch('getPresigned', [sourceID, 'builder/' + filename]).then(resp => {
+      if (resp) {
+        const url = resp.body.data
+        return dispatch('upload', [url, file]).then(res => {
+          if (res) {
+            const medium = {
+              source_id: sourceID,
+              name: filename,
+              path: res.url
+            }
+            if (linkKey) {
+              medium[linkKey] = sourceID
+            }
+            return dispatch('createMedium', medium).then(medium => {
+              return medium
+            }).catch(err => {
+              console.error(err)
+            })
+          }
+        })
+      }
+    })
   }
 
 }
@@ -86,7 +124,7 @@ const mutations = {
    * Store array of media in store. File objects ARE NOT STORED and must be requested from their path
    * @param {Array<Object>} media
    */
-  SET_MEDIA(state, media) {
+  SET_MEDIA (state, media) {
     state.media = media
   }
 }
