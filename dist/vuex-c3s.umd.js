@@ -101,7 +101,6 @@
 
             case 6:
               response = _context.sent;
-              console.log(response);
 
               if (commitMsg !== undefined) {
                 commit(commitMsg, response.body.data, {
@@ -114,8 +113,8 @@
               });
               return _context.abrupt("return", response);
 
-            case 13:
-              _context.prev = 13;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context["catch"](0);
               commit('c3s/settings/SET_ERROR', _context.t0, {
                 root: true
@@ -125,12 +124,12 @@
               });
               return _context.abrupt("return", _context.t0);
 
-            case 18:
+            case 17:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 13]]);
+      }, _callee, null, [[0, 12]]);
     }));
     return _makeRequest.apply(this, arguments);
   }
@@ -1391,13 +1390,18 @@
           commit = _ref5.commit,
           rootState = _ref5.rootState;
 
-      var _ref7 = _slicedToArray(_ref6, 2),
+      var _ref7 = _slicedToArray(_ref6, 4),
           url = _ref7[0],
-          file = _ref7[1];
+          type = _ref7[1],
+          name = _ref7[2],
+          media = _ref7[3];
 
       return window.fetch(url, {
         method: 'PUT',
-        body: file
+        headers: {
+          'Content-Type': type
+        },
+        body: media
       });
     },
     createMedium: function createMedium(_ref8, medium) {
@@ -1426,25 +1430,39 @@
           dispatch = _ref12.dispatch,
           rootState = _ref12.rootState;
 
-      var _ref14 = _slicedToArray(_ref13, 4),
+      var _ref14 = _slicedToArray(_ref13, 3),
           sourceID = _ref14[0],
-          filename = _ref14[1],
-          file = _ref14[2],
-          linkKey = _ref14[3];
+          key = _ref14[1],
+          file = _ref14[2];
 
-      return dispatch('getPresigned', [sourceID, 'builder/' + filename]).then(function (resp) {
+      return dispatch('getPresigned', ['builder', sourceID + '/' + file.name]).then(function (resp) {
         if (resp) {
           var url = resp.body.data;
-          return dispatch('upload', [url, file]).then(function (res) {
+          var media;
+
+          if (typeof FileReader === 'function') {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+              media = e.target.result;
+            };
+
+            console.log(file);
+            reader.readAsDataURL(file);
+          } else {
+            console.error('Sorry, FileReader API not supported');
+          }
+
+          return dispatch('upload', [url, file.type, file.name, media]).then(function (res) {
             if (res) {
               var medium = {
                 source_id: sourceID,
-                name: filename,
-                path: 'https://objects.citizenscience.ch/builder/' + sourceID + '/' + filename
+                name: file.name,
+                path: 'https://objects.citizenscience.ch/builder/' + sourceID + '/' + file.name
               };
 
-              if (linkKey) {
-                medium[linkKey] = sourceID;
+              if (key) {
+                medium[key] = sourceID;
               }
 
               return dispatch('createMedium', medium).then(function (medium) {
@@ -1631,20 +1649,11 @@
               case 0:
                 state = _ref4.state, commit = _ref4.commit, dispatch = _ref4.dispatch, rootState = _ref4.rootState;
                 method = '.get_project';
-
-                if (!(state.project && id === state.project.id)) {
-                  _context.next = 4;
-                  break;
-                }
-
-                return _context.abrupt("return", Promise.resolve(state.project));
-
-              case 4:
                 return _context.abrupt("return", makeRequest(commit, getNested(rootState, path$2 + method), {
                   pid: id
                 }, undefined, 'c3s/project/SET_PROJECT'));
 
-              case 5:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -1844,15 +1853,12 @@
     SET_PROJECT_TASK: function SET_PROJECT_TASK(state, task) {
       state.task = task;
     },
-    SET_PROJECT_MEDIA: function SET_PROJECT_MEDIA(state, media) {
-      state.media = media;
-    },
 
     /**
      * Set media for a project
      * @param {Array} media
      */
-    SET_MEDIA: function SET_MEDIA(state, media) {
+    SET_PROJECT_MEDIA: function SET_PROJECT_MEDIA(state, media) {
       state.media = media;
     }
   };

@@ -58,10 +58,13 @@ const actions = {
     state,
     commit,
     rootState
-  }, [url, file]) {
+  }, [url, type, name, media]) {
     return window.fetch(url, {
       method: 'PUT',
-      body: file
+      headers: {
+        'Content-Type': type
+      },
+      body: media
     })
   },
 
@@ -89,19 +92,30 @@ const actions = {
     commit,
     dispatch,
     rootState
-  }, [sourceID, filename, file, linkKey]) {
-    return dispatch('getPresigned', [sourceID, 'builder/' + filename]).then(resp => {
+  }, [sourceID, key, file]) {
+    return dispatch('getPresigned', ['builder', sourceID + '/' + file.name]).then(resp => {
       if (resp) {
         const url = resp.body.data
-        return dispatch('upload', [url, file]).then(res => {
+        let media
+        if (typeof FileReader === 'function') {
+          const reader = new FileReader()
+          reader.onload = (e) => {
+            media = e.target.result
+          }
+          console.log(file)
+          reader.readAsDataURL(file)
+        } else {
+          console.error('Sorry, FileReader API not supported')
+        }
+        return dispatch('upload', [url, file.type, file.name, media]).then(res => {
           if (res) {
             const medium = {
               source_id: sourceID,
-              name: filename,
-              path: 'https://objects.citizenscience.ch/builder/' + sourceID + '/' + filename
+              name: file.name,
+              path: 'https://objects.citizenscience.ch/builder/' + sourceID + '/' + file.name
             }
-            if (linkKey) {
-              medium[linkKey] = sourceID
+            if (key) {
+              medium[key] = sourceID
             }
             return dispatch('createMedium', medium).then(medium => {
               return medium

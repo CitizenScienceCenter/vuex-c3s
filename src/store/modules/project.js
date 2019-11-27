@@ -81,9 +81,6 @@ const actions = {
     rootState
   }, id) {
     const method = '.get_project'
-    if (state.project && id === state.project.id) {
-      return Promise.resolve(state.project)
-    }
     return makeRequest(commit, getNested(rootState, path + method), {
       pid: id
     }, undefined, 'c3s/project/SET_PROJECT')
@@ -210,14 +207,11 @@ const mutations = {
   SET_PROJECT_TASK (state, task) {
     state.task = task
   },
-  SET_PROJECT_MEDIA (state, media) {
-    state.media = media
-  },
   /**
    * Set media for a project
    * @param {Array} media
    */
-  SET_MEDIA (state, media) {
+  SET_PROJECT_MEDIA (state, media) {
     state.media = media
   }
 }
