@@ -98,7 +98,7 @@ const actions = {
             const medium = {
               source_id: sourceID,
               name: filename,
-              path: res.url
+              path: 'https://objects.citizenscience.ch/builder/' + sourceID + '/' + filename
             }
             if (linkKey) {
               medium[linkKey] = sourceID

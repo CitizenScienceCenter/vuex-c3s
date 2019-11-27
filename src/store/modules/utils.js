@@ -12,7 +12,7 @@ export async function makeRequest (commit, method, query, data, commitMsg) {
     commit('c3s/settings/SET_LOADING', false, { root: true })
     return response
   } catch (err) {
-    commit('c3s/settings/SET_ERROR', 'Could not complete request', { root: true })
+    commit('c3s/settings/SET_ERROR', err, { root: true })
     commit('c3s/settings/SET_LOADING', false, { root: true })
     return err
   }

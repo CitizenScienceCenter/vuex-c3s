@@ -29,6 +29,7 @@ const state = {
   projects: [],
   project: null,
   tasks: [],
+  task: null,
   stats: null,
   media: [],
   comments: []
@@ -80,9 +81,24 @@ const actions = {
     rootState
   }, id) {
     const method = '.get_project'
+    if (state.project && id === state.project.id) {
+      return Promise.resolve(state.project)
+    }
     return makeRequest(commit, getNested(rootState, path + method), {
       pid: id
     }, undefined, 'c3s/project/SET_PROJECT')
+  },
+
+  async getProjectMedia ({
+    state,
+    commit,
+    dispatch,
+    rootState
+  }, id) {
+    const method = '.get_project_media'
+    return makeRequest(commit, getNested(rootState, path + method), {
+      pid: id
+    }, undefined, 'c3s/project/SET_PROJECT_MEDIA')
   },
 
   async getProjectTasks ({
@@ -189,6 +205,13 @@ const mutations = {
 
   SET_PROJECT_TASKS (state, tasks) {
     state.tasks = tasks
+  },
+
+  SET_PROJECT_TASK (state, task) {
+    state.task = task
+  },
+  SET_PROJECT_MEDIA (state, media) {
+    state.media = media
   },
   /**
    * Set media for a project

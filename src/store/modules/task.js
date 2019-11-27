@@ -1,4 +1,4 @@
-import {makeRequest} from './utils'
+import { makeRequest, getNested } from './utils'
 import rison from 'rison-node'
 
 /** @module c3s/task */
@@ -114,7 +114,27 @@ const actions = {
     }, undefined, 'c3s/task/SET_TASK_STATS')
   },
 
+  async getProjectTask ({
+    state,
+    commit,
+    dispatch,
+    rootState
+  }, id) {
+    const method = '.get_random_project_task'
+    return makeRequest(commit, getNested(rootState, path + method), {
+      pid: id
+    }, undefined, 'c3s/project/SET_PROJECT_TASK')
+  },
 
+  async importCSV ({
+    state,
+    commit,
+    dispatch,
+    rootState
+  }, [pid, csv]) {
+    const method = rootState.c3s.client.apis.Projects.import_tasks_csv
+    return makeRequest(commit, method, { pid: pid }, csv, undefined)
+  },
   /**
    * @description Create an array of tasks
    * @param {Array<Object>} tasks Array of tasks to be created

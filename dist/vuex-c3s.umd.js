@@ -101,6 +101,7 @@
 
             case 6:
               response = _context.sent;
+              console.log(response);
 
               if (commitMsg !== undefined) {
                 commit(commitMsg, response.body.data, {
@@ -113,10 +114,10 @@
               });
               return _context.abrupt("return", response);
 
-            case 12:
-              _context.prev = 12;
+            case 13:
+              _context.prev = 13;
               _context.t0 = _context["catch"](0);
-              commit('c3s/settings/SET_ERROR', 'Could not complete request', {
+              commit('c3s/settings/SET_ERROR', _context.t0, {
                 root: true
               });
               commit('c3s/settings/SET_LOADING', false, {
@@ -124,17 +125,17 @@
               });
               return _context.abrupt("return", _context.t0);
 
-            case 17:
+            case 18:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 12]]);
+      }, _callee, null, [[0, 13]]);
     }));
     return _makeRequest.apply(this, arguments);
   }
 
-  function getNested$1(obj, path) {
+  function getNested(obj, path) {
     for (var i = 0, path = path.split('.'), len = path.length; i < len; i++) {
       obj = obj[path[i]];
     }
@@ -153,6 +154,8 @@
   var state$1 = {
     user: null,
     currentUser: null,
+    projects: [],
+    submissions: [],
     isAnon: false
   };
   var path = 'c3s.client.apis.Users';
@@ -184,7 +187,7 @@
               case 0:
                 state = _ref.state, commit = _ref.commit, dispatch = _ref.dispatch, rootState = _ref.rootState;
                 method = '.login';
-                return _context.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER'));
+                return _context.abrupt("return", makeRequest(commit, getNested(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER'));
 
               case 3:
               case "end":
@@ -211,7 +214,7 @@
               case 0:
                 state = _ref2.state, commit = _ref2.commit, dispatch = _ref2.dispatch, rootState = _ref2.rootState;
                 method = '.check_user';
-                return _context2.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {
+                return _context2.abrupt("return", makeRequest(commit, getNested(rootState, path + method), {
                   username: user
                 }, undefined, undefined));
 
@@ -240,7 +243,7 @@
               case 0:
                 state = _ref3.state, commit = _ref3.commit, dispatch = _ref3.dispatch, rootState = _ref3.rootState;
                 method = '.check_user';
-                return _context3.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {
+                return _context3.abrupt("return", makeRequest(commit, getNested(rootState, path + method), {
                   email: user
                 }, undefined, undefined));
 
@@ -287,7 +290,7 @@
                   anonymous: true,
                   info: {}
                 };
-                response = makeRequest(commit, getNested$1(rootState, path + method), undefined, u, 'c3s/user/SET_CURRENT_USER');
+                response = makeRequest(commit, getNested(rootState, path + method), undefined, u, 'c3s/user/SET_CURRENT_USER');
                 commit('SET_ANON', true);
                 return _context4.abrupt("return", response);
 
@@ -332,7 +335,7 @@
               case 0:
                 state = _ref6.state, commit = _ref6.commit, dispatch = _ref6.dispatch, rootState = _ref6.rootState;
                 method = '.reset';
-                return _context5.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), undefined, {
+                return _context5.abrupt("return", makeRequest(commit, getNested(rootState, path + method), undefined, {
                   email: email
                 }, undefined));
 
@@ -367,7 +370,7 @@
               case 0:
                 state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
                 method = '.verify_rest';
-                return _context6.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), undefined, {
+                return _context6.abrupt("return", makeRequest(commit, getNested(rootState, path + method), undefined, {
                   reset: reset
                 }, undefined));
 
@@ -402,7 +405,7 @@
               case 0:
                 state = _ref8.state, commit = _ref8.commit, rootState = _ref8.rootState;
                 method = '.create_user';
-                response = makeRequest(commit, getNested$1(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER');
+                response = makeRequest(commit, getNested(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER');
                 commit('SET_ANON', false);
                 return _context7.abrupt("return", response);
 
@@ -452,6 +455,58 @@
 
       return getUser;
     }(),
+    getUserProjects: function () {
+      var _getUserProjects = _asyncToGenerator(
+      /*#__PURE__*/
+      _regeneratorRuntime.mark(function _callee9(_ref10) {
+        var state, commit, rootState;
+        return _regeneratorRuntime.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                state = _ref10.state, commit = _ref10.commit, rootState = _ref10.rootState;
+                return _context9.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.get_user_projects, undefined, undefined, 'c3s/user/SET_PROJECTS'));
+
+              case 2:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9);
+      }));
+
+      function getUserProjects(_x15) {
+        return _getUserProjects.apply(this, arguments);
+      }
+
+      return getUserProjects;
+    }(),
+    getUserSubmissions: function () {
+      var _getUserSubmissions = _asyncToGenerator(
+      /*#__PURE__*/
+      _regeneratorRuntime.mark(function _callee10(_ref11) {
+        var state, commit, rootState;
+        return _regeneratorRuntime.wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                state = _ref11.state, commit = _ref11.commit, rootState = _ref11.rootState;
+                return _context10.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Users.get_user_submissions, undefined, undefined, 'c3s/user/SET_SUBMISSIONS'));
+
+              case 2:
+              case "end":
+                return _context10.stop();
+            }
+          }
+        }, _callee10);
+      }));
+
+      function getUserSubmissions(_x16) {
+        return _getUserSubmissions.apply(this, arguments);
+      }
+
+      return getUserSubmissions;
+    }(),
 
     /**
      * Update user based on ID
@@ -461,27 +516,27 @@
     updateUser: function () {
       var _updateUser = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee9(_ref10, info) {
+      _regeneratorRuntime.mark(function _callee11(_ref12, info) {
         var state, commit, rootState, method;
-        return _regeneratorRuntime.wrap(function _callee9$(_context9) {
+        return _regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
-                state = _ref10.state, commit = _ref10.commit, rootState = _ref10.rootState;
+                state = _ref12.state, commit = _ref12.commit, rootState = _ref12.rootState;
                 method = '.update_user';
-                return _context9.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), undefined, {
+                return _context11.abrupt("return", makeRequest(commit, getNested(rootState, path + method), undefined, {
                   requestBody: info
                 }, 'c3s/user/SET_CURRENT_USER'));
 
               case 3:
               case "end":
-                return _context9.stop();
+                return _context11.stop();
             }
           }
-        }, _callee9);
+        }, _callee11);
       }));
 
-      function updateUser(_x15, _x16) {
+      function updateUser(_x17, _x18) {
         return _updateUser.apply(this, arguments);
       }
 
@@ -496,33 +551,33 @@
     validate: function () {
       var _validate = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee10(_ref11, id) {
+      _regeneratorRuntime.mark(function _callee12(_ref13, id) {
         var state, commit, rootState, method;
-        return _regeneratorRuntime.wrap(function _callee10$(_context10) {
+        return _regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context12.prev = _context12.next) {
               case 0:
-                state = _ref11.state, commit = _ref11.commit, rootState = _ref11.rootState;
+                state = _ref13.state, commit = _ref13.commit, rootState = _ref13.rootState;
                 method = '.validate';
 
                 if (!(state.currentUser.api_key !== undefined)) {
-                  _context10.next = 4;
+                  _context12.next = 4;
                   break;
                 }
 
-                return _context10.abrupt("return", makeRequest(commit, getNested$1(rootState, path + method), {
+                return _context12.abrupt("return", makeRequest(commit, getNested(rootState, path + method), {
                   key: state.currentUser.api_key
                 }, undefined, 'c3s/user/SET_CURRENT_USER'));
 
               case 4:
               case "end":
-                return _context10.stop();
+                return _context12.stop();
             }
           }
-        }, _callee10);
+        }, _callee12);
       }));
 
-      function validate(_x17, _x18) {
+      function validate(_x19, _x20) {
         return _validate.apply(this, arguments);
       }
 
@@ -557,6 +612,12 @@
      */
     SET_ANON: function SET_ANON(state, flag) {
       state.isAnon = flag;
+    },
+    SET_PROJECTS: function SET_PROJECTS(state, projects) {
+      state.projects = projects;
+    },
+    SET_SUBMISSIONS: function SET_SUBMISSIONS(state, subs) {
+      state.submissions = subs;
     }
   };
   /**
@@ -798,6 +859,66 @@
 
       return getTaskStats;
     }(),
+    getProjectTask: function () {
+      var _getProjectTask = _asyncToGenerator(
+      /*#__PURE__*/
+      _regeneratorRuntime.mark(function _callee7(_ref9, id) {
+        var state, commit, dispatch, rootState, method;
+        return _regeneratorRuntime.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                state = _ref9.state, commit = _ref9.commit, dispatch = _ref9.dispatch, rootState = _ref9.rootState;
+                method = '.get_random_project_task';
+                return _context7.abrupt("return", makeRequest(commit, getNested(rootState, path$1 + method), {
+                  pid: id
+                }, undefined, 'c3s/project/SET_PROJECT_TASK'));
+
+              case 3:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }));
+
+      function getProjectTask(_x13, _x14) {
+        return _getProjectTask.apply(this, arguments);
+      }
+
+      return getProjectTask;
+    }(),
+    importCSV: function () {
+      var _importCSV = _asyncToGenerator(
+      /*#__PURE__*/
+      _regeneratorRuntime.mark(function _callee8(_ref10, _ref11) {
+        var state, commit, dispatch, rootState, _ref12, pid, csv, method;
+
+        return _regeneratorRuntime.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                state = _ref10.state, commit = _ref10.commit, dispatch = _ref10.dispatch, rootState = _ref10.rootState;
+                _ref12 = _slicedToArray(_ref11, 2), pid = _ref12[0], csv = _ref12[1];
+                method = rootState.c3s.client.apis.Projects.import_tasks_csv;
+                return _context8.abrupt("return", makeRequest(commit, method, {
+                  pid: pid
+                }, csv, undefined));
+
+              case 4:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }));
+
+      function importCSV(_x15, _x16) {
+        return _importCSV.apply(this, arguments);
+      }
+
+      return importCSV;
+    }(),
 
     /**
      * @description Create an array of tasks
@@ -806,28 +927,28 @@
     createTasks: function () {
       var _createTasks = _asyncToGenerator(
       /*#__PURE__*/
-      _regeneratorRuntime.mark(function _callee7(_ref9, tasks) {
+      _regeneratorRuntime.mark(function _callee9(_ref13, tasks) {
         var state, commit, dispatch, rootState, res;
-        return _regeneratorRuntime.wrap(function _callee7$(_context7) {
+        return _regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
-                state = _ref9.state, commit = _ref9.commit, dispatch = _ref9.dispatch, rootState = _ref9.rootState;
+                state = _ref13.state, commit = _ref13.commit, dispatch = _ref13.dispatch, rootState = _ref13.rootState;
                 res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {}, tasks, undefined);
                 dispatch('c3s/upload/addID', res[0].id, {
                   root: true
                 });
-                return _context7.abrupt("return", res);
+                return _context9.abrupt("return", res);
 
               case 4:
               case "end":
-                return _context7.stop();
+                return _context9.stop();
             }
           }
-        }, _callee7);
+        }, _callee9);
       }));
 
-      function createTasks(_x13, _x14) {
+      function createTasks(_x17, _x18) {
         return _createTasks.apply(this, arguments);
       }
 
@@ -838,11 +959,11 @@
      * Deletes an array of tasks
      * @param {Array<Object>} tasks Tasks to be deleted, ID is required as a key here
      */
-    deleteTasks: function deleteTasks(_ref10, tasks) {
-      var state = _ref10.state,
-          commit = _ref10.commit,
-          dispatch = _ref10.dispatch,
-          rootState = _ref10.rootState;
+    deleteTasks: function deleteTasks(_ref14, tasks) {
+      var state = _ref14.state,
+          commit = _ref14.commit,
+          dispatch = _ref14.dispatch,
+          rootState = _ref14.rootState;
       dispatch('SET_TASKS', null);
       return makeRequest(commit, rootState.c3s.client.apis.Tasks.delete_tasks, undefined, tasks, 'c3s/task/SET_TASKS');
     },
@@ -851,11 +972,11 @@
      * Deletes a single task
      * @param {int} id Task ID to delete
      */
-    deleteTask: function deleteTask(_ref11, id) {
-      var state = _ref11.state,
-          commit = _ref11.commit,
-          dispatch = _ref11.dispatch,
-          rootState = _ref11.rootState;
+    deleteTask: function deleteTask(_ref15, id) {
+      var state = _ref15.state,
+          commit = _ref15.commit,
+          dispatch = _ref15.dispatch,
+          rootState = _ref15.rootState;
       return makeRequest(commit, rootState.c3s.client.apis.Tasks.delete_tasks, {
         tid: id
       }, tasks, 'c3s/task/SET_TASKS');
@@ -1319,7 +1440,7 @@
               var medium = {
                 source_id: sourceID,
                 name: filename,
-                path: res.url
+                path: 'https://objects.citizenscience.ch/builder/' + sourceID + '/' + filename
               };
 
               if (linkKey) {
@@ -1449,6 +1570,7 @@
     projects: [],
     project: null,
     tasks: [],
+    task: null,
     stats: null,
     media: [],
     comments: []
@@ -1487,7 +1609,7 @@
       }
 
       var method = '.get_projects';
-      return makeRequest(commit, getNested$1(rootState, path$2 + method), {
+      return makeRequest(commit, getNested(rootState, path$2 + method), {
         search_term: search || undefined,
         limit: limit || 100
       }, undefined, 'c3s/project/SET_PROJECTS');
@@ -1509,11 +1631,20 @@
               case 0:
                 state = _ref4.state, commit = _ref4.commit, dispatch = _ref4.dispatch, rootState = _ref4.rootState;
                 method = '.get_project';
-                return _context.abrupt("return", makeRequest(commit, getNested$1(rootState, path$2 + method), {
+
+                if (!(state.project && id === state.project.id)) {
+                  _context.next = 4;
+                  break;
+                }
+
+                return _context.abrupt("return", Promise.resolve(state.project));
+
+              case 4:
+                return _context.abrupt("return", makeRequest(commit, getNested(rootState, path$2 + method), {
                   pid: id
                 }, undefined, 'c3s/project/SET_PROJECT'));
 
-              case 3:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -1527,8 +1658,8 @@
 
       return getProject;
     }(),
-    getProjectTasks: function () {
-      var _getProjectTasks = _asyncToGenerator(
+    getProjectMedia: function () {
+      var _getProjectMedia = _asyncToGenerator(
       /*#__PURE__*/
       _regeneratorRuntime.mark(function _callee2(_ref5, id) {
         var state, commit, dispatch, rootState, method;
@@ -1537,10 +1668,10 @@
             switch (_context2.prev = _context2.next) {
               case 0:
                 state = _ref5.state, commit = _ref5.commit, dispatch = _ref5.dispatch, rootState = _ref5.rootState;
-                method = '.get_project_tasks';
-                return _context2.abrupt("return", makeRequest(commit, getNested$1(rootState, path$2 + method), {
+                method = '.get_project_media';
+                return _context2.abrupt("return", makeRequest(commit, getNested(rootState, path$2 + method), {
                   pid: id
-                }, undefined, 'c3s/project/SET_PROJECT_TASKS'));
+                }, undefined, 'c3s/project/SET_PROJECT_MEDIA'));
 
               case 3:
               case "end":
@@ -1550,26 +1681,26 @@
         }, _callee2);
       }));
 
-      function getProjectTasks(_x3, _x4) {
-        return _getProjectTasks.apply(this, arguments);
+      function getProjectMedia(_x3, _x4) {
+        return _getProjectMedia.apply(this, arguments);
       }
 
-      return getProjectTasks;
+      return getProjectMedia;
     }(),
-    getStats: function () {
-      var _getStats = _asyncToGenerator(
+    getProjectTasks: function () {
+      var _getProjectTasks = _asyncToGenerator(
       /*#__PURE__*/
       _regeneratorRuntime.mark(function _callee3(_ref6, id) {
-        var state, commit, rootState, method;
+        var state, commit, dispatch, rootState, method;
         return _regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                state = _ref6.state, commit = _ref6.commit, rootState = _ref6.rootState;
-                method = '.get_stats';
-                return _context3.abrupt("return", makeRequest(commit, getNested$1(rootState, path$2 + method), {
+                state = _ref6.state, commit = _ref6.commit, dispatch = _ref6.dispatch, rootState = _ref6.rootState;
+                method = '.get_project_tasks';
+                return _context3.abrupt("return", makeRequest(commit, getNested(rootState, path$2 + method), {
                   pid: id
-                }, undefined, 'c3s/project/SET_STATS'));
+                }, undefined, 'c3s/project/SET_PROJECT_TASKS'));
 
               case 3:
               case "end":
@@ -1579,7 +1710,36 @@
         }, _callee3);
       }));
 
-      function getStats(_x5, _x6) {
+      function getProjectTasks(_x5, _x6) {
+        return _getProjectTasks.apply(this, arguments);
+      }
+
+      return getProjectTasks;
+    }(),
+    getStats: function () {
+      var _getStats = _asyncToGenerator(
+      /*#__PURE__*/
+      _regeneratorRuntime.mark(function _callee4(_ref7, id) {
+        var state, commit, rootState, method;
+        return _regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                state = _ref7.state, commit = _ref7.commit, rootState = _ref7.rootState;
+                method = '.get_stats';
+                return _context4.abrupt("return", makeRequest(commit, getNested(rootState, path$2 + method), {
+                  pid: id
+                }, undefined, 'c3s/project/SET_STATS'));
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function getStats(_x7, _x8) {
         return _getStats.apply(this, arguments);
       }
 
@@ -1591,12 +1751,12 @@
      * @param {Object} project
      * @returns {Promise<*|boolean|void>}
      */
-    createProject: function createProject(_ref7, project) {
-      var state = _ref7.state,
-          commit = _ref7.commit,
-          rootState = _ref7.rootState;
+    createProject: function createProject(_ref8, project) {
+      var state = _ref8.state,
+          commit = _ref8.commit,
+          rootState = _ref8.rootState;
       var method = '.create_project';
-      return makeRequest(commit, getNested$1(rootState, path$2 + method), undefined, project, 'c3s/project/SET_PROJECT');
+      return makeRequest(commit, getNested(rootState, path$2 + method), undefined, project, 'c3s/project/SET_PROJECT');
     },
 
     /**
@@ -1604,17 +1764,17 @@
      * @param {Array<string, boolean>} Array containing the ID and object of the project to be modified
      * @returns {Promise<*|boolean|void>}
      */
-    updateProject: function updateProject(_ref8, _ref9) {
-      var state = _ref8.state,
-          commit = _ref8.commit,
-          rootState = _ref8.rootState;
+    updateProject: function updateProject(_ref9, _ref10) {
+      var state = _ref9.state,
+          commit = _ref9.commit,
+          rootState = _ref9.rootState;
 
-      var _ref10 = _slicedToArray(_ref9, 2),
-          id = _ref10[0],
-          project = _ref10[1];
+      var _ref11 = _slicedToArray(_ref10, 2),
+          id = _ref11[0],
+          project = _ref11[1];
 
       var method = '.update_project';
-      return makeRequest(commit, getNested$1(rootState, path$2 + method), {
+      return makeRequest(commit, getNested(rootState, path$2 + method), {
         pid: id
       }, project, 'c3s/project/SET_PROJECT');
     },
@@ -1624,18 +1784,18 @@
      * @param {Array<string, boolean>} ID An array containing the ID of the project and a boolean to determine whether or not to remove from the store also
      * @returns {Promise<*|boolean|void>}
      */
-    deleteProject: function deleteProject(_ref11, _ref12) {
-      var state = _ref11.state,
-          commit = _ref11.commit,
-          rootState = _ref11.rootState;
+    deleteProject: function deleteProject(_ref12, _ref13) {
+      var state = _ref12.state,
+          commit = _ref12.commit,
+          rootState = _ref12.rootState;
 
-      var _ref13 = _slicedToArray(_ref12, 2),
-          id = _ref13[0],
-          localRemove = _ref13[1];
+      var _ref14 = _slicedToArray(_ref13, 2),
+          id = _ref14[0],
+          localRemove = _ref14[1];
 
       var method = '.delete_project';
       if (localRemove) commit('c3s/project/SET_PROJECT', null);
-      return makeRequest(commit, getNested$1(rootState, path$2 + method), {
+      return makeRequest(commit, getNested(rootState, path$2 + method), {
         pid: id
       }, undefined, undefined);
     }
@@ -1680,6 +1840,12 @@
     },
     SET_PROJECT_TASKS: function SET_PROJECT_TASKS(state, tasks) {
       state.tasks = tasks;
+    },
+    SET_PROJECT_TASK: function SET_PROJECT_TASK(state, task) {
+      state.task = task;
+    },
+    SET_PROJECT_MEDIA: function SET_PROJECT_MEDIA(state, media) {
+      state.media = media;
     },
 
     /**

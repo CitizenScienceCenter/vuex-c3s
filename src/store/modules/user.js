@@ -2,7 +2,7 @@
  * @module c3s/user
  */
 
-import {makeRequest, getNested} from './utils'
+import { makeRequest, getNested } from './utils'
 
 var SHA256 = require('crypto-js/sha256')
 
@@ -15,10 +15,12 @@ var SHA256 = require('crypto-js/sha256')
 const state = {
   user: null,
   currentUser: null,
+  projects: [],
+  submissions: [],
   isAnon: false
 }
 
-const path = 'c3s.client.apis.Users';
+const path = 'c3s.client.apis.Users'
 
 /**
  * @constant getters
@@ -161,6 +163,22 @@ const actions = {
   }) {
     return makeRequest(commit, rootState.c3s.client.apis.Users.get_one, undefined, undefined, 'c3s/user/SET_USER')
   },
+
+  async getUserProjects ({
+    state,
+    commit,
+    rootState
+  }) {
+    return makeRequest(commit, rootState.c3s.client.apis.Users.get_user_projects, undefined, undefined, 'c3s/user/SET_PROJECTS')
+  },
+
+  async getUserSubmissions ({
+    state,
+    commit,
+    rootState
+  }) {
+    return makeRequest(commit, rootState.c3s.client.apis.Users.get_user_submissions, undefined, undefined, 'c3s/user/SET_SUBMISSIONS')
+  },
   /**
    * Update user based on ID
    * @param user object
@@ -221,6 +239,14 @@ const mutations = {
    */
   SET_ANON (state, flag) {
     state.isAnon = flag
+  },
+
+  SET_PROJECTS (state, projects) {
+    state.projects = projects
+  },
+
+  SET_SUBMISSIONS (state, subs) {
+    state.submissions = subs
   }
 }
 
