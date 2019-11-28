@@ -1385,18 +1385,13 @@ var actions$5 = {
         commit = _ref5.commit,
         rootState = _ref5.rootState;
 
-    var _ref7 = _slicedToArray(_ref6, 4),
+    var _ref7 = _slicedToArray(_ref6, 2),
         url = _ref7[0],
-        type = _ref7[1],
-        name = _ref7[2],
-        media = _ref7[3];
+        file = _ref7[1];
 
     return window.fetch(url, {
       method: 'PUT',
-      headers: {
-        'Content-Type': type
-      },
-      body: media
+      body: file
     });
   },
   createMedium: function createMedium(_ref8, medium) {
@@ -1428,32 +1423,18 @@ var actions$5 = {
     var _ref14 = _slicedToArray(_ref13, 3),
         sourceID = _ref14[0],
         key = _ref14[1],
-        file = _ref14[2];
+        meta = _ref14[2];
 
-    return dispatch('getPresigned', ['builder', sourceID + '/' + file.name]).then(function (resp) {
+    return dispatch('getPresigned', ['builder', sourceID + '/' + meta.name]).then(function (resp) {
       if (resp) {
         var url = resp.body.data;
-        var media;
-
-        if (typeof FileReader === 'function') {
-          var reader = new FileReader();
-
-          reader.onload = function (e) {
-            media = e.target.result;
-          };
-
-          console.log(file);
-          reader.readAsDataURL(file);
-        } else {
-          console.error('Sorry, FileReader API not supported');
-        }
-
-        return dispatch('upload', [url, file.type, file.name, media]).then(function (res) {
+        return dispatch('upload', [url, meta.type, meta]).then(function (res) {
           if (res) {
             var medium = {
               source_id: sourceID,
-              name: file.name,
-              path: 'https://objects.citizenscience.ch/builder/' + sourceID + '/' + file.name
+              name: meta.name,
+              filetype: meta.type,
+              path: 'https://objects.citizenscience.ch/builder/' + sourceID + '/' + meta.name
             };
 
             if (key) {
