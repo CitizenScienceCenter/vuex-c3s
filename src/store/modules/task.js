@@ -73,10 +73,9 @@ const actions = {
     state,
     commit,
     rootState
-  }, search) {
-    search = rison.encode(search)
-    return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
-      search_term: search || undefined
+  }, tid) {
+    return makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_media, {
+      tid: tid
     }, undefined, 'c3s/task/SET_MEDIA')
   },
   /**
@@ -131,8 +130,14 @@ const actions = {
     commit,
     dispatch,
     rootState
-  }, [pid, csv]) {
-    const method = rootState.c3s.client.apis.Projects.import_tasks_csv
+  }, [pid, csv, reimport]) {
+    let method = rootState.c3s.client.apis.Projects.import_tasks_csv
+    if (reimport === undefined) {
+      reimport = false
+    }
+    if (reimport === true) {
+      method = rootState.c3s.client.apis.Projects.reimport_tasks_csv
+    }
     return makeRequest(commit, method, { pid: pid }, csv, undefined)
   },
   /**

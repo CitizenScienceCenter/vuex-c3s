@@ -93,7 +93,7 @@ const actions = {
     return dispatch('getPresigned', ['builder', sourceID + '/' + meta.name]).then(resp => {
       if (resp) {
         const url = resp.body.data
-        return dispatch('upload', [url, meta.type, meta]).then(res => {
+        return dispatch('upload', [url, meta]).then(res => {
           if (res) {
             const medium = {
               source_id: sourceID,

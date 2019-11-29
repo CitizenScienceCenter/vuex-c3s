@@ -741,19 +741,18 @@ var actions$2 = {
   getTaskMedia: function () {
     var _getTaskMedia = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee3(_ref5, search) {
+    _regeneratorRuntime.mark(function _callee3(_ref5, tid) {
       var state, commit, rootState;
       return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               state = _ref5.state, commit = _ref5.commit, rootState = _ref5.rootState;
-              search = rison.encode(search);
-              return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
-                search_term: search || undefined
+              return _context3.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Tasks.get_task_media, {
+                tid: tid
               }, undefined, 'c3s/task/SET_MEDIA'));
 
-            case 3:
+            case 2:
             case "end":
               return _context3.stop();
           }
@@ -890,20 +889,29 @@ var actions$2 = {
     var _importCSV = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee8(_ref10, _ref11) {
-      var state, commit, dispatch, rootState, _ref12, pid, csv, method;
+      var state, commit, dispatch, rootState, _ref12, pid, csv, reimport, method;
 
       return _regeneratorRuntime.wrap(function _callee8$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
             case 0:
               state = _ref10.state, commit = _ref10.commit, dispatch = _ref10.dispatch, rootState = _ref10.rootState;
-              _ref12 = _slicedToArray(_ref11, 2), pid = _ref12[0], csv = _ref12[1];
+              _ref12 = _slicedToArray(_ref11, 3), pid = _ref12[0], csv = _ref12[1], reimport = _ref12[2];
               method = rootState.c3s.client.apis.Projects.import_tasks_csv;
+
+              if (reimport === undefined) {
+                reimport = false;
+              }
+
+              if (reimport === true) {
+                method = rootState.c3s.client.apis.Projects.reimport_tasks_csv;
+              }
+
               return _context8.abrupt("return", makeRequest(commit, method, {
                 pid: pid
               }, csv, undefined));
 
-            case 4:
+            case 6:
             case "end":
               return _context8.stop();
           }
@@ -1432,7 +1440,7 @@ var actions$5 = {
     return dispatch('getPresigned', ['builder', sourceID + '/' + meta.name]).then(function (resp) {
       if (resp) {
         var url = resp.body.data;
-        return dispatch('upload', [url, meta.type, meta]).then(function (res) {
+        return dispatch('upload', [url, meta]).then(function (res) {
           if (res) {
             var medium = {
               source_id: sourceID,
