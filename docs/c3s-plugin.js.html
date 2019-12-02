@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>c3s-plugin.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-c3s.html">c3s</a></li><li><a href="module-c3s_media.html">c3s/media</a></li><li><a href="module-c3s_member.html">c3s/member</a></li><li><a href="module-c3s_project.html">c3s/project</a></li><li><a href="module-c3s_submission.html">c3s/submission</a></li><li><a href="module-c3s_task.html">c3s/task</a></li><li><a href="module-c3s_user.html">c3s/user</a></li><li><a href="module-C3SPlugin.html">C3SPlugin</a><ul class='methods'><li data-type='method'><a href="module-C3SPlugin.html#~install">install</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="module-c3s_media-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_media-actions.html#.deleteMedium">deleteMedium</a></li><li data-type='method'><a href="module-c3s_media-actions.html#.getMedia">getMedia</a></li><li data-type='method'><a href="module-c3s_media-actions.html#.upload">upload</a></li></ul></li><li><a href="module-c3s_media-getters.html">getters</a></li><li><a href="module-c3s_media-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_media-mutations.html#.SET_MEDIA">SET_MEDIA</a></li></ul></li><li><a href="module-c3s_member-actions.html">actions</a></li><li><a href="module-c3s_member-getters.html">getters</a></li><li><a href="module-c3s_member-mutations.html">mutations</a></li><li><a href="module-c3s_project-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_project-actions.html#.createProject">createProject</a></li><li data-type='method'><a href="module-c3s_project-actions.html#.deleteProject">deleteProject</a></li><li data-type='method'><a href="module-c3s_project-actions.html#.getProject">getProject</a></li><li data-type='method'><a href="module-c3s_project-actions.html#.getProjects">getProjects</a></li><li data-type='method'><a href="module-c3s_project-actions.html#.updateProject">updateProject</a></li></ul></li><li><a href="module-c3s_project-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_COMMENTS">SET_COMMENTS</a></li><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_PROJECT">SET_PROJECT</a></li><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_PROJECT_MEDIA">SET_PROJECT_MEDIA</a></li><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_PROJECTS">SET_PROJECTS</a></li><li data-type='method'><a href="module-c3s_project-mutations.html#.SET_STATS">SET_STATS</a></li></ul></li><li><a href="module-c3s_submission-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_submission-actions.html#.createSubmission">createSubmission</a></li><li data-type='method'><a href="module-c3s_submission-actions.html#.getSubmissionCount">getSubmissionCount</a></li><li data-type='method'><a href="module-c3s_submission-actions.html#.getSubmissions">getSubmissions</a></li><li data-type='method'><a href="module-c3s_submission-actions.html#.updateSubmission">updateSubmission</a></li></ul></li><li><a href="module-c3s_submission-getters.html">getters</a></li><li><a href="module-c3s_submission-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_MEDIA">SET_MEDIA</a></li><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_SUBMISSION">SET_SUBMISSION</a></li><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_SUBMISSION_RESPONSE">SET_SUBMISSION_RESPONSE</a></li><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_SUBMISSION_RESPONSES">SET_SUBMISSION_RESPONSES</a></li><li data-type='method'><a href="module-c3s_submission-mutations.html#.SET_SUBMISSIONS">SET_SUBMISSIONS</a></li></ul></li><li><a href="module-c3s_task-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_task-actions.html#.createTasks">createTasks</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.deleteTask">deleteTask</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.deleteTasks">deleteTasks</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.getTask">getTask</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.getTaskCount">getTaskCount</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.getTaskMedia">getTaskMedia</a></li><li data-type='method'><a href="module-c3s_task-actions.html#.getTasks">getTasks</a></li></ul></li><li><a href="module-c3s_task-getters.html">getters</a></li><li><a href="module-c3s_task-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_task-mutations.html#.SET_COMMENTS">SET_COMMENTS</a></li><li data-type='method'><a href="module-c3s_task-mutations.html#.SET_MEDIA">SET_MEDIA</a></li><li data-type='method'><a href="module-c3s_task-mutations.html#.SET_TASK">SET_TASK</a></li><li data-type='method'><a href="module-c3s_task-mutations.html#.SET_TASKS">SET_TASKS</a></li><li data-type='method'><a href="module-c3s_task-mutations.html#.UPDATE_TASK">UPDATE_TASK</a></li></ul></li><li><a href="module-c3s_user-actions.html">actions</a><ul class='methods'><li data-type='method'><a href="module-c3s_user-actions.html#.checkUseremail">checkUseremail</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.checkUsername">checkUsername</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.generateAnon">generateAnon</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.getUser">getUser</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.login">login</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.logout">logout</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.register">register</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.requestReset">requestReset</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.resetPwd">resetPwd</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.updateUser">updateUser</a></li><li data-type='method'><a href="module-c3s_user-actions.html#.validate">validate</a></li></ul></li><li><a href="module-c3s_user-getters.html">getters</a></li><li><a href="module-c3s_user-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s_user-mutations.html#.SET_ANON">SET_ANON</a></li><li data-type='method'><a href="module-c3s_user-mutations.html#.SET_CURRENT_USER">SET_CURRENT_USER</a></li><li data-type='method'><a href="module-c3s_user-mutations.html#.SET_USER">SET_USER</a></li></ul></li><li><a href="module-c3s-actions.html">actions</a></li><li><a href="module-c3s-mutations.html">mutations</a><ul class='methods'><li data-type='method'><a href="module-c3s-mutations.html#.SET_API">SET_API</a></li><li data-type='method'><a href="module-c3s-mutations.html#.SET_HOST">SET_HOST</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">c3s-plugin.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Loading primary plugin and setting up
+ * the install method to link in to Vue instance
+ * @module C3SPlugin
+ */
+
+import * as C3SStore from './store/index'
+import Swagger from 'swagger-client'
+
+/**
+ * Modules array to list
+ * the name of the submodule
+ * and the file to import
+ * @constant modules
+ */
+const modules = [
+  {
+    name: 'c3s',
+    module: C3SStore.api
+  },
+  {
+    name: ['c3s', 'user'],
+    module: C3SStore.user
+  },
+  {
+    name: ['c3s', 'member'],
+    module: C3SStore.member
+  },
+  {
+    name: ['c3s', 'task'],
+    module: C3SStore.task
+  },
+  {
+    name: ['c3s', 'media'],
+    module: C3SStore.media
+  },
+  {
+    name: ['c3s', 'submission'],
+    module: C3SStore.submission
+  },
+  {
+    name: ['c3s', 'comments'],
+    module: C3SStore.comments
+  },
+  {
+    name: ['c3s', 'project'],
+    module: C3SStore.project
+  },
+  {
+    name: ['c3s', 'settings'],
+    module: C3SStore.settings
+  }
+]
+
+const C3SPlugin = {
+  /**
+     * Setup function for the plugin, must provide a store and a Swagger file URL
+     * @param {Provided} Vue
+     * @method install
+     * @param {Object} options Expects the store and Swagger URL
+     */
+  install (Vue, options = {}) {
+    Swagger(options.apiURL, {
+      requestInterceptor (req) {
+        if (options.server &amp;&amp; req.url.indexOf('openapi.json') === -1) {
+          // TODO handle server decision from spec
+          req.url = req.url.replace('http://localhost:9000/api/v3/', options.server)
+        }
+        req.headers['content-type'] = 'application/json'
+        if (options.store.state.c3s &amp;&amp; options.store.state.c3s.user) {
+          const u = options.store.state.c3s.user.currentUser
+          if (u) {
+            req.headers['X-API-KEY'] = u.api_key
+          }
+        } else {
+          console.log('c3s: state not loaded or not found')
+        }
+        return req
+      }
+    }).then(client => {
+      const store = options.store
+      const apiURL = options.apiURL
+      if (!store || !apiURL) {
+        console.error('C3S: Missing store and/or Swagger URL params.')
+        return
+      }
+      console.log('Loaded from ' + options.apiURL)
+      for (const i in modules) {
+        const m = modules[i]
+        const name = m.name
+        let preserve = true
+        if (Array.isArray(name)) {
+          if (store.state.c3s &amp;&amp; store.state.c3s[name[1]] === undefined) {
+            preserve = false
+          }
+        } else {
+          if (store.state[name] === undefined) {
+            preserve = false
+          }
+        }
+
+        store.registerModule(name, m.module, { preserveState: preserve })
+      }
+      store.commit('c3s/SET_API', client)
+      var isLoaded = function () {
+        if (store.c3s !== undefined &amp;&amp; store.c3s.client !== null) {
+          return true
+        } else {
+          return false
+        }
+      }
+
+      Vue.prototype.$c3s = {
+        store: C3SStore,
+        loaded: isLoaded
+      }
+      Vue.c3s = {
+        store: C3SStore,
+        loaded: isLoaded
+      }
+    }).catch(err => {
+      console.error('C3S: URL was not found or an initialisation error occurred')
+      console.error(err)
+    })
+  }
+}
+
+/**
+ * @name C3SPlugin
+ */
+export default C3SPlugin
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Dec 02 2019 13:11:53 GMT+0100 (Central European Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
