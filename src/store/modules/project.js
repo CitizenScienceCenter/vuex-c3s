@@ -59,14 +59,15 @@ const actions = {
     commit,
     dispatch,
     rootState
-  }, [search, limit]) {
+  }, [search, limit, offset]) {
     if(search !== undefined) {
       search = rison.encode(search)
     }
     const method = '.get_projects'
     return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined,
-      limit: limit || 100
+      limit: limit || 100,
+      offset: offset || 0
     }, undefined, 'c3s/project/SET_PROJECTS')
   },
   /**
@@ -97,7 +98,24 @@ const actions = {
       pid: id
     }, undefined, 'c3s/project/SET_PROJECT_MEDIA')
   },
-
+  async getProjectTask ({
+    state,
+    commit,
+    dispatch,
+    rootState
+  }, { pid, random, index }) {
+    console.log(pid, random, index)
+    const payload = {
+      pid: pid
+    }
+    if (index > -1) {
+      payload.index = index
+    } else {
+      payload.random = true
+    }
+    const method = '.get_project_task'
+    return makeRequest(commit, getNested(rootState, path + method), payload, undefined, 'c3s/project/SET_PROJECT_TASK')
+  },
   async getProjectTasks ({
     state,
     commit,

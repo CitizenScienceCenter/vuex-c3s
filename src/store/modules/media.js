@@ -29,11 +29,12 @@ const actions = {
     state,
     commit,
     rootState
-  }, [search, commitMsg, limit]) {
+  }, [search, commitMsg, limit, offset]) {
     search = rison.encode(search)
     return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
       search_term: search || undefined,
-      limit: limit || 100
+      limit: limit || 100,
+      offset: offset || 0
     }, undefined, commitMsg)
   },
   /**

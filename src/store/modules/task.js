@@ -43,12 +43,13 @@ const actions = {
     state,
     commit,
     rootState
-  }, [search, limit]) {
+  }, [search, limit, offset]) {
     const method = '.get_tasks'
     search = rison.encode(search)
     return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined,
-      limit: limit || 100
+      limit: limit || 100,
+      offset: offset || 0
     }, undefined, 'c3s/task/SET_TASKS')
   },
 

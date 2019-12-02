@@ -34,11 +34,12 @@ const actions = {
     state,
     commit,
     rootState
-  }, [search, limit]) {
+  }, [search, limit, offset]) {
     search = rison.encode(search)
     return makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {
       search_term: search || undefined,
-      limit: limit || 100
+      limit: limit || 100,
+      offset: offset || 0
     }, undefined, 'c3s/submission/SET_SUBMISSIONS')
   },
   /**
@@ -78,6 +79,16 @@ const actions = {
     // TODO handle uploading at same time
     return makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, undefined, state.submission, 'c3s/submission/SET_SUBMISSION')
   },
+  async createSubmissionWithObject ({
+    state,
+    commit,
+    rootState,
+    dispatch
+  }, payload) {
+    // TODO handle uploading at same time
+    return makeRequest(commit, rootState.c3s.client.apis.Submissions.create_submission, undefined, payload, 'c3s/submission/SET_SUBMISSION')
+  },
+
   /**
    * Update a submission based on the ID
    * @param {Object} submission

@@ -1,6 +1,6 @@
 {
   "name": "vuex-c3s",
-  "version": "2.2.5-beta",
+  "version": "2.2.7-beta",
   "description": "SDK for the Citizen Science Framework API, using Swagger and Vuex (requires JTOS >= 0.8.0 to be running on your server side)",
   "directories": {
     "test": "test"
@@ -15,7 +15,8 @@
     "build": "rollup -c rollup.config.js",
     "minify": "uglifyjs dist/vuex-c3s.umd.js --output dist/vuex-c3s.min.js --compress --mangle",
     "test": "jest",
-    "docs": "jsdoc -c jsdoc.conf.json src/ ./README.md"
+    "docs": "jsdoc -c jsdoc.conf.json src/ ./DOCS.md",
+    "md-docs": "jsdoc2md \"src/**/*.js\" > DOCS.md"
   },
   "repository": {
     "type": "git",
@@ -61,6 +62,7 @@
     "jest": "^24.9.0",
     "jsdoc": "^3.6.3",
     "jsdoc-export-default-interop": "^0.3.1",
+    "jsdoc-to-markdown": "^5.0.3",
     "rollup": "^1.21.4",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",

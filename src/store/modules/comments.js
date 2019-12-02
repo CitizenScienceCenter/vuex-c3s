@@ -24,10 +24,12 @@ const actions = {
     state,
     commit,
     rootState
-  }, search) {
+  }, [search, limit, offset]) {
     search = rison.encode(search)
     return makeRequest(commit, rootState.c3s.client.apis.Comments.get_all, {
-      search_term: search || undefined
+      search_term: search || undefined,
+      limit: limit || 100,
+      offset: offset || 0
     }, undefined, 'c3s/comments/SET_COMMENTS')
   },
   /**

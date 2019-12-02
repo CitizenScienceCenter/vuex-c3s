@@ -30,7 +30,7 @@ const getters = {}
 
 /**
  * @constant actions
- * @namespace actionss
+ * @namespace actions
  */
 const actions = {
 
@@ -49,6 +49,11 @@ const actions = {
     return makeRequest(commit, getNested(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER')
   },
 
+  /**
+   * Check if the username already exists
+   * @param {string} user Username
+   * @returns {Promise<*>}
+   */
   async checkUsername ({
     state,
     commit,
@@ -56,9 +61,14 @@ const actions = {
     rootState
   }, user) {
     const method = '.check_user'
-    return makeRequest(commit, getNested(rootState, path + method), {username: user}, undefined, undefined)
+    return makeRequest(commit, getNested(rootState, path + method), { username: user }, undefined, undefined)
   },
 
+  /**
+   * Check if the email already exists
+   * @param {string} user Email
+   * @returns {Promise<*>}
+   */
   async checkUseremail ({
     state,
     commit,
@@ -66,10 +76,10 @@ const actions = {
     rootState
   }, user) {
     const method = '.check_user'
-    return makeRequest(commit, getNested(rootState, path + method), {email: user}, undefined, undefined)
+    return makeRequest(commit, getNested(rootState, path + method), { email: user }, undefined, undefined)
   },
   /**
-   * Create anonymouse user and register with backend
+   * Create anonymouse user and register
    * @returns {Promise<*>}
    */
   async generateAnon ({
