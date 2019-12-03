@@ -37,12 +37,13 @@ const actions = {
                     "comments"
                 ]
             },
-            "where": {
-                "source_id": {
+            "where": [
+                {
+                    "field": "source_id",
                     "op": "e",
                     "val": id
                 }
-            }
+            ]
         };
         const search = rison.encode(cmtQuery);
         return makeRequest(commit, rootState.c3s.client.apis.Comments.get_comments, {search_term: search || undefined, limit: limit || 100 }, commitMsg);

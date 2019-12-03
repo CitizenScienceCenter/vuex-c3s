@@ -57,15 +57,12 @@ const actions = {
 		const id = '_anon' + SHA256(now); // TODO add extra details to avoid clash OR delegate to server?
 		const pwd = '' + SHA256(id);
 		const u = {
-		    'username': id,
+			'username': id,
             'pwd': pwd,
-            'confirmed': false,
-            info: {
-		        'anonymous': true
-            }
-        }
+            'confirmed': false
+		}
         const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: u}, 'c3s/user/SET_CURRENT_USER');
-        commit('SET_ANON', true);
+		commit('SET_ANON', true);
         return response;
 	},
 	/**
@@ -115,7 +112,9 @@ const actions = {
 					   commit,
 					   rootState
 				   }, user) {
-		return makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: user}, 'c3s/user/SET_CURRENT_USER');
+		const response = makeRequest(commit, rootState.c3s.client.apis.Users.create_user, {user: user}, 'c3s/user/SET_CURRENT_USER');
+		commit('SET_ANON', false);
+        return response;
 	},
 	/**
 	 * Retrieve a user based on ID
@@ -141,7 +140,7 @@ const actions = {
 					 }, [id, info]) {
 		return makeRequest(commit, rootState.c3s.client.apis.Users.update_user, {
 			id: id,
-			user: info
+			updated_user: info
 		}, 'c3s/user/SET_CURRENT_USER');
 	},
 	/**
