@@ -161,7 +161,7 @@ var path = 'c3s.client.apis.Users';
 var getters$1 = {};
 /**
  * @constant actions
- * @namespace actionss
+ * @namespace actions
  */
 
 var actions$1 = {
@@ -174,16 +174,18 @@ var actions$1 = {
     var _login = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee(_ref, user) {
-      var state, commit, dispatch, rootState, method;
+      var state, commit, dispatch, rootState, method, res;
       return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, dispatch = _ref.dispatch, rootState = _ref.rootState;
               method = '.login';
-              return _context.abrupt("return", makeRequest(commit, getNested(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER'));
+              res = makeRequest(commit, getNested(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER');
+              commit('SET_ANON', false);
+              return _context.abrupt("return", res);
 
-            case 3:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -197,6 +199,12 @@ var actions$1 = {
 
     return login;
   }(),
+
+  /**
+   * Check if the username already exists
+   * @param {string} user Username
+   * @returns {Promise<*>}
+   */
   checkUsername: function () {
     var _checkUsername = _asyncToGenerator(
     /*#__PURE__*/
@@ -226,6 +234,12 @@ var actions$1 = {
 
     return checkUsername;
   }(),
+
+  /**
+   * Check if the email already exists
+   * @param {string} user Email
+   * @returns {Promise<*>}
+   */
   checkUseremail: function () {
     var _checkUseremail = _asyncToGenerator(
     /*#__PURE__*/
@@ -257,7 +271,7 @@ var actions$1 = {
   }(),
 
   /**
-   * Create anonymouse user and register with backend
+   * Create anonymouse user and register
    * @returns {Promise<*>}
    */
   generateAnon: function () {
@@ -667,19 +681,20 @@ var actions$2 = {
     var _getTasks = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee(_ref, _ref2) {
-      var state, commit, rootState, _ref3, search, limit, method;
+      var state, commit, rootState, _ref3, search, limit, offset, method;
 
       return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
-              _ref3 = _slicedToArray(_ref2, 2), search = _ref3[0], limit = _ref3[1];
+              _ref3 = _slicedToArray(_ref2, 3), search = _ref3[0], limit = _ref3[1], offset = _ref3[2];
               method = '.get_tasks';
               search = rison.encode(search);
               return _context.abrupt("return", makeRequest(commit, getNested(rootState, path$1 + method), {
                 search_term: search || undefined,
-                limit: limit || 100
+                limit: limit || 100,
+                offset: offset || 0
               }, undefined, 'c3s/task/SET_TASKS'));
 
             case 5:
@@ -937,12 +952,9 @@ var actions$2 = {
             case 0:
               state = _ref13.state, commit = _ref13.commit, dispatch = _ref13.dispatch, rootState = _ref13.rootState;
               res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {}, tasks, undefined);
-              dispatch('c3s/upload/addID', res[0].id, {
-                root: true
-              });
               return _context9.abrupt("return", res);
 
-            case 4:
+            case 3:
             case "end":
               return _context9.stop();
           }
@@ -1118,14 +1130,14 @@ var actions$4 = {
     var _getSubmissions = _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee(_ref, _ref2) {
-      var state, commit, rootState, _ref3, search, limit;
+      var state, commit, rootState, _ref3, search, limit, offset;
 
       return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
-              _ref3 = _slicedToArray(_ref2, 2), search = _ref3[0], limit = _ref3[1];
+              _ref3 = _slicedToArray(_ref2, 3), search = _ref3[0], limit = _ref3[1], offset = _ref3[2];
               search = rison.encode(search);
               return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Submissions.get_submissions, {
                 search_term: search || undefined,
@@ -1385,15 +1397,17 @@ var actions$5 = {
         commit = _ref.commit,
         rootState = _ref.rootState;
 
-    var _ref3 = _slicedToArray(_ref2, 3),
+    var _ref3 = _slicedToArray(_ref2, 4),
         search = _ref3[0],
         commitMsg = _ref3[1],
-        limit = _ref3[2];
+        limit = _ref3[2],
+        offset = _ref3[3];
 
     search = rison.encode(search);
     return makeRequest(commit, rootState.c3s.client.apis.Media.get_media, {
       search_term: search || undefined,
-      limit: limit || 100
+      limit: limit || 100,
+      offset: offset || 0
     }, undefined, commitMsg);
   },
 
@@ -1522,10 +1536,15 @@ var state$6 = {
 var getters$6 = {}; // actions
 
 var actions$6 = {
-  addID: function addID(_ref, id) {
+  addID: function addID(_ref, _ref2) {
     var state = _ref.state,
         commit = _ref.commit,
         rootState = _ref.rootState;
+
+    var _ref3 = _slicedToArray(_ref2, 2),
+        id = _ref3[0],
+        path = _ref3[1];
+
     commit('SET_ID', id);
     console.log('updating');
     console.log(id);
@@ -1536,10 +1555,12 @@ var actions$6 = {
       });
       console.log(state.content[i]);
       rootState.c3s.client.apis.Media.put_medium({
-        id: state.content[i],
+        id: state.content[i]
+      }, {
         media: {
           id: state.content[i],
-          source_id: id || state.id
+          source_id: id || state.id,
+          path: path
         }
       }).then(function (req) {
         console.log(req);
@@ -1638,11 +1659,12 @@ var actions$7 = {
       search = rison.encode(search);
     }
 
+    console.log(offset);
     var method = '.get_projects';
     return makeRequest(commit, getNested(rootState, path$2 + method), {
       search_term: search || undefined,
-      limit: limit || 100,
-      offset: offset || 0
+      offset: 10,
+      limit: limit || 100
     }, undefined, 'c3s/project/SET_PROJECTS');
   },
 
@@ -1948,19 +1970,23 @@ var actions$8 = {
   getComments: function () {
     var _getComments = _asyncToGenerator(
     /*#__PURE__*/
-    _regeneratorRuntime.mark(function _callee(_ref, search) {
-      var state, commit, rootState;
+    _regeneratorRuntime.mark(function _callee(_ref, _ref2) {
+      var state, commit, rootState, _ref3, search, limit, offset;
+
       return _regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit, rootState = _ref.rootState;
+              _ref3 = _slicedToArray(_ref2, 3), search = _ref3[0], limit = _ref3[1], offset = _ref3[2];
               search = rison.encode(search);
               return _context.abrupt("return", makeRequest(commit, rootState.c3s.client.apis.Comments.get_all, {
-                search_term: search || undefined
+                search_term: search || undefined,
+                limit: limit || 100,
+                offset: offset || 0
               }, undefined, 'c3s/comments/SET_COMMENTS'));
 
-            case 3:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -1982,10 +2008,10 @@ var actions$8 = {
    * @param rootState
    * @param cmt
    */
-  createComment: function createComment(_ref2, cmt) {
-    var state = _ref2.state,
-        commit = _ref2.commit,
-        rootState = _ref2.rootState;
+  createComment: function createComment(_ref4, cmt) {
+    var state = _ref4.state,
+        commit = _ref4.commit,
+        rootState = _ref4.rootState;
     return makeRequest(commit, rootState.c3s.client.apis.Comments.create_comment, undefined, cmt, 'c3s/comments/ADD_COMMENT');
   }
 }; // mutations

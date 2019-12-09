@@ -152,9 +152,6 @@ const actions = {
     rootState
   }, tasks) {
     const res = makeRequest(commit, rootState.c3s.client.apis.Tasks.create_tasks, {}, tasks, undefined)
-    dispatch('c3s/upload/addID', res[0].id, {
-      root: true
-    })
     return res
   },
   /**

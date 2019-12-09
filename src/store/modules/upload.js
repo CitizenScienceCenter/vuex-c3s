@@ -15,7 +15,7 @@ const actions = {
     state,
     commit,
     rootState
-  }, id) {
+  }, [id, path]) {
     commit('SET_ID', id)
     console.log('updating')
     console.log(id)
@@ -25,10 +25,13 @@ const actions = {
       })
       console.log(state.content[i])
       rootState.c3s.client.apis.Media.put_medium({
-        id: state.content[i],
+        id: state.content[i]
+      },
+      {
         media: {
           id: state.content[i],
-          source_id: id || state.id
+          source_id: id || state.id,
+          path: path
         }
       })
         .then(req => {

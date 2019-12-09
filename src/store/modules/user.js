@@ -46,7 +46,9 @@ const actions = {
     rootState
   }, user) {
     const method = '.login'
-    return makeRequest(commit, getNested(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER')
+    const res = makeRequest(commit, getNested(rootState, path + method), undefined, user, 'c3s/user/SET_CURRENT_USER')
+    commit('SET_ANON', false)
+    return res
   },
 
   /**

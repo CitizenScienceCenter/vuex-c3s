@@ -63,11 +63,12 @@ const actions = {
     if(search !== undefined) {
       search = rison.encode(search)
     }
+    console.log(offset)
     const method = '.get_projects'
     return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined,
+      offset: 10,
       limit: limit || 100,
-      offset: offset || 0
     }, undefined, 'c3s/project/SET_PROJECTS')
   },
   /**
