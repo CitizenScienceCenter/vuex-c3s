@@ -1664,11 +1664,10 @@
         search = rison.encode(search);
       }
 
-      console.log(offset);
       var method = '.get_projects';
       return makeRequest(commit, getNested(rootState, path$2 + method), {
         search_term: search || undefined,
-        offset: 10,
+        offset: offset || 10,
         limit: limit || 100
       }, undefined, 'c3s/project/SET_PROJECTS');
     },
