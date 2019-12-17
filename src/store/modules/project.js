@@ -66,7 +66,7 @@ const actions = {
     const method = '.get_projects'
     return makeRequest(commit, getNested(rootState, path + method), {
       search_term: search || undefined,
-      offset: offset || 10,
+      offset: offset || 0,
       limit: limit || 100,
     }, undefined, 'c3s/project/SET_PROJECTS')
   },

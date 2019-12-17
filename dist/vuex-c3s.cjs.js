@@ -1666,7 +1666,7 @@ var actions$7 = {
     var method = '.get_projects';
     return makeRequest(commit, getNested(rootState, path$2 + method), {
       search_term: search || undefined,
-      offset: offset || 10,
+      offset: offset || 0,
       limit: limit || 100
     }, undefined, 'c3s/project/SET_PROJECTS');
   },
